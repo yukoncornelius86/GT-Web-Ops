@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% block content %}<h1>Settings</h1>
+<form method='post' action='/settings'>
+<input name='workspace_root' value='{{cfg.workspace_root}}' placeholder='workspace root'>
+<select name='active_site'><option value='thegtcafe'>thegtcafe</option><option value='thegtcollective'>thegtcollective</option></select>
+<input name='production_site_url' value='{{cfg.production_site_url}}' placeholder='production site URL'>
+<input name='local_preview_url' value='{{cfg.local_preview_url}}' placeholder='local preview URL'>
+<input name='default_author' value='{{cfg.default_author}}' placeholder='default author'>
+<input name='default_category' value='{{cfg.default_category}}' placeholder='default category'>
+<input name='default_cta_label' value='{{cfg.default_cta_label}}' placeholder='default CTA label'>
+<input name='default_cta_url' value='{{cfg.default_cta_url}}' placeholder='default CTA URL'>
+<input name='git_remote' value='{{cfg.git_remote}}' placeholder='git remote'>
+<input name='git_branch' value='{{cfg.git_branch}}' placeholder='git branch'>
+<button>Save Settings</button></form>{% endblock %}

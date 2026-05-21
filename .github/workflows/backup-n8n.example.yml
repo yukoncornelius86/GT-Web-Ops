@@ -1,0 +1,7 @@
+name: Backup n8n Example
+on: workflow_dispatch
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "placeholder"
