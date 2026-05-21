@@ -1,1 +1,12 @@
-:80 { reverse_proxy /n8n* n8n:5678 reverse_proxy /blogstudio* blog-studio:8787 file_server }
+:80 {
+	handle_path /n8n* {
+		reverse_proxy n8n:5678
+	}
+
+	handle_path /blogstudio* {
+		reverse_proxy blog-studio:8787
+	}
+
+	root * /srv
+	file_server
+}
