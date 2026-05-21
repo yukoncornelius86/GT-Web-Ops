@@ -62,8 +62,8 @@ AUTOMATION_PUBLIC_URL=https://automation.thegtcollective.com
 GOOGLE_SHEET_ID=
 GOOGLE_CALENDAR_ID=
 GOOGLE_DRIVE_LEADS_FOLDER_ID=
-GOOGLE_WORKSPACE_SENDER=crew@thegtcafe.com
-GOOGLE_WORKSPACE_NOTIFY_TO=crew@thegtcafe.com
+GOOGLE_WORKSPACE_SENDER=crew@thegtcollective.com
+GOOGLE_WORKSPACE_NOTIFY_TO=crew@thegtcollective.com
 ```
 
 ## Information needed from the owner
