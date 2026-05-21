@@ -1,0 +1,22 @@
+{% extends "base.html" %}{% block content %}<h1>Post Editor</h1>
+<form method='post' action='/save'>
+<input name='title' value='{{post.title}}' placeholder='Title' required>
+<input name='slug' value='{{post.slug}}' placeholder='Slug'>
+<input name='subtitle' value='{{post.subtitle}}' placeholder='Subtitle'>
+<input name='author' value='{{post.author}}' placeholder='Author'>
+<input name='date_val' value='{{post.date}}' placeholder='YYYY-MM-DD'>
+<input name='category' value='{{post.category}}' placeholder='Category'>
+<input name='tags' value='{{post.tags|join(",") if post.tags else ""}}' placeholder='tags comma separated'>
+<input name='featured_image' value='{{post.featured_image}}' placeholder='Featured image path'>
+<input name='featured_image_alt' value='{{post.featured_image_alt}}' placeholder='Featured image alt'>
+<input name='seo_title' value='{{post.seo_title}}' placeholder='SEO title'>
+<textarea name='seo_description' placeholder='SEO description'>{{post.seo_description}}</textarea>
+<textarea name='excerpt' placeholder='Excerpt'>{{post.excerpt}}</textarea>
+<select name='status'><option value='draft'>draft</option><option value='published'>published</option><option value='archived'>archived</option></select>
+<input name='canonical_url' value='{{post.canonical_url}}' placeholder='Canonical URL'>
+<input name='cta_label' value='{{post.cta_label}}' placeholder='CTA label'>
+<input name='cta_url' value='{{post.cta_url}}' placeholder='CTA URL'>
+<textarea name='body' rows='16' placeholder='Markdown body'>{{post.body}}</textarea>
+<textarea name='custom_html' rows='6' placeholder='Optional custom HTML'>{{post.custom_html}}</textarea>
+<button>Save Draft / Publish</button>
+</form>{% endblock %}

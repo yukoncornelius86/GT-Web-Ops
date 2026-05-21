@@ -1,0 +1,13 @@
+# VPS MIGRATION GUIDE
+- Minimum: 2 vCPU / 4 GB RAM.
+- OS: Ubuntu 24.04 LTS.
+- Install Docker + Docker Compose plugin.
+- Clone repo, create `.env`, fill production values.
+- Use `docker-compose.yml` + `docker-compose.prod.yml`.
+- DNS map:
+  - automation.thegtcollective.com -> n8n
+  - blogstudio.thegtcollective.com -> Blog Studio
+  - status.thegtcollective.com -> Uptime Kuma
+  - portainer.thegtcollective.com -> Portainer
+- Protect admin surfaces with Cloudflare Access.
+- Backup strategy: DB dumps, n8n workflow export, `blog-studio/content` backups.

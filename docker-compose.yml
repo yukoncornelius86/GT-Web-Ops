@@ -1,0 +1,90 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: gtwo_postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      TZ: ${TZ}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  n8n:
+    image: n8nio/n8n:1.95.3
+    container_name: gtwo_n8n
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports: ["${N8N_PORT:-5678}:5678"]
+    environment:
+      DB_TYPE: postgresdb
+      DB_POSTGRESDB_HOST: postgres
+      DB_POSTGRESDB_PORT: 5432
+      DB_POSTGRESDB_DATABASE: ${POSTGRES_DB}
+      DB_POSTGRESDB_USER: ${POSTGRES_USER}
+      DB_POSTGRESDB_PASSWORD: ${POSTGRES_PASSWORD}
+      N8N_HOST: ${N8N_HOST}
+      N8N_PORT: 5678
+      N8N_PROTOCOL: ${N8N_PROTOCOL}
+      WEBHOOK_URL: ${WEBHOOK_URL}
+      N8N_ENCRYPTION_KEY: ${N8N_ENCRYPTION_KEY}
+      N8N_BASIC_AUTH_ACTIVE: ${N8N_BASIC_AUTH_ACTIVE}
+      N8N_BASIC_AUTH_USER: ${N8N_BASIC_AUTH_USER}
+      N8N_BASIC_AUTH_PASSWORD: ${N8N_BASIC_AUTH_PASSWORD}
+      N8N_RUNNERS_ENABLED: true
+      TZ: ${TZ}
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./infra/n8n/workflows:/workflows
+      - ./infra/n8n/logs:/logs
+    restart: unless-stopped
+
+  blog-studio:
+    build: ./blog-studio
+    container_name: gtwo_blog_studio
+    ports: ["${BLOG_STUDIO_PORT:-8787}:8787"]
+    volumes: ["./:/workspace"]
+    environment:
+      BLOG_STUDIO_PORT: ${BLOG_STUDIO_PORT}
+      BLOG_STUDIO_REPO_PATH: /workspace
+      BLOG_STUDIO_SECRET_KEY: ${BLOG_STUDIO_SECRET_KEY}
+    restart: unless-stopped
+
+  static-preview:
+    image: nginx:1.27-alpine
+    container_name: gtwo_static_preview
+    ports: ["8080:80"]
+    volumes: ["./sites/thegtcafe:/usr/share/nginx/html:ro"]
+    restart: unless-stopped
+
+  caddy-local:
+    image: caddy:2.9
+    container_name: gtwo_caddy_local
+    volumes: ["./infra/caddy/Caddyfile.local:/etc/caddy/Caddyfile:ro"]
+    ports: ["8088:80"]
+    restart: unless-stopped
+
+  portainer:
+    image: portainer/portainer-ce:2.27.9
+    profiles: [tools]
+    ports: ["9000:9000"]
+    volumes: ["/var/run/docker.sock:/var/run/docker.sock", "portainer_data:/data"]
+
+  uptime-kuma:
+    image: louislam/uptime-kuma:1.23.16
+    profiles: [tools]
+    ports: ["3001:3001"]
+    volumes: ["uptime_kuma_data:/app/data"]
+
+volumes:
+  postgres_data:
+  n8n_data:
+  portainer_data:
+  uptime_kuma_data:

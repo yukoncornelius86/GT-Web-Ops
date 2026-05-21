@@ -1,0 +1,1 @@
+:80 { reverse_proxy /n8n* n8n:5678 reverse_proxy /blogstudio* blog-studio:8787 file_server }

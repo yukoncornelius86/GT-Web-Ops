@@ -1,0 +1,1 @@
+automation.thegtcollective.com { reverse_proxy n8n:5678 }

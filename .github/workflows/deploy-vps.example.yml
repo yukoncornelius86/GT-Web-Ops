@@ -1,0 +1,7 @@
+name: Deploy VPS Example
+on: workflow_dispatch
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Use VPS_HOST, VPS_USER, VPS_SSH_KEY, VPS_PROJECT_PATH"
