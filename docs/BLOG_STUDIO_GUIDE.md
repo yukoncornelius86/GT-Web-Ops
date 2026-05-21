@@ -1,2 +1,7 @@
 # BLOG STUDIO GUIDE
-See README and configure .env placeholders. Includes local URLs, setup steps, security guidance, and migration notes per GT Web Ops requirements.
+Detailed guide for GT Web Ops.
+
+- Local-first setup instructions
+- Required placeholders/secrets
+- Security notes
+- Migration/deployment notes

@@ -1,1 +1,1 @@
-{% extends "base.html" %}{% block content %}<h1>Dashboard</h1>{% endblock %}
+{% extends "base.html" %}{% block content %}<h1>Dashboard</h1><p>Site: {{cfg.active_site}}</p><p>Total {{posts|length}} | Published {{published}} | Archived {{archived}}</p><p>Branch: {{branch}}</p><pre>{{git_status}}</pre><form method='post' action='/export'><button>Export Static Files</button></form>{% endblock %}

@@ -1,1 +1,55 @@
-{"name":"service-request-local-test","nodes":[{"parameters":{"path":"service-request","responseMode":"responseNode"},"name":"Webhook","type":"n8n-nodes-base.webhook","typeVersion":1,"position":[240,300]},{"parameters":{"responseBody":"={"ok":true,"message":"Your request was received. We will review the vehicle, requested service, and schedule before preparing an estimate."}"},"name":"Respond","type":"n8n-nodes-base.respondToWebhook","typeVersion":1,"position":[480,300]}],"connections":{"Webhook":{"main":[[{"node":"Respond","type":"main","index":0}]]}}}
+{
+  "name": "service-request-local-test",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "service-request",
+        "responseMode": "responseNode",
+        "httpMethod": "POST"
+      },
+      "id": "webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [260, 280]
+    },
+    {
+      "parameters": {
+        "jsCode": "const b=$json.body||$json; const req=['first_name','last_name','email']; for (const k of req){if(!b[k]) throw new Error('Missing '+k);} return [{json:{...b,timestamp:new Date().toISOString(),status:'New Request'}}];"
+      },
+      "id": "normalize",
+      "name": "Validate + Normalize",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [500, 280]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "fileName": "/logs/service-requests.jsonl",
+        "data": "={{JSON.stringify($json)+'\\n'}}"
+      },
+      "id": "log",
+      "name": "Append Local Log",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [740, 280]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\"ok\":true,\"message\":\"Your request was received. We will review the vehicle, requested service, and schedule before preparing an estimate.\"}"
+      },
+      "id": "resp",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.2,
+      "position": [980, 280]
+    }
+  ],
+  "connections": {
+    "Webhook": {"main": [[{"node": "Validate + Normalize", "type": "main", "index": 0}]]},
+    "Validate + Normalize": {"main": [[{"node": "Append Local Log", "type": "main", "index": 0}]]},
+    "Append Local Log": {"main": [[{"node": "Respond", "type": "main", "index": 0}]]}
+  }
+}

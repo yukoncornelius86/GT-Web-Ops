@@ -1,1 +1,1 @@
-{% extends "base.html" %}{% block content %}<h1>Preview</h1>{% endblock %}
+{% extends "base.html" %}{% block content %}<h1>{{post.title}}</h1><article>{{html|safe}}</article>{% endblock %}
