@@ -22,7 +22,7 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    ports: ["${N8N_PORT:-5678}:5678"]
+    ports: ["127.0.0.1:${N8N_PORT:-5678}:5678"]
     environment:
       DB_TYPE: postgresdb
       DB_POSTGRESDB_HOST: postgres
@@ -49,7 +49,7 @@ services:
   blog-studio:
     build: ./blog-studio
     container_name: gtwo_blog_studio
-    ports: ["${BLOG_STUDIO_PORT:-8787}:8787"]
+    ports: ["127.0.0.1:${BLOG_STUDIO_PORT:-8787}:8787"]
     volumes: ["./:/workspace"]
     environment:
       BLOG_STUDIO_PORT: ${BLOG_STUDIO_PORT}

@@ -22,7 +22,7 @@ DEFAULTS = {
     'enable_sitemap_generation': True,
     'enable_rss_generation': True,
     'enable_image_copy': True,
-    'enable_git_actions': True,
+    'enable_git_actions': False,
     'git_remote': 'origin',
     'git_branch': 'main',
     'advanced_mode': False,
