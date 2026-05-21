@@ -1,0 +1,11 @@
+name: Deploy GT Collective Example
+on:
+  push:
+    branches: [main]
+    paths: ["sites/thegtcollective/**"]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "Use IONOS_SFTP_* secrets"
