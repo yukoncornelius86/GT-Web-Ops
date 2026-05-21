@@ -9,5 +9,6 @@ venv/
 node_modules/
 .DS_Store
 *.log
+gt-web-ops-synology.tar.gz
 blog-studio/backups/*
 !blog-studio/backups/.gitkeep

@@ -1,5 +1,6 @@
 import unittest
 from pathlib import Path
+from tempfile import TemporaryDirectory
 from app.services.security import validate_slug, contains_traversal, safe_join
 
 class SecurityTests(unittest.TestCase):
@@ -14,11 +15,12 @@ class SecurityTests(unittest.TestCase):
         self.assertTrue(contains_traversal('..%2fetc'))
 
     def test_safe_join_inside_root(self):
-        root = Path('/tmp')
-        p = safe_join(root, 'a/b')
-        self.assertTrue(str(p).startswith('/tmp'))
-        with self.assertRaises(ValueError):
-            safe_join(root, '../etc/passwd')
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            p = safe_join(root, 'a/b')
+            self.assertTrue(p.is_relative_to(root.resolve()))
+            with self.assertRaises(ValueError):
+                safe_join(root, '../etc/passwd')
 
     def test_git_default_disabled(self):
         cfg_text = Path('blog-studio/app/config.py').read_text(encoding='utf-8')

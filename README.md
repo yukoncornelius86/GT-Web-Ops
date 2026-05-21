@@ -22,6 +22,7 @@ Enterprise-ready local-first stack for The GT Cafe and The Grand Tour Collective
 
 ## Read first
 - `docs/USER_IMPLEMENTATION_GUIDE.md`
+- `docs/SYNOLOGY_DEPLOYMENT_GUIDE.md`
 - `docs/N8N_SETUP_GUIDE.md`
 - `docs/BLOG_STUDIO_GUIDE.md`
 - `docs/SECRETS_AND_ENV_GUIDE.md`

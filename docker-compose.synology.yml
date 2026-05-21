@@ -1,0 +1,24 @@
+services:
+  n8n:
+    ports:
+      - "${SYNOLOGY_BIND_IP:-127.0.0.1}:${N8N_PORT:-5678}:5678"
+
+  blog-studio:
+    ports:
+      - "${SYNOLOGY_BIND_IP:-127.0.0.1}:${BLOG_STUDIO_PORT:-8787}:8787"
+
+  static-preview:
+    ports:
+      - "${SYNOLOGY_BIND_IP:-127.0.0.1}:${STATIC_PREVIEW_PORT:-8080}:80"
+
+  caddy-local:
+    ports:
+      - "${SYNOLOGY_BIND_IP:-127.0.0.1}:${CADDY_LOCAL_PORT:-8088}:80"
+
+  portainer:
+    ports:
+      - "${SYNOLOGY_BIND_IP:-127.0.0.1}:${PORTAINER_PORT:-9000}:9000"
+
+  uptime-kuma:
+    ports:
+      - "${SYNOLOGY_BIND_IP:-127.0.0.1}:${UPTIME_KUMA_PORT:-3001}:3001"
