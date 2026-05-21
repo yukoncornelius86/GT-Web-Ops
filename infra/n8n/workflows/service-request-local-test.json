@@ -1,21 +1,25 @@
 {
   "name": "service-request-local-test",
+  "active": false,
+  "settings": {},
   "nodes": [
     {
       "parameters": {
         "path": "service-request",
         "responseMode": "responseNode",
-        "httpMethod": "POST"
+        "httpMethod": "POST",
+        "options": {}
       },
       "id": "webhook",
       "name": "Webhook",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
-      "position": [260, 280]
+      "position": [260, 280],
+      "webhookId": "service-request-local-test"
     },
     {
       "parameters": {
-        "jsCode": "const b=$json.body||$json; const req=['first_name','last_name','email']; for (const k of req){if(!b[k]) throw new Error('Missing '+k);} return [{json:{...b,timestamp:new Date().toISOString(),status:'New Request'}}];"
+        "jsCode": "const b=$json.body||$json; const req=['first_name','last_name','email']; for (const k of req){if(!b[k]) throw new Error('Missing '+k);} const record={...b,timestamp:new Date().toISOString(),status:'New Request'}; const line=JSON.stringify(record)+'\\n'; return [{json:record,binary:{data:{data:Buffer.from(line).toString('base64'),mimeType:'application/jsonl',fileName:'service-requests.jsonl'}}}];"
       },
       "id": "normalize",
       "name": "Validate + Normalize",
@@ -25,9 +29,12 @@
     },
     {
       "parameters": {
-        "operation": "append",
+        "operation": "write",
         "fileName": "/logs/service-requests.jsonl",
-        "data": "={{JSON.stringify($json)+'\\n'}}"
+        "dataPropertyName": "data",
+        "options": {
+          "append": true
+        }
       },
       "id": "log",
       "name": "Append Local Log",
@@ -38,7 +45,8 @@
     {
       "parameters": {
         "respondWith": "json",
-        "responseBody": "={\"ok\":true,\"message\":\"Your request was received. We will review the vehicle, requested service, and schedule before preparing an estimate.\"}"
+        "responseBody": "={\"ok\":true,\"message\":\"Your request was received. We will review the vehicle, requested service, and schedule before preparing an estimate.\"}",
+        "options": {}
       },
       "id": "resp",
       "name": "Respond",

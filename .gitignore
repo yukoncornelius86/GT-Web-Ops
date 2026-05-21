@@ -10,5 +10,7 @@ node_modules/
 .DS_Store
 *.log
 gt-web-ops-synology.tar.gz
+infra/n8n/logs/*
+!infra/n8n/logs/.gitkeep
 blog-studio/backups/*
 !blog-studio/backups/.gitkeep
