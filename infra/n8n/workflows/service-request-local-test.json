@@ -1,63 +1,332 @@
 {
+  "createdAt": "2026-05-21T22:29:03.404Z",
+  "updatedAt": "2026-05-22T00:54:07.080Z",
+  "id": "dPZ57VyPut6jcgkM",
   "name": "service-request-local-test",
-  "active": false,
-  "settings": {},
+  "active": true,
+  "isArchived": false,
   "nodes": [
     {
-      "parameters": {
-        "path": "service-request",
-        "responseMode": "responseNode",
-        "httpMethod": "POST",
-        "options": {}
-      },
       "id": "webhook",
       "name": "Webhook",
       "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
-      "position": [260, 280],
-      "webhookId": "service-request-local-test"
-    },
-    {
+      "position": [
+        160,
+        260
+      ],
+      "webhookId": "service-request-local-test",
       "parameters": {
-        "jsCode": "const b=$json.body||$json; const req=['first_name','last_name','email']; for (const k of req){if(!b[k]) throw new Error('Missing '+k);} const record={...b,timestamp:new Date().toISOString(),status:'New Request'}; const line=JSON.stringify(record)+'\\n'; return [{json:record,binary:{data:{data:Buffer.from(line).toString('base64'),mimeType:'application/jsonl',fileName:'service-requests.jsonl'}}}];"
+        "path": "service-request",
+        "options": {},
+        "httpMethod": "POST",
+        "responseMode": "responseNode"
       },
-      "id": "normalize",
-      "name": "Validate + Normalize",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [500, 280]
+      "typeVersion": 2
     },
     {
+      "id": "normalize",
+      "name": "Validate + Build Google Payloads",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        420,
+        260
+      ],
       "parameters": {
-        "operation": "write",
-        "fileName": "/logs/service-requests.jsonl",
-        "dataPropertyName": "data",
+        "jsCode": "\nconst b = $json.body || $json;\nconst req = ['first_name', 'last_name', 'email'];\nfor (const k of req) {\n  if (!b[k]) throw new Error('Missing ' + k);\n}\nconst clean = (value) => String(value || '').trim();\nconst record = {\n  timestamp: new Date().toISOString(),\n  status: 'New Request',\n  first_name: clean(b.first_name),\n  last_name: clean(b.last_name),\n  email: clean(b.email),\n  phone: clean(b.phone),\n  vehicle: clean(b.vehicle),\n  requested_service: clean(b.requested_service || b.service),\n  source_site: clean(b.source_site),\n  consent_to_contact: Boolean(b.consent_to_contact),\n  notes: clean(b.notes || b.message),\n};\nconst fullName = `${record.first_name} ${record.last_name}`.trim();\nconst vehicleLabel = record.vehicle || 'Vehicle TBD';\nconst line = JSON.stringify(record) + '\\n';\nconst followUpStart = new Date(Date.now() + 24 * 60 * 60 * 1000);\nfollowUpStart.setHours(10, 0, 0, 0);\nconst followUpEnd = new Date(followUpStart.getTime() + 30 * 60 * 1000);\nconst details = [\n  `Name: ${fullName}`,\n  `Email: ${record.email}`,\n  `Phone: ${record.phone || 'Not provided'}`,\n  `Vehicle: ${vehicleLabel}`,\n  `Requested service: ${record.requested_service || 'Not provided'}`,\n  `Source: ${record.source_site || 'Not provided'}`,\n  `Consent to contact: ${record.consent_to_contact ? 'Yes' : 'No'}`,\n  `Notes: ${record.notes || 'None'}`,\n].join('\\n');\nconst sender = 'crew@thegtcollective.com';\nconst notifyTo = 'crew@thegtcollective.com';\nfunction b64url(input) {\n  return Buffer.from(input, 'utf8').toString('base64').replace(/\\+/g, '-').replace(/\\//g, '_').replace(/=+$/g, '');\n}\nconst internalSubject = `New GT service request - ${fullName || record.email} - ${vehicleLabel}`;\nconst customerSubject = 'Your GT Collective request was received';\nconst customerBody = `Hi ${record.first_name || 'there'},\\n\\nThanks for reaching out to The Grand Tour Collective. We received your request and will review the vehicle, requested service, and schedule before preparing an estimate.\\n\\nThis is a consultation request, not a confirmed appointment or final quote yet.\\n\\n- The Grand Tour Collective`;\nconst internalMime = `From: ${sender}\\r\\nTo: ${notifyTo}\\r\\nSubject: ${internalSubject}\\r\\nContent-Type: text/plain; charset=UTF-8\\r\\n\\r\\n${details}`;\nconst customerMime = `From: ${sender}\\r\\nTo: ${record.email}\\r\\nSubject: ${customerSubject}\\r\\nContent-Type: text/plain; charset=UTF-8\\r\\n\\r\\n${customerBody}`;\nreturn [{\n  json: {\n    ...record,\n    sheetAppendBody: { values: [[record.timestamp, record.status, record.first_name, record.last_name, record.email, record.phone, record.vehicle, record.requested_service, record.source_site, record.consent_to_contact ? 'Yes' : 'No', record.notes]] },\n    calendarEventBody: {\n      summary: `Verify GT request - ${fullName || record.email}`,\n      description: details,\n      start: { dateTime: followUpStart.toISOString(), timeZone: 'America/New_York' },\n      end: { dateTime: followUpEnd.toISOString(), timeZone: 'America/New_York' },\n      attendees: [{ email: notifyTo }],\n    },\n    driveFolderBody: {\n      name: `Lead - ${fullName || record.email} - ${vehicleLabel}`.replace(/[\\\\/:*?\"<>|]/g, '-'),\n      mimeType: 'application/vnd.google-apps.folder',\n      parents: ['1Aae_1OQstLhBlmvv_yJiX1yM4r6XqsH0'],\n    },\n    calendarEventJson: JSON.stringify({summary: `Verify GT request - ${fullName || record.email}`, description: details, start: {dateTime: followUpStart.toISOString(), timeZone: 'America/New_York'}, end: {dateTime: followUpEnd.toISOString(), timeZone: 'America/New_York'}, attendees: [{email: notifyTo}]}),\n    internalEmail: { to: notifyTo, subject: internalSubject, message: details },\n    customerEmail: { to: record.email, subject: customerSubject, message: customerBody },\n    internalEmailBody: { raw: b64url(internalMime) },\n    customerEmailBody: { raw: b64url(customerMime) },\n  },\n  binary: {\n    data: {\n      data: Buffer.from(line).toString('base64'),\n      mimeType: 'application/jsonl',\n      fileName: 'service-requests.jsonl',\n    },\n  },\n}];\n"
+      },
+      "typeVersion": 2
+    },
+    {
+      "id": "log",
+      "name": "Append Local Audit Log",
+      "type": "n8n-nodes-base.readWriteFile",
+      "position": [
+        680,
+        260
+      ],
+      "parameters": {
         "options": {
           "append": true
-        }
+        },
+        "fileName": "/logs/service-requests.jsonl",
+        "operation": "write",
+        "dataPropertyName": "data"
       },
-      "id": "log",
-      "name": "Append Local Log",
-      "type": "n8n-nodes-base.readWriteFile",
-      "typeVersion": 1,
-      "position": [740, 280]
+      "typeVersion": 1
     },
     {
+      "id": "sheets",
+      "name": "Append Lead to Google Sheet",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        940,
+        260
+      ],
       "parameters": {
-        "respondWith": "json",
-        "responseBody": "={\"ok\":true,\"message\":\"Your request was received. We will review the vehicle, requested service, and schedule before preparing an estimate.\"}",
-        "options": {}
+        "url": "https://sheets.googleapis.com/v4/spreadsheets/1iIv6wwHWJ7bsg1LMzLEBsvtrx73dwbLgREbvMx0p1wk/values/A:Z:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS",
+        "body": "={{JSON.stringify($json.sheetAppendBody)}}",
+        "method": "POST",
+        "options": {
+          "response": {
+            "response": {
+              "neverError": false,
+              "responseFormat": "json"
+            }
+          }
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "specifyBody": "",
+        "authentication": "predefinedCredentialType",
+        "rawContentType": "application/json",
+        "nodeCredentialType": "googleOAuth2Api"
       },
+      "credentials": {
+        "googleOAuth2Api": {
+          "id": "ihQ8ehD1DIbYBA3J",
+          "name": "Google account"
+        }
+      },
+      "typeVersion": 4.2
+    },
+    {
+      "id": "calendar",
+      "name": "Create Calendar Verification Event",
+      "type": "n8n-nodes-base.googleCalendar",
+      "position": [
+        1200,
+        260
+      ],
+      "parameters": {
+        "end": "={{$json.calendarEventBody.end.dateTime}}",
+        "start": "={{$json.calendarEventBody.start.dateTime}}",
+        "calendar": "c_e5b19bc9dd919843fea0381d521c79e303f083dce3779d84e4b8cb666b20e121@group.calendar.google.com",
+        "resource": "event",
+        "operation": "create",
+        "additionalFields": {
+          "summary": "={{$json.calendarEventBody.summary}}",
+          "attendees": [
+            "crew@thegtcollective.com"
+          ],
+          "description": "={{$json.calendarEventBody.description}}",
+          "sendUpdates": "all"
+        },
+        "useDefaultReminders": true
+      },
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "gtCalOAuth",
+          "name": "Google Calendar account"
+        }
+      },
+      "typeVersion": 1.3
+    },
+    {
+      "id": "drive",
+      "name": "Create Drive Lead Folder",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        1460,
+        260
+      ],
+      "parameters": {
+        "url": "https://www.googleapis.com/drive/v3/files",
+        "body": "={{JSON.stringify($json.driveFolderBody)}}",
+        "method": "POST",
+        "options": {
+          "response": {
+            "response": {
+              "neverError": false,
+              "responseFormat": "json"
+            }
+          }
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "specifyBody": "",
+        "authentication": "predefinedCredentialType",
+        "rawContentType": "application/json",
+        "nodeCredentialType": "googleOAuth2Api"
+      },
+      "credentials": {
+        "googleOAuth2Api": {
+          "id": "ihQ8ehD1DIbYBA3J",
+          "name": "Google account"
+        }
+      },
+      "typeVersion": 4.2
+    },
+    {
+      "id": "internal-email",
+      "name": "Send Internal Gmail Alert",
+      "type": "n8n-nodes-base.gmail",
+      "position": [
+        1720,
+        260
+      ],
+      "parameters": {
+        "sendTo": "={{$(\"Validate + Build Google Payloads\").item.json.internalEmail.to}}",
+        "message": "={{$(\"Validate + Build Google Payloads\").item.json.internalEmail.message}}",
+        "options": {
+          "replyTo": "crew@thegtcollective.com",
+          "senderName": "The Grand Tour Collective",
+          "appendAttribution": false
+        },
+        "subject": "={{$(\"Validate + Build Google Payloads\").item.json.internalEmail.subject}}",
+        "resource": "message",
+        "emailType": "text",
+        "operation": "send",
+        "authentication": "oAuth2"
+      },
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "gtGmailOAuth",
+          "name": "Gmail account"
+        }
+      },
+      "typeVersion": 2.1
+    },
+    {
+      "id": "customer-email",
+      "name": "Send Customer Gmail Confirmation",
+      "type": "n8n-nodes-base.gmail",
+      "position": [
+        1980,
+        260
+      ],
+      "parameters": {
+        "sendTo": "={{$(\"Validate + Build Google Payloads\").item.json.customerEmail.to}}",
+        "message": "={{$(\"Validate + Build Google Payloads\").item.json.customerEmail.message}}",
+        "options": {
+          "replyTo": "crew@thegtcollective.com",
+          "senderName": "The Grand Tour Collective",
+          "appendAttribution": false
+        },
+        "subject": "={{$(\"Validate + Build Google Payloads\").item.json.customerEmail.subject}}",
+        "resource": "message",
+        "emailType": "text",
+        "operation": "send",
+        "authentication": "oAuth2"
+      },
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "gtGmailOAuth",
+          "name": "Gmail account"
+        }
+      },
+      "typeVersion": 2.1
+    },
+    {
       "id": "resp",
       "name": "Respond",
       "type": "n8n-nodes-base.respondToWebhook",
-      "typeVersion": 1.2,
-      "position": [980, 280]
+      "position": [
+        2240,
+        260
+      ],
+      "parameters": {
+        "options": {},
+        "respondWith": "json",
+        "responseBody": "={\"ok\":true,\"message\":\"Your request was received. We will review the vehicle, requested service, and schedule before preparing an estimate.\"}"
+      },
+      "typeVersion": 1.2
     }
   ],
   "connections": {
-    "Webhook": {"main": [[{"node": "Validate + Normalize", "type": "main", "index": 0}]]},
-    "Validate + Normalize": {"main": [[{"node": "Append Local Log", "type": "main", "index": 0}]]},
-    "Append Local Log": {"main": [[{"node": "Respond", "type": "main", "index": 0}]]}
-  }
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Validate + Build Google Payloads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate + Build Google Payloads": {
+      "main": [
+        [
+          {
+            "node": "Append Local Audit Log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append Local Audit Log": {
+      "main": [
+        [
+          {
+            "node": "Append Lead to Google Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append Lead to Google Sheet": {
+      "main": [
+        [
+          {
+            "node": "Create Calendar Verification Event",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Calendar Verification Event": {
+      "main": [
+        [
+          {
+            "node": "Create Drive Lead Folder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Drive Lead Folder": {
+      "main": [
+        [
+          {
+            "node": "Send Internal Gmail Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Internal Gmail Alert": {
+      "main": [
+        [
+          {
+            "node": "Send Customer Gmail Confirmation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Customer Gmail Confirmation": {
+      "main": [
+        [
+          {
+            "node": "Respond",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {},
+  "staticData": null,
+  "meta": null,
+  "pinData": null,
+  "versionId": null,
+  "triggerCount": 1,
+  "tags": []
 }
