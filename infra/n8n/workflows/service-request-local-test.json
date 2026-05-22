@@ -1,6 +1,6 @@
 {
   "createdAt": "2026-05-21T22:29:03.404Z",
-  "updatedAt": "2026-05-22T01:14:08.723Z",
+  "updatedAt": "2026-05-22T01:27:04.195Z",
   "id": "dPZ57VyPut6jcgkM",
   "name": "service-request-local-test",
   "active": true,
@@ -408,38 +408,17 @@
     },
     {
       "id": "openai-summary",
-      "name": "Generate AI Lead Summary",
-      "type": "n8n-nodes-base.httpRequest",
+      "name": "Run Local AI Lead Summary",
+      "type": "n8n-nodes-base.executeCommand",
       "position": [
-        1720,
+        1860,
         260
       ],
       "parameters": {
-        "url": "https://api.openai.com/v1/chat/completions",
-        "method": "POST",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "openAiApi",
-        "sendBody": true,
-        "contentType": "raw",
-        "rawContentType": "application/json",
-        "specifyBody": "",
-        "body": "={{JSON.stringify({model: 'gpt-4o-mini', messages: [{role: 'system', content: 'You write concise internal lead briefs for an automotive service and collecting business. Return plain text only. Include service category, urgency, missing info, suggested first response, and estimate-prep checklist.'}, {role: 'user', content: $('Validate + Build Google Payloads').item.json.details + '\\nDrive folder: https://drive.google.com/drive/folders/' + $('Create Drive Lead Folder').item.json.id + '\\nCalendar event: ' + $('Create Calendar Verification Event').item.json.htmlLink}], temperature: 0.2})}}",
-        "options": {
-          "response": {
-            "response": {
-              "neverError": false,
-              "responseFormat": "json"
-            }
-          }
-        }
+        "executeOnce": true,
+        "command": "={{$json.localAiCommand}}"
       },
-      "credentials": {
-        "openAiApi": {
-          "id": "aNzWtPPl7QXiyIBP",
-          "name": "OpenAi account"
-        }
-      },
-      "typeVersion": 4.2,
+      "typeVersion": 1,
       "continueOnFail": true
     },
     {
@@ -451,7 +430,7 @@
         260
       ],
       "parameters": {
-        "jsCode": "\nconst lead = $('Validate + Build Google Payloads').item.json;\nconst drive = $('Create Drive Lead Folder').item.json;\nconst calendar = $('Create Calendar Verification Event').item.json;\nconst openAi = $json;\nconst aiSummaryRaw = openAi?.choices?.[0]?.message?.content || openAi?.data?.[0]?.message?.content || openAi?.error?.description || openAi?.error?.message || openAi?.message || 'AI summary unavailable. Review the lead details manually.';\nconst aiSummary = typeof aiSummaryRaw === 'string' ? aiSummaryRaw : JSON.stringify(aiSummaryRaw);\nconst driveUrl = drive?.webViewLink || (drive?.id ? `https://drive.google.com/drive/folders/${drive.id}` : 'Drive folder unavailable');\nconst calendarUrl = calendar?.htmlLink || 'Calendar event unavailable';\nconst subfolders = {\n  intake: $('Create Intake Subfolder').item.json?.webViewLink || ($('Create Intake Subfolder').item.json?.id ? `https://drive.google.com/drive/folders/${$('Create Intake Subfolder').item.json.id}` : ''),\n  photos: $('Create Photos Subfolder').item.json?.webViewLink || ($('Create Photos Subfolder').item.json?.id ? `https://drive.google.com/drive/folders/${$('Create Photos Subfolder').item.json.id}` : ''),\n  estimate: $('Create Estimate Subfolder').item.json?.webViewLink || ($('Create Estimate Subfolder').item.json?.id ? `https://drive.google.com/drive/folders/${$('Create Estimate Subfolder').item.json.id}` : ''),\n  invoices: $('Create Invoices Subfolder').item.json?.webViewLink || ($('Create Invoices Subfolder').item.json?.id ? `https://drive.google.com/drive/folders/${$('Create Invoices Subfolder').item.json.id}` : ''),\n  delivery: $('Create Final Delivery Subfolder').item.json?.webViewLink || ($('Create Final Delivery Subfolder').item.json?.id ? `https://drive.google.com/drive/folders/${$('Create Final Delivery Subfolder').item.json.id}` : ''),\n};\nconst internalMessage = [\n  lead.details,\n  '',\n  'Lead stage: New',\n  `Drive folder: ${driveUrl}`,\n  `Calendar event: ${calendarUrl}`,\n  '',\n  'Subfolders:',\n  `- Intake: ${subfolders.intake}`,\n  `- Photos: ${subfolders.photos}`,\n  `- Estimate: ${subfolders.estimate}`,\n  `- Invoices: ${subfolders.invoices}`,\n  `- Final Delivery: ${subfolders.delivery}`,\n  '',\n  'AI lead summary:',\n  aiSummary,\n].join('\\n');\nconst slackMessage = [\n  `*New GT service request:* ${lead.fullName || lead.email}`,\n  `*Vehicle:* ${lead.vehicleLabel}`,\n  `*Service:* ${lead.requested_service || 'Not provided'}`,\n  `*Phone:* ${lead.phone || 'Not provided'}`,\n  `*Email:* ${lead.email}`,\n  `*Drive:* ${driveUrl}`,\n  `*Calendar:* ${calendarUrl}`,\n  '',\n  `*AI summary:*\\n${aiSummary}`,\n].join('\\n');\nconst sheetAppendBody = { values: [[\n  lead.timestamp,\n  'New Request',\n  'New',\n  lead.first_name,\n  lead.last_name,\n  lead.email,\n  lead.phone,\n  lead.vehicle,\n  lead.requested_service,\n  lead.source_site,\n  lead.consent_to_contact ? 'Yes' : 'No',\n  lead.notes,\n  driveUrl,\n  calendarUrl,\n  subfolders.intake,\n  subfolders.photos,\n  subfolders.estimate,\n  subfolders.invoices,\n  subfolders.delivery,\n  aiSummary,\n]] };\nreturn [{ json: {\n  ...lead,\n  aiSummary,\n  driveUrl,\n  calendarUrl,\n  subfolders,\n  sheetAppendBody,\n  internalEmail: { to: lead.notifyTo, subject: lead.internalSubject, message: internalMessage },\n  customerEmail: lead.customerEmail,\n  slackMessage,\n  slackChannel: $env.SLACK_CHANNEL_ID || '#gt-collective-detailing-leads',\n}}];\n"
+        "jsCode": "\nconst lead = $('Validate + Build Google Payloads').item.json;\nconst drive = $('Create Drive Lead Folder').item.json;\nconst calendar = $('Create Calendar Verification Event').item.json;\nconst openAiRaw = $json?.stdout ? (() => { try { return JSON.parse($json.stdout); } catch { return { raw: $json.stdout }; } })() : $json;\nconst aiSummaryRaw = openAiRaw?.choices?.[0]?.message?.content || openAiRaw?.data?.[0]?.message?.content || openAiRaw?.error?.description || openAiRaw?.error?.message || openAiRaw?.message || openAiRaw?.raw || 'AI summary unavailable. Review the lead details manually.';\nconst aiSummary = typeof aiSummaryRaw === 'string' ? aiSummaryRaw : JSON.stringify(aiSummaryRaw);\nconst driveUrl = drive?.webViewLink || (drive?.id ? `https://drive.google.com/drive/folders/${drive.id}` : 'Drive folder unavailable');\nconst calendarUrl = calendar?.htmlLink || 'Calendar event unavailable';\nconst subfolders = {\n  intake: $('Create Intake Subfolder').item.json?.webViewLink || ($('Create Intake Subfolder').item.json?.id ? `https://drive.google.com/drive/folders/${$('Create Intake Subfolder').item.json.id}` : ''),\n  photos: $('Create Photos Subfolder').item.json?.webViewLink || ($('Create Photos Subfolder').item.json?.id ? `https://drive.google.com/drive/folders/${$('Create Photos Subfolder').item.json.id}` : ''),\n  estimate: $('Create Estimate Subfolder').item.json?.webViewLink || ($('Create Estimate Subfolder').item.json?.id ? `https://drive.google.com/drive/folders/${$('Create Estimate Subfolder').item.json.id}` : ''),\n  invoices: $('Create Invoices Subfolder').item.json?.webViewLink || ($('Create Invoices Subfolder').item.json?.id ? `https://drive.google.com/drive/folders/${$('Create Invoices Subfolder').item.json.id}` : ''),\n  delivery: $('Create Final Delivery Subfolder').item.json?.webViewLink || ($('Create Final Delivery Subfolder').item.json?.id ? `https://drive.google.com/drive/folders/${$('Create Final Delivery Subfolder').item.json.id}` : ''),\n};\nconst internalMessage = [\n  lead.details,\n  '',\n  'Lead stage: New',\n  `Drive folder: ${driveUrl}`,\n  `Calendar event: ${calendarUrl}`,\n  '',\n  'Subfolders:',\n  `- Intake: ${subfolders.intake}`,\n  `- Photos: ${subfolders.photos}`,\n  `- Estimate: ${subfolders.estimate}`,\n  `- Invoices: ${subfolders.invoices}`,\n  `- Final Delivery: ${subfolders.delivery}`,\n  '',\n  'AI lead summary:',\n  aiSummary,\n].join('\\n');\nconst slackMessage = [\n  `*New GT service request:* ${lead.fullName || lead.email}`,\n  `*Vehicle:* ${lead.vehicleLabel}`,\n  `*Service:* ${lead.requested_service || 'Not provided'}`,\n  `*Phone:* ${lead.phone || 'Not provided'}`,\n  `*Email:* ${lead.email}`,\n  `*Drive:* ${driveUrl}`,\n  `*Calendar:* ${calendarUrl}`,\n  '',\n  `*AI summary:*\\n${aiSummary}`,\n].join('\\n');\nconst sheetAppendBody = { values: [[\n  lead.timestamp,\n  'New Request',\n  'New',\n  lead.first_name,\n  lead.last_name,\n  lead.email,\n  lead.phone,\n  lead.vehicle,\n  lead.requested_service,\n  lead.source_site,\n  lead.consent_to_contact ? 'Yes' : 'No',\n  lead.notes,\n  driveUrl,\n  calendarUrl,\n  subfolders.intake,\n  subfolders.photos,\n  subfolders.estimate,\n  subfolders.invoices,\n  subfolders.delivery,\n  aiSummary,\n]] };\nreturn [{ json: {\n  ...lead,\n  aiSummary,\n  driveUrl,\n  calendarUrl,\n  subfolders,\n  sheetAppendBody,\n  internalEmail: { to: lead.notifyTo, subject: lead.internalSubject, message: internalMessage },\n  customerEmail: lead.customerEmail,\n  slackMessage,\n  slackChannel: $env.SLACK_CHANNEL_ID || '#gt-collective-detailing-leads',\n}}];\n"
       },
       "typeVersion": 2
     },
@@ -485,6 +464,19 @@
       },
       "typeVersion": 2.3,
       "continueOnFail": true
+    },
+    {
+      "id": "build-local-ai-command",
+      "name": "Build Local AI Command",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1720,
+        260
+      ],
+      "parameters": {
+        "jsCode": "\nconst lead = $('Validate + Build Google Payloads').item.json;\nconst drive = $('Create Drive Lead Folder').item.json;\nconst calendar = $('Create Calendar Verification Event').item.json;\nconst prompt = [\n  lead.details,\n  drive?.id ? 'Drive folder: https://drive.google.com/drive/folders/' + drive.id : 'Drive folder: unavailable',\n  calendar?.htmlLink ? 'Calendar event: ' + calendar.htmlLink : 'Calendar event: unavailable',\n].join('\\n');\nconst script = \"const prompt=Buffer.from(process.argv[1],'base64').toString('utf8'); const base=(process.env.LOCAL_AI_BASE_URL||'http://host.docker.internal:1234/v1').replace(/\\\\/$/,''); const model=process.env.LOCAL_AI_MODEL||'local-model'; fetch(base + '/chat/completions',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model,messages:[{role:'system',content:'You write concise internal lead briefs for an automotive service and collecting business. Return plain text only. Include service category, urgency, missing info, suggested first response, and estimate-prep checklist.'},{role:'user',content:prompt}],temperature:0.2,stream:false})}).then(async r=>{const t=await r.text(); if(!r.ok){console.log(JSON.stringify({error:t,status:r.status})); return;} console.log(t);}).catch(e=>{console.log(JSON.stringify({error:e.message}));});\";\nreturn [{ json: { localAiCommand: 'node -e ' + JSON.stringify(script) + ' ' + Buffer.from(prompt).toString('base64') } }];\n"
+      }
     }
   ],
   "connections": {
@@ -591,18 +583,7 @@
       "main": [
         [
           {
-            "node": "Generate AI Lead Summary",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Generate AI Lead Summary": {
-      "main": [
-        [
-          {
-            "node": "Build Notifications + CRM Row",
+            "node": "Build Local AI Command",
             "type": "main",
             "index": 0
           }
@@ -661,6 +642,28 @@
     "Send Slack Lead Alert": {
       "main": [
         []
+      ]
+    },
+    "Build Local AI Command": {
+      "main": [
+        [
+          {
+            "node": "Run Local AI Lead Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run Local AI Lead Summary": {
+      "main": [
+        [
+          {
+            "node": "Build Notifications + CRM Row",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   },
