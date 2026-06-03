@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>GT Cafe Journal</title>
+    <link>https://thegtcafe.com</link>
+    <description>Coffee notes, garage morning rituals, gifting ideas, and road-ready releases from GT Cafe.</description>
+    <lastBuildDate>Sat, 30 May 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Build a Better Garage Morning</title>
+      <link>https://thegtcafe.com/#journal</link>
+      <description>A simple ritual for early starts: prep the route, warm the cup, and make the first mile feel intentional.</description>
+      <pubDate>Sat, 30 May 2026 12:00:00 GMT</pubDate>
+    </item>
+  </channel>
+</rss>
