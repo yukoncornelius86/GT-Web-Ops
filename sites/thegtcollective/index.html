@@ -2396,6 +2396,47 @@
     .blog-card { border-right: none; border-bottom: 1px solid rgba(244,237,220,0.14); }
     .blog-card:last-child { border-bottom: none; }
   }
+
+  @media (max-width: 520px) {
+    nav {
+      gap: 0.75rem;
+      padding: 1rem 1.25rem;
+    }
+
+    .nav-logo {
+      flex: 1 1 auto;
+      min-width: 0;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      line-height: 1.2;
+    }
+
+    .nav-cta {
+      flex: 0 0 auto;
+      padding: 0.6rem 0.85rem;
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      white-space: nowrap;
+    }
+
+    .hero-content {
+      max-width: 100%;
+    }
+
+    .hero-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      width: 100%;
+    }
+
+    .hero-actions .btn-primary,
+    .hero-actions .btn-ghost {
+      width: 100%;
+      padding: 1rem 1.15rem;
+      text-align: center;
+      white-space: normal;
+    }
+  }
 </style>
 </head>
 <body><a href="https://thegtcafe.com/cdn-cgi/content?id=aG4HCTC5XMULA49cDN.9WPW_OHTEiPVJEAsPcF2ZLVQ-1780449784.2178185-1.0.1.1-taZSCd8DOiZgC_Y.skGi8iQNMp2EpC4dxZm_AUO8ojU" aria-hidden="true" rel="nofollow noopener" style="display: none !important; visibility: hidden !important"></a>
@@ -2799,20 +2840,20 @@
       <div class="form-row">
         <div class="form-group">
           <label>First Name</label>
-          <input type="text" placeholder="Mike" />
+          <input type="text" id="msgFirst" placeholder="Mike" />
         </div>
         <div class="form-group">
           <label>Last Name</label>
-          <input type="text" placeholder="Zanni" />
+          <input type="text" id="msgLast" placeholder="Zanni" />
         </div>
       </div>
       <div class="form-group">
         <label>Email</label>
-        <input type="email" placeholder="you@example.com" />
+        <input type="email" id="msgEmail" placeholder="you@example.com" />
       </div>
       <div class="form-group">
         <label>I'm interested in</label>
-        <select>
+        <select id="msgService">
           <option value="">Select a service...</option>
           <option>Ceramic Coating</option>
           <option>Paint Correction</option>
@@ -2824,9 +2865,10 @@
       </div>
       <div class="form-group">
         <label>Message</label>
-        <textarea placeholder="Tell us about your vehicle and what you are looking for..."></textarea>
+        <textarea id="msgBody" placeholder="Tell us about your vehicle and what you are looking for..."></textarea>
       </div>
-      <button class="btn-primary" style="width:100%;text-align:center;border:none;" onclick="alert('Message sent. Mike will be in touch shortly.')">Send Message</button>
+      <button class="btn-primary" id="msgSubmitBtn" style="width:100%;text-align:center;border:none;" onclick="submitContact()">Send Message</button>
+      <div id="msgStatus" style="margin-top:1rem;font-size:0.85rem;color:var(--ash);"></div>
     </div>
   </div>
 </section>
@@ -2959,12 +3001,8 @@
     </div>
     <div class="success-msg" id="successMsg">
       <div class="success-icon">Done</div>
-      <div class="success-title">Booking Received</div>
-      <div style="font-family:var(--font-ui);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin:0.8rem 0 0.3rem;">Reference</div>
-      <div id="bookingRefDisplay" style="font-family:var(--font-display);font-size:1.4rem;color:var(--ivory);margin-bottom:1.2rem;">PENDING</div>
-      <div class="success-sub" style="color:var(--ash);margin-top:0.5rem;">Check your email for a confirmation and your secure Square payment link.<br/>A 25% deposit holds your date. Balance is due at service.<br/><br/><em style="font-family:var(--font-display);font-style:italic;color:var(--gold)">Life's a Grand Tour. Thanks for choosing us for the ride.</em></div>
-      <br/>
-      <a id="squarePayBtn" href="#" target="_blank" class="btn-primary" style="display:none;margin-top:1rem;">Pay Deposit Now</a>
+      <div class="success-title">Request Received</div>
+      <div class="success-sub" style="color:var(--ash);margin-top:0.8rem;">Thanks — we've received your request and emailed you a confirmation. Mike will personally follow up within 24 hours to confirm availability and details.<br/><br/>This is a request, not yet a confirmed appointment or final quote.<br/><br/><em style="font-family:var(--font-display);font-style:italic;color:var(--gold)">Life's a Grand Tour. Thanks for choosing us for the ride.</em></div>
       <br/>
       <button class="btn-ghost" onclick="closeModal()" style="margin-top:0.8rem;">Close</button>
     </div>
@@ -3044,9 +3082,8 @@
 
   renderBlogPosts();
 
-  // Booking integration settings. Update these before going live.
-  const N8N_WEBHOOK_URL = 'https://n8n.thegtcollective.com/webhook/gt-booking';
-  const N8N_SECRET     = 'YOUR_SECRET_TOKEN'; // match x-gt-token in n8n
+  // Booking + contact integration — posts to the n8n service-request intake workflow.
+  const N8N_WEBHOOK_URL = 'https://n8n.thegtcollective.com/webhook/service-request';
 
   async function submitBooking() {
     const first   = document.getElementById('bookFirst').value.trim();
@@ -3057,8 +3094,8 @@
     const date    = document.getElementById('bookDate').value;
     const notes   = document.getElementById('bookNotes').value.trim();
 
-    if (!first || !email || !selectedService) {
-      alert('Please fill in your name, email, and select a service.');
+    if (!first || !last || !email || !selectedService) {
+      alert('Please fill in your first and last name, email, and select a service.');
       return;
     }
 
@@ -3066,56 +3103,88 @@
     btn.textContent = 'Sending...';
     btn.disabled = true;
 
+    // Fold the preferred date and estimate into notes so the crew sees them.
+    const extra = [];
+    if (date) extra.push('Preferred date: ' + date);
+    if (selectedPrice) extra.push('Estimated starting at: $' + selectedPrice);
+    const fullNotes = [notes, extra.join(' | ')].filter(Boolean).join('\n');
+
     try {
       const res = await fetch(N8N_WEBHOOK_URL, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-gt-token': N8N_SECRET
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           first_name: first,
           last_name:  last,
-          email, phone, vehicle,
-          service:  selectedService,
-          price:    selectedPrice,
-          date,     notes
+          email,
+          phone,
+          vehicle,
+          requested_service: selectedService,
+          notes: fullNotes,
+          source_site: 'thegtcollective.com',
+          consent_to_contact: true
         })
       });
 
-      const data = await res.json();
+      if (!res.ok) throw new Error('Request failed: ' + res.status);
 
-      if (data.success) {
-        // Show booking ref
-        document.getElementById('bookingRefDisplay').textContent = data.booking_ref || 'PENDING';
-
-        // Wire up Square pay button if link returned
-        if (data.payment_url) {
-          const payBtn = document.getElementById('squarePayBtn');
-          payBtn.href = data.payment_url;
-          payBtn.style.display = 'inline-block';
-          // Auto-open Square in new tab after short delay
-          setTimeout(() => window.open(data.payment_url, '_blank'), 1800);
-        }
-
-        document.getElementById('modalFormContent').style.display = 'none';
-        document.getElementById('successMsg').style.display = 'block';
-
-      } else {
-        throw new Error(data.message || 'Unknown error');
-      }
-
-    } catch (err) {
-      console.error('Booking error:', err);
-      // Graceful fallback: show success anyway so customer is not stuck.
-      // Mike gets alerted manually if n8n is down
-      document.getElementById('bookingRefDisplay').textContent = 'PENDING';
       document.getElementById('modalFormContent').style.display = 'none';
       document.getElementById('successMsg').style.display = 'block';
-      // Log to console for debugging
-      console.warn('n8n webhook unreachable - booking submitted without confirmation. Check n8n.');
+    } catch (err) {
+      console.error('Booking submit failed:', err);
+      alert("Sorry — we couldn't submit your request right now. Please email crew@thegtcollective.com or call us and we'll take care of you.");
     } finally {
       btn.textContent = 'Confirm Booking';
+      btn.disabled = false;
+    }
+  }
+
+  async function submitContact() {
+    const first   = document.getElementById('msgFirst').value.trim();
+    const last    = document.getElementById('msgLast').value.trim();
+    const email   = document.getElementById('msgEmail').value.trim();
+    const service = document.getElementById('msgService').value;
+    const message = document.getElementById('msgBody').value.trim();
+    const status  = document.getElementById('msgStatus');
+    const btn     = document.getElementById('msgSubmitBtn');
+
+    if (!first || !last || !email || !message) {
+      status.style.color = 'var(--gold)';
+      status.textContent = 'Please add your first and last name, email, and a message.';
+      return;
+    }
+
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    status.textContent = '';
+
+    try {
+      const res = await fetch(N8N_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          first_name: first,
+          last_name:  last,
+          email,
+          requested_service: service || 'General Inquiry',
+          message,
+          source_site: 'thegtcollective.com',
+          consent_to_contact: true
+        })
+      });
+
+      if (!res.ok) throw new Error('Request failed: ' + res.status);
+
+      status.style.color = 'var(--gold)';
+      status.textContent = 'Message sent. Mike will be in touch shortly.';
+      ['msgFirst','msgLast','msgEmail','msgBody'].forEach(id => { document.getElementById(id).value = ''; });
+      document.getElementById('msgService').value = '';
+    } catch (err) {
+      console.error('Contact submit failed:', err);
+      status.style.color = 'var(--gold)';
+      status.textContent = "Couldn't send right now. Please email crew@thegtcollective.com.";
+    } finally {
+      btn.textContent = 'Send Message';
       btn.disabled = false;
     }
   }
@@ -3125,6 +3194,7 @@
   window.handleOverlayClick = handleOverlayClick;
   window.selectService = selectService;
   window.submitBooking = submitBooking;
+  window.submitContact = submitContact;
 
   // Escape key
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
