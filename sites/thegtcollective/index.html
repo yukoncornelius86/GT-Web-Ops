@@ -1778,7 +1778,7 @@
 
   .preservation-hero {
     display: grid;
-    grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+    grid-template-columns: minmax(0, 760px);
     gap: 5rem;
     align-items: center;
     margin-bottom: 5rem;
@@ -1790,32 +1790,6 @@
     line-height: 1.85;
     margin-top: 1.5rem;
     max-width: 680px;
-  }
-
-  .preservation-visual {
-    min-height: 430px;
-    border: 1px solid rgba(247,244,235,0.14);
-    background:
-      linear-gradient(180deg, rgba(8,8,8,0.18), rgba(8,8,8,0.82)),
-      url("assets/detailing-services.jpg") center / cover no-repeat,
-      #151515;
-    position: relative;
-    box-shadow: 0 28px 90px rgba(0,0,0,0.42);
-  }
-
-  .preservation-visual::after {
-    content: 'Preservation, not disguise';
-    position: absolute;
-    left: 1.4rem;
-    bottom: 1.4rem;
-    font-family: var(--font-ui);
-    font-size: 0.66rem;
-    font-weight: 700;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    color: var(--cream);
-    border-left: 3px solid var(--signal);
-    padding-left: 0.9rem;
   }
 
   .preservation-pricing {
@@ -1992,7 +1966,6 @@
     .preservation-pricing,
     .preservation-grid,
     .preservation-faq { grid-template-columns: 1fr; }
-    .preservation-visual { min-height: 320px; }
   }
 
   /* Quiet premium theme: remove distracting grids, circles, glows, and heavy shadows */
@@ -2039,8 +2012,7 @@
   .hero-horizon,
   .coffee-bg-accent,
   .founder::before,
-  .founder-portrait-frame::after,
-  .preservation-visual::after {
+  .founder-portrait-frame::after {
     display: none;
   }
 
@@ -2149,7 +2121,6 @@
     background: #171611;
   }
 
-  .preservation-visual,
   .founder-portrait-frame {
     box-shadow: none;
     border-color: rgba(244,237,220,0.14);
@@ -2567,7 +2538,6 @@
         <a href="#" class="btn-ghost" onclick="openModal('refresh'); return false;">Schedule a Preservation Inspection</a>
       </div>
     </div>
-    <div class="preservation-visual fade-up fade-up-d1"></div>
   </div>
 
   <div class="preservation-pricing fade-up">
