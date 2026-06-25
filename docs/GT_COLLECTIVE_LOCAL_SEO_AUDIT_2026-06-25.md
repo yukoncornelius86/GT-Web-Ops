@@ -136,6 +136,8 @@ Yahoo Local returned an `Auto Detailing in Leonardtown, MD` directory page and d
   - `paint-correction-leonardtown-md.html`
   - `dry-ice-cleaning-southern-maryland.html`
   - `undercarriage-preservation-leonardtown-md.html`
+- A dedicated paint-polishing page was added after the Google Maps gap was identified:
+  - `paint-polishing-st-marys-county-md.html`
 - `sites/thegtcollective/sitemap.xml` now points at GT Collective service URLs instead of `thegtcafe.com`.
 - `sites/thegtcollective/rss.xml` now describes GT Collective detailing content instead of GT Cafe.
 - Homepage visible NAP data now matches schema: `crew@thegtcollective.com` and `(856) 237-9881`.
