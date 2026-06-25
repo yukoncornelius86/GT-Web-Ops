@@ -1,15 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-    <title>GT Cafe Journal</title>
-    <link>https://thegtcafe.com</link>
-    <description>Coffee notes, garage morning rituals, gifting ideas, and road-ready releases from GT Cafe.</description>
-    <lastBuildDate>Sat, 30 May 2026 12:00:00 GMT</lastBuildDate>
+    <title>The GT Collective Journal</title>
+    <link>https://thegtcollective.com</link>
+    <description>Detailing education, ceramic coating guidance, paint correction notes, and preservation advice from The GT Collective in Leonardtown, MD.</description>
+    <lastBuildDate>Thu, 25 Jun 2026 19:45:00 GMT</lastBuildDate>
     <item>
-      <title>How to Build a Better Garage Morning</title>
-      <link>https://thegtcafe.com/#journal</link>
-      <description>A simple ritual for early starts: prep the route, warm the cup, and make the first mile feel intentional.</description>
-      <pubDate>Sat, 30 May 2026 12:00:00 GMT</pubDate>
+      <title>Is Ceramic Coating Worth It for Southern Maryland Drivers?</title>
+      <link>https://thegtcollective.com/ceramic-coating-leonardtown-md.html</link>
+      <description>When ceramic coating makes sense, why correction comes first, and how Leonardtown drivers should think about long-term paint protection.</description>
+      <pubDate>Thu, 25 Jun 2026 19:45:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Paint Correction vs Paint Polishing</title>
+      <link>https://thegtcollective.com/paint-correction-leonardtown-md.html</link>
+      <description>A plain-language guide to swirl marks, haze, water etching, machine polishing, and what can realistically improve.</description>
+      <pubDate>Thu, 25 Jun 2026 19:45:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Why Undercarriage Preservation Matters Here</title>
+      <link>https://thegtcollective.com/undercarriage-preservation-leonardtown-md.html</link>
+      <description>Road salt, coastal air, rural roads, and moisture all attack the underside first. Here is what lanolin preservation does and does not do.</description>
+      <pubDate>Thu, 25 Jun 2026 19:45:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
