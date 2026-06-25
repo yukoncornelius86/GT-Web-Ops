@@ -1,26 +1,29 @@
 window.BLOG_POSTS = [
   {
-    title: "How to Build a Better Garage Morning",
+    title: "Is Ceramic Coating Worth It for Southern Maryland Drivers?",
     excerpt:
-      "A simple ritual for early starts: prep the route, warm the cup, and make the first mile feel intentional.",
-    category: "Ritual",
-    date: "May 30, 2026",
-    url: "#journal"
+      "When ceramic coating makes sense, why correction comes first, and how Leonardtown drivers should think about long-term paint protection.",
+    category: "Ceramic Coating",
+    date: "June 25, 2026",
+    url: "ceramic-coating-leonardtown-md.html",
+    cta: "Read Ceramic Guide"
   },
   {
-    title: "Choosing the Right Coffee for a Weekend Route",
+    title: "Paint Correction vs Paint Polishing",
     excerpt:
-      "Comfort flavors, smooth finishes, and sampler logic for drives that start before the rest of the house wakes up.",
-    category: "Coffee",
-    date: "May 30, 2026",
-    url: "#journal"
+      "A plain-language guide to swirl marks, haze, water etching, machine polishing, and what can realistically improve.",
+    category: "Paint Correction",
+    date: "June 25, 2026",
+    url: "paint-correction-leonardtown-md.html",
+    cta: "Read Paint Guide"
   },
   {
-    title: "Cars and Coffee Gift Ideas That Actually Get Used",
+    title: "Why Undercarriage Preservation Matters Here",
     excerpt:
-      "Why coffee bundles work for club events, client gifts, and the people who already have enough keychains.",
-    category: "Gifting",
-    date: "May 30, 2026",
-    url: "#gifting"
+      "Road salt, coastal air, rural roads, and moisture all attack the underside first. Here is what lanolin preservation does and does not do.",
+    category: "Preservation",
+    date: "June 25, 2026",
+    url: "undercarriage-preservation-leonardtown-md.html",
+    cta: "Read Preservation Guide"
   }
 ];

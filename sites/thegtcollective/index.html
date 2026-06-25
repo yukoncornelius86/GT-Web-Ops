@@ -7,12 +7,13 @@
 <!-- ===============================================
      PRIMARY SEO
 =============================================== -->
-<title>Grand Tour Detailing | Ceramic Coating & Paint Correction  -  Leonardtown, MD</title>
-<meta name="description" content="Veteran-owned precision detailing studio in Leonardtown, MD. Ceramic coatings, paint correction, and dry ice cleaning - performed in a dedicated shop built for exacting work. Book your consultation." />
-<meta name="keywords" content="ceramic coating Leonardtown MD, paint correction Southern Maryland, dry ice cleaning car Maryland, precision auto detailing St Mary's County, ceramic coating St Mary's County, paint correction Calvert County, veteran owned detailing Maryland, Grand Tour Detailing" />
+<title>Ceramic Coating & Paint Correction | Leonardtown MD</title>
+<meta name="description" content="Leonardtown, MD detailing studio for ceramic coating, paint correction, paint polishing, dry ice cleaning, and undercarriage preservation." />
+<meta name="keywords" content="ceramic coating Leonardtown MD, paint correction Leonardtown MD, paint polishing Leonardtown MD, auto detailing Leonardtown MD, car detailer St Mary's County, ceramic coating St Mary's County, paint correction Lexington Park MD, dry ice cleaning Southern Maryland, veteran owned detailing Maryland, Grand Tour Detailing" />
 <meta name="author" content="Mike Zanni  -  The Grand Tour Collective" />
 <meta name="robots" content="index, follow" />
 <link rel="canonical" href="https://thegtcollective.com" />
+<link rel="alternate" type="application/rss+xml" title="The GT Collective Journal" href="https://thegtcollective.com/rss.xml" />
 
 <!-- ===============================================
      OPEN GRAPH (Facebook, iMessage, LinkedIn previews)
@@ -52,11 +53,11 @@
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "LocalBusiness",
+      "@type": ["LocalBusiness", "AutomotiveBusiness", "AutoWash"],
       "@id": "https://thegtcollective.com/#business",
       "name": "The Grand Tour Collective",
       "alternateName": "Grand Tour Detailing",
-      "description": "Veteran-owned precision detailing studio in Leonardtown, Southern Maryland. Specializing in ceramic coatings, paint correction, and dry ice cleaning - performed in a dedicated shop built for exacting work.",
+      "description": "Veteran-owned precision detailing studio in Leonardtown, Southern Maryland. Specializing in ceramic coating, paint correction, paint polishing, dry ice cleaning, and undercarriage preservation - performed in a dedicated shop built for exacting work.",
       "url": "https://thegtcollective.com",
       "telephone": "+18562379881",
       "email": "crew@thegtcollective.com",
@@ -84,7 +85,11 @@
         { "@type": "County", "name": "Calvert County" },
         { "@type": "City", "name": "Lexington Park" },
         { "@type": "City", "name": "California" },
+        { "@type": "City", "name": "Hollywood" },
+        { "@type": "City", "name": "Great Mills" },
         { "@type": "City", "name": "Mechanicsville" },
+        { "@type": "City", "name": "Lusby" },
+        { "@type": "City", "name": "Solomons" },
         { "@type": "City", "name": "Prince Frederick" }
       ],
       "openingHoursSpecification": [
@@ -121,7 +126,7 @@
             "itemOffered": {
               "@type": "Service",
               "name": "Paint Correction",
-              "description": "Multi-stage machine polishing to eliminate swirl marks, scratches, and oxidation. Performed under controlled shop conditions for precise, consistent results."
+              "description": "Multi-stage paint correction and machine polishing to reduce swirl marks, scratches, water etching, and oxidation. Performed under controlled shop conditions for precise, consistent results."
             },
             "priceSpecification": {
               "@type": "PriceSpecification",
@@ -164,7 +169,7 @@
       "@id": "https://thegtcollective.com/#website",
       "url": "https://thegtcollective.com",
       "name": "The Grand Tour Collective",
-      "description": "Precision detailing studio  -  ceramic coatings, paint correction, and dry ice cleaning in Leonardtown, Southern Maryland",
+      "description": "Precision detailing studio for ceramic coating, paint correction, paint polishing, dry ice cleaning, and undercarriage preservation in Leonardtown, Southern Maryland",
       "publisher": { "@id": "https://thegtcollective.com/#business" }
     },
     {
@@ -190,10 +195,18 @@
         },
         {
           "@type": "Question",
-          "name": "How much does ceramic coating cost in Southern Maryland?",
+          "name": "How much does ceramic coating cost in Leonardtown, MD?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Our ceramic coating packages start at $1,200 and include full paint correction before application. All work is performed in our controlled studio environment in Leonardtown, MD for precise, consistent results."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you offer paint polishing in Leonardtown, MD?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Paint polishing is part of our paint correction process. We inspect the paint, correct defects such as swirl marks and haze where appropriate, and finish the vehicle under controlled lighting in our Leonardtown studio."
           }
         },
         {
@@ -217,7 +230,7 @@
           "name": "Do you serve the Pax River and Lexington Park area?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. Our studio in Leonardtown serves all of Southern Maryland including Lexington Park, California MD, Mechanicsville, Prince Frederick, and the NAS Patuxent River corridor."
+            "text": "Yes. Our studio in Leonardtown serves St. Mary's County and Southern Maryland, including Lexington Park, California, Hollywood, Great Mills, Mechanicsville, Lusby, Solomons, and the NAS Patuxent River corridor."
           }
         }
       ]
@@ -760,17 +773,64 @@
   .tag-popular { background: rgba(74,159,212,0.15); color: var(--sky-light); border: 1px solid rgba(74,159,212,0.3); }
   .tag-flagship { background: rgba(245,200,66,0.12); color: var(--sun); border: 1px solid rgba(245,200,66,0.3); }
   .tag-value { background: rgba(168,221,233,0.1); color: var(--seafoam); border: 1px solid rgba(168,221,233,0.25); }
-  .service-learn {
-    display: inline-block;
-    margin-top: 1rem;
+
+  .service-link {
+    display: inline-flex;
+    width: fit-content;
+    margin-top: 1.4rem;
     font-family: var(--font-ui);
-    font-size: 0.62rem;
+    font-size: 0.68rem;
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--sun);
+    text-decoration: none;
   }
-  .service-learn:hover { color: var(--white-cap); }
+
+  .local-proof {
+    padding: 6rem 3rem;
+    background: #14130f;
+    border-top: 1px solid rgba(244,237,220,0.12);
+    border-bottom: 1px solid rgba(244,237,220,0.12);
+  }
+
+  .local-proof-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(320px, 1.05fr);
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .local-proof-copy {
+    color: rgba(247,244,235,0.74);
+    font-size: 1rem;
+    line-height: 1.85;
+    max-width: 680px;
+    margin-top: 1rem;
+  }
+
+  .local-proof-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    background: rgba(244,237,220,0.14);
+    border: 1px solid rgba(244,237,220,0.14);
+  }
+
+  .local-proof-list a,
+  .local-proof-list span {
+    background: #191813;
+    padding: 1.05rem 1.15rem;
+    color: var(--cream);
+    text-decoration: none;
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .local-proof-list a:hover { color: var(--sun); }
 
   /* Full-width book row */
   .book-banner {
@@ -2377,6 +2437,9 @@
     .blog-grid { grid-template-columns: 1fr; }
     .blog-card { border-right: none; border-bottom: 1px solid rgba(244,237,220,0.14); }
     .blog-card:last-child { border-bottom: none; }
+    .local-proof { padding: 5rem 1.5rem; }
+    .local-proof-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .local-proof-list { grid-template-columns: 1fr; }
   }
 
   @media (max-width: 520px) {
@@ -2421,7 +2484,7 @@
   }
 </style>
 </head>
-<body><a href="https://thegtcafe.com/cdn-cgi/content?id=aG4HCTC5XMULA49cDN.9WPW_OHTEiPVJEAsPcF2ZLVQ-1780449784.2178185-1.0.1.1-taZSCd8DOiZgC_Y.skGi8iQNMp2EpC4dxZm_AUO8ojU" aria-hidden="true" rel="nofollow noopener" style="display: none !important; visibility: hidden !important"></a>
+<body>
 
 <!-- NAV -->
 <nav id="mainNav">
@@ -2501,10 +2564,10 @@
     <div class="service-card fade-up fade-up-d1" onclick="openModal('paint')">
       <div class="service-number">01</div>
       <div class="service-name">Paint Correction</div>
-      <div class="service-desc">Multi-stage machine polishing under controlled lighting to eliminate swirl marks, scratches, water etching, and oxidation. We assess the paint before we touch it - every panel treated with purpose.</div>
+      <div class="service-desc">Multi-stage paint correction and machine polishing under controlled lighting to reduce swirl marks, scratches, water etching, haze, and oxidation. We assess the paint before we touch it - every panel treated with purpose.</div>
       <div class="service-price">From $600</div>
       <div class="service-tag tag-popular">Most Requested</div>
-      <a class="service-learn" href="paint-correction-leonardtown-md.html" onclick="event.stopPropagation();">Learn More</a>
+      <a class="service-link" href="paint-correction-leonardtown-md.html" onclick="event.stopPropagation();">Learn More</a>
     </div>
     <div class="service-card fade-up fade-up-d2" onclick="openModal('ceramic')">
       <div class="service-number">02</div>
@@ -2512,7 +2575,7 @@
       <div class="service-desc">Our flagship service. Full paint correction is performed first - always - followed by professional-grade ceramic coating. Multi-year protection, hydrophobic finish, and depth that stock paint never had. Done right or not at all.</div>
       <div class="service-price">From $1,200</div>
       <div class="service-tag tag-flagship">Flagship</div>
-      <a class="service-learn" href="ceramic-coating-leonardtown-md.html" onclick="event.stopPropagation();">Learn More</a>
+      <a class="service-link" href="ceramic-coating-leonardtown-md.html" onclick="event.stopPropagation();">Learn More</a>
     </div>
     <div class="service-card fade-up fade-up-d3" onclick="openModal('dryice')">
       <div class="service-number">03</div>
@@ -2520,7 +2583,7 @@
       <div class="service-desc">Pressurized CO2 blasting removes grease, grime, and decades of buildup from engine bays, undercarriages, door jambs, and cavities - no chemicals, no moisture, no residue. One of the only studios in Southern Maryland offering this service.</div>
       <div class="service-price">By Consultation</div>
       <div class="service-tag tag-value">Rare in Southern MD</div>
-      <a class="service-learn" href="dry-ice-cleaning-southern-maryland.html" onclick="event.stopPropagation();">Learn More</a>
+      <a class="service-link" href="dry-ice-cleaning-southern-maryland.html" onclick="event.stopPropagation();">Learn More</a>
     </div>
     <div class="service-card fade-up fade-up-d3" onclick="openModal('undercarriage')">
       <div class="service-number">04</div>
@@ -2528,7 +2591,7 @@
       <div class="service-desc">Lanolin-based undercarriage protection for drivers who want to preserve what they drive. A careful, transparent flat-rate service designed to help reduce corrosion exposure before it quietly takes hold.</div>
       <div class="service-price">$549 <span>Flat Rate</span></div>
       <div class="service-tag tag-flagship">Preservation</div>
-      <a class="service-learn" href="undercarriage-preservation-leonardtown-md.html" onclick="event.stopPropagation();">Learn More</a>
+      <a class="service-link" href="undercarriage-preservation-leonardtown-md.html" onclick="event.stopPropagation();">Learn More</a>
     </div>
   </div>
   <div class="book-banner fade-up">
@@ -2537,6 +2600,32 @@
       <div class="book-banner-sub">We assess your vehicle, explain exactly what's needed, and give you an honest quote - no upsells, no pressure.</div>
     </div>
     <a href="#" class="btn-primary" onclick="openModal(); return false;">Book a Consultation</a>
+  </div>
+</section>
+
+<!-- LOCAL SEARCH SIGNALS -->
+<section class="local-proof" id="service-area">
+  <div class="local-proof-grid">
+    <div class="fade-up">
+      <div class="section-label">Ceramic Coating & Paint Polishing Near Leonardtown</div>
+      <h2 class="section-h2">Built for Southern Maryland drivers who want the work done carefully.</h2>
+      <p class="local-proof-copy">The GT Collective is a Leonardtown detailing studio serving customers who are searching for ceramic coating, paint correction, paint polishing, and careful automotive detailing near St. Mary's County. Vehicles come in from the Pax River corridor, Lexington Park, California, Hollywood, Great Mills, Mechanicsville, Lusby, Solomons, and nearby Southern Maryland communities.</p>
+      <p class="local-proof-copy">Every correction or coating job starts with an inspection. We explain what the paint actually needs, what can realistically improve, and which service makes sense before any work begins.</p>
+    </div>
+    <div class="local-proof-list fade-up fade-up-d1" aria-label="GT Collective service pages and service area">
+      <a href="ceramic-coating-leonardtown-md.html">Ceramic Coating</a>
+      <a href="paint-correction-leonardtown-md.html">Paint Correction</a>
+      <a href="dry-ice-cleaning-southern-maryland.html">Dry Ice Cleaning</a>
+      <a href="undercarriage-preservation-leonardtown-md.html">Undercarriage Preservation</a>
+      <span>Leonardtown</span>
+      <span>St. Mary's County</span>
+      <span>Lexington Park</span>
+      <span>California, MD</span>
+      <span>Hollywood</span>
+      <span>Great Mills</span>
+      <span>Mechanicsville</span>
+      <span>Southern Maryland</span>
+    </div>
   </div>
 </section>
 
@@ -2772,7 +2861,7 @@
       <div class="section-label">Journal</div>
       <h2 class="section-h2">Notes from<br/><em>the Road</em></h2>
     </div>
-    <p class="services-intro">Preservation notes, detailing education, GT Cafe updates, and the small rituals that make ownership better.</p>
+    <p class="services-intro">Preservation notes, detailing education, paint correction guidance, and ceramic coating answers for Southern Maryland drivers.</p>
   </div>
   <div class="blog-grid fade-up" id="blogGrid">
     <div class="blog-card">
@@ -2794,21 +2883,21 @@
         <div class="contact-icon">LOC</div>
         <div>
           <div class="contact-detail-label">Location</div>
-          <div class="contact-detail-val">Leonardtown, MD - Southern Maryland</div>
+          <div class="contact-detail-val">Leonardtown, MD - Southern Maryland - Mobile service available by request</div>
         </div>
       </div>
       <div class="contact-detail">
         <div class="contact-icon">TEL</div>
         <div>
           <div class="contact-detail-label">Phone</div>
-          <div class="contact-detail-val"><a href="tel:+18562379881" style="color:inherit;text-decoration:none">(856) 237-9881</a></div>
+          <div class="contact-detail-val"><a href="tel:+18562379881">(856) 237-9881</a></div>
         </div>
       </div>
       <div class="contact-detail">
         <div class="contact-icon">MAIL</div>
         <div>
           <div class="contact-detail-label">Email</div>
-          <div class="contact-detail-val"><a href="mailto:crew@thegtcollective.com" style="color:inherit;text-decoration:none">crew@thegtcollective.com</a></div>
+          <div class="contact-detail-val"><a href="mailto:crew@thegtcollective.com">crew@thegtcollective.com</a></div>
         </div>
       </div>
       <div class="contact-detail">
@@ -2825,11 +2914,11 @@
       <div class="form-row">
         <div class="form-group">
           <label>First Name</label>
-          <input type="text" id="msgFirst" placeholder="First name" />
+          <input type="text" id="msgFirst" placeholder="Mike" />
         </div>
         <div class="form-group">
           <label>Last Name</label>
-          <input type="text" id="msgLast" placeholder="Last name" />
+          <input type="text" id="msgLast" placeholder="Zanni" />
         </div>
       </div>
       <div class="form-group">
@@ -2870,7 +2959,6 @@
       <ul class="footer-links">
         <li><a href="ceramic-coating-leonardtown-md.html">Ceramic Coating</a></li>
         <li><a href="paint-correction-leonardtown-md.html">Paint Correction</a></li>
-        <li><a href="dry-ice-cleaning-southern-maryland.html">Dry Ice Cleaning</a></li>
         <li><a href="undercarriage-preservation-leonardtown-md.html">GT Undercarriage Preservation</a></li>
         <li><a href="#undercarriage">Two-Year Refresh Treatment</a></li>
       </ul>
@@ -2955,7 +3043,7 @@
         <div class="form-row">
           <div class="form-group">
             <label>Phone</label>
-            <input type="tel" id="bookPhone" placeholder="(301) 000-0000" />
+            <input type="tel" id="bookPhone" placeholder="(856) 237-9881" />
           </div>
           <div class="form-group">
             <label>Email</label>
@@ -3053,7 +3141,7 @@
 
   function renderBlogPosts() {
     const grid = document.getElementById('blogGrid');
-    const posts = window.GT_BLOG_POSTS || [];
+    const posts = window.GT_BLOG_POSTS || window.BLOG_POSTS || [];
     if (!grid || !posts.length) return;
 
     grid.innerHTML = posts.slice(0, 3).map(post => `
@@ -3188,9 +3276,3 @@
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a05ae3ef5ec42959',t:'MTc4MDQ0OTc4NA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"febc23d4bb064fe3892d2d38e75743ed","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
-
-
-
-
-
-
