@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GT Hub | The Grand Tour Collective</title>
+    <meta name="robots" content="noindex,nofollow">
+    <style>
+      :root {
+        --ink: #11100e;
+        --panel: #1c1a16;
+        --paper: #f5efe2;
+        --muted: #a99d8c;
+        --gold: #c99b4d;
+        --line: rgba(245, 239, 226, 0.14);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        color: var(--paper);
+        background: var(--ink);
+        font-family: "Inter", "Segoe UI", Arial, sans-serif;
+      }
+
+      a { color: inherit; }
+
+      header {
+        padding: 34px clamp(18px, 5vw, 64px);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .eyebrow {
+        margin: 0 0 12px;
+        color: var(--gold);
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 860px;
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(42px, 7vw, 78px);
+        line-height: 0.98;
+      }
+
+      .lead {
+        max-width: 760px;
+        margin: 18px 0 0;
+        color: rgba(245, 239, 226, 0.78);
+        font-size: 18px;
+        line-height: 1.6;
+      }
+
+      main {
+        width: min(1120px, calc(100% - 36px));
+        margin: 0 auto;
+        padding: clamp(42px, 6vw, 74px) 0;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .card {
+        min-height: 280px;
+        padding: 26px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+      }
+
+      .card h2 {
+        margin: 0 0 12px;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 30px;
+      }
+
+      .card p {
+        margin: 0 0 20px;
+        color: rgba(245, 239, 226, 0.74);
+        line-height: 1.55;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: auto;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 42px;
+        padding: 0 14px;
+        border: 1px solid var(--gold);
+        border-radius: 8px;
+        background: var(--gold);
+        color: var(--ink);
+        font-size: 13px;
+        font-weight: 900;
+        letter-spacing: 0.04em;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+
+      .button.secondary {
+        background: transparent;
+        color: var(--paper);
+      }
+
+      .note {
+        margin-top: 20px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      @media (max-width: 780px) {
+        .grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <p class="eyebrow">GT Hub</p>
+      <h1>Publishing and site operations.</h1>
+      <p class="lead">Use Blog Studio to draft, edit, preview, and export articles. Choose the post destination before publishing: The GT Collective Blog or the GT Cafe Journal.</p>
+    </header>
+    <main>
+      <section class="grid" aria-label="Blog publishing destinations">
+        <article class="card">
+          <p class="eyebrow">Detailing site</p>
+          <h2>The GT Collective Blog</h2>
+          <p>Use this for detailing, ceramic coating, paint correction, dry ice cleaning, preservation, customer education, and Southern Maryland service content.</p>
+          <div class="actions">
+            <a class="button" href="https://blogstudio.thegtcollective.com/editor?target_site=thegtcollective">Write for GT Collective</a>
+            <a class="button secondary" href="https://thegtcollective.com/#blog">View Blog</a>
+          </div>
+        </article>
+        <article class="card">
+          <p class="eyebrow">Coffee site</p>
+          <h2>GT Cafe Journal</h2>
+          <p>Use this for coffee releases, garage morning rituals, route notes, cars-and-coffee gifting, subscriptions, events, and GT Cafe brand stories.</p>
+          <div class="actions">
+            <a class="button" href="https://blogstudio.thegtcollective.com/editor?target_site=thegtcafe">Write for Cafe Journal</a>
+            <a class="button secondary" href="https://thegtcafe.com/#journal">View Journal</a>
+          </div>
+        </article>
+      </section>
+      <p class="note">Set the post status to published, then export the selected site from Blog Studio. GT Cafe publishes to Cloudflare Pages; GT Collective publishes through the GitHub Pages workflow.</p>
+    </main>
+  </body>
+</html>

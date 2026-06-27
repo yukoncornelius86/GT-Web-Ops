@@ -1,1 +1,997 @@
-<!doctype html><html><body><h1>The GT Cafe</h1><a href='/#contact'>Request a Vehicle Evaluation</a><p>All detailing/preservation requests are reviewed before estimate/invoice.</p><section id='journal'></section><script src='/blog-posts.js'></script></body></html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GT Cafe | Coffee for the Miles Before the Miles</title>
+    <meta
+      name="description"
+      content="GT Cafe is a coffee brand built for garage mornings, weekend routes, cars-and-coffee events, gifts, and the rituals around the drive."
+    >
+    <meta name="theme-color" content="#10100e">
+    <link rel="canonical" href="https://thegtcafe.com/">
+    <style>
+      :root {
+        --ink: #11100e;
+        --night: #191713;
+        --road: #27251f;
+        --paper: #f5efe2;
+        --cream: #fff9ec;
+        --brass: #c99b4d;
+        --brass-dark: #8d6428;
+        --petrol: #4b6f63;
+        --clay: #b4573f;
+        --muted: #a99d8c;
+        --line: rgba(245, 239, 226, 0.18);
+        --shadow: 0 28px 70px rgba(0, 0, 0, 0.32);
+        --radius: 8px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        color: var(--paper);
+        background: var(--ink);
+        font-family: "Inter", "Segoe UI", Arial, sans-serif;
+        line-height: 1.5;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        padding: 14px clamp(18px, 4vw, 56px);
+        background: rgba(17, 16, 14, 0.88);
+        border-bottom: 1px solid rgba(245, 239, 226, 0.12);
+        backdrop-filter: blur(18px);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .brand-mark {
+        display: grid;
+        width: 42px;
+        height: 42px;
+        place-items: center;
+        color: var(--ink);
+        background: var(--brass);
+        border-radius: 50%;
+        font-family: Georgia, serif;
+        font-size: 16px;
+        letter-spacing: 0;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: clamp(12px, 2vw, 28px);
+        color: rgba(245, 239, 226, 0.78);
+        font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+
+      .nav a:hover {
+        color: var(--cream);
+      }
+
+      .nav-cta,
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        padding: 0 18px;
+        border: 1px solid var(--brass);
+        border-radius: var(--radius);
+        background: var(--brass);
+        color: var(--ink);
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        box-shadow: 0 12px 34px rgba(201, 155, 77, 0.18);
+      }
+
+      .button.secondary {
+        background: transparent;
+        color: var(--paper);
+        box-shadow: none;
+      }
+
+      .hero {
+        position: relative;
+        min-height: calc(100vh - 72px);
+        display: grid;
+        align-items: end;
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      .hero::before {
+        position: absolute;
+        inset: 0;
+        z-index: -2;
+        content: "";
+        background:
+          linear-gradient(90deg, rgba(17, 16, 14, 0.92) 0%, rgba(17, 16, 14, 0.68) 44%, rgba(17, 16, 14, 0.28) 100%),
+          linear-gradient(0deg, rgba(17, 16, 14, 1) 0%, rgba(17, 16, 14, 0.2) 42%),
+          url("https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=2200&q=82");
+        background-position: center;
+        background-size: cover;
+        filter: saturate(0.9) contrast(1.06);
+      }
+
+      .hero::after {
+        position: absolute;
+        left: clamp(18px, 5vw, 72px);
+        right: clamp(18px, 5vw, 72px);
+        bottom: 26px;
+        height: 1px;
+        content: "";
+        background: linear-gradient(90deg, transparent, rgba(245, 239, 226, 0.45), transparent);
+      }
+
+      .hero-inner {
+        width: min(1160px, calc(100% - 36px));
+        margin: 0 auto;
+        padding: 92px 0 92px;
+      }
+
+      .eyebrow {
+        margin: 0 0 18px;
+        color: var(--brass);
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        max-width: 820px;
+        margin-bottom: 20px;
+        color: var(--cream);
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(48px, 8vw, 104px);
+        line-height: 0.94;
+        font-weight: 700;
+      }
+
+      .hero-copy {
+        max-width: 620px;
+        color: rgba(245, 239, 226, 0.84);
+        font-size: clamp(18px, 2vw, 22px);
+      }
+
+      .hero-actions,
+      .section-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 30px;
+      }
+
+      .hero-stats {
+        display: grid;
+        max-width: 860px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1px;
+        margin-top: 54px;
+        background: rgba(245, 239, 226, 0.14);
+        border: 1px solid rgba(245, 239, 226, 0.14);
+      }
+
+      .hero-stat {
+        min-height: 104px;
+        padding: 18px;
+        background: rgba(17, 16, 14, 0.74);
+      }
+
+      .hero-stat strong {
+        display: block;
+        color: var(--cream);
+        font-size: 22px;
+      }
+
+      .hero-stat span {
+        color: var(--muted);
+        font-size: 13px;
+        text-transform: uppercase;
+      }
+
+      section {
+        padding: clamp(72px, 9vw, 128px) clamp(18px, 4vw, 56px);
+      }
+
+      .section-inner {
+        width: min(1160px, 100%);
+        margin: 0 auto;
+      }
+
+      .section-head {
+        display: grid;
+        grid-template-columns: minmax(0, 0.85fr) minmax(260px, 0.55fr);
+        gap: 42px;
+        align-items: end;
+        margin-bottom: 36px;
+      }
+
+      h2 {
+        color: var(--cream);
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(34px, 5vw, 64px);
+        line-height: 1;
+      }
+
+      .section-head p,
+      .lead {
+        color: rgba(245, 239, 226, 0.76);
+        font-size: 18px;
+      }
+
+      .products {
+        background: var(--night);
+      }
+
+      .product-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .product-card {
+        display: flex;
+        min-height: 430px;
+        flex-direction: column;
+        overflow: hidden;
+        border: 1px solid rgba(245, 239, 226, 0.14);
+        border-radius: var(--radius);
+        background: #211f1a;
+      }
+
+      .product-card:first-child {
+        grid-column: span 2;
+      }
+
+      .product-media {
+        min-height: 178px;
+        background-position: center;
+        background-size: cover;
+      }
+
+      .warm { background-image: url("https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=900&q=80"); }
+      .ivory { background-image: url("https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=900&q=80"); }
+      .apex { background-image: url("https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=900&q=80"); }
+      .golden { background-image: url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=80"); }
+      .sampler { background-image: url("https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=1200&q=82"); }
+
+      .product-body {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        padding: 22px;
+      }
+
+      .flavor {
+        color: var(--brass);
+        font-size: 12px;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .product-card h3 {
+        margin: 7px 0 8px;
+        color: var(--cream);
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 26px;
+        line-height: 1.05;
+      }
+
+      .tags {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .product-card p {
+        margin: 16px 0 22px;
+        color: rgba(245, 239, 226, 0.76);
+      }
+
+      .price-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        margin-top: auto;
+      }
+
+      .price {
+        color: var(--cream);
+        font-size: 22px;
+        font-weight: 900;
+      }
+
+      .mini-button {
+        padding: 10px 12px;
+        border: 1px solid rgba(201, 155, 77, 0.72);
+        border-radius: var(--radius);
+        color: var(--brass);
+        font-size: 12px;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .feature {
+        background: var(--paper);
+        color: var(--ink);
+      }
+
+      .feature h2,
+      .feature h3 {
+        color: var(--ink);
+      }
+
+      .feature .eyebrow {
+        color: var(--brass-dark);
+      }
+
+      .ritual-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+        align-items: stretch;
+      }
+
+      .ritual-photo {
+        min-height: 520px;
+        border-radius: var(--radius);
+        background:
+          linear-gradient(0deg, rgba(17, 16, 14, 0.18), rgba(17, 16, 14, 0.18)),
+          url("https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&w=1400&q=84");
+        background-position: center;
+        background-size: cover;
+        box-shadow: var(--shadow);
+      }
+
+      .ritual-list {
+        display: grid;
+        gap: 1px;
+        background: rgba(17, 16, 14, 0.12);
+        border: 1px solid rgba(17, 16, 14, 0.12);
+      }
+
+      .ritual-item {
+        padding: clamp(22px, 4vw, 36px);
+        background: #fff8ea;
+      }
+
+      .ritual-item b {
+        color: var(--clay);
+        font-size: 13px;
+        text-transform: uppercase;
+      }
+
+      .ritual-item h3 {
+        margin: 8px 0;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 30px;
+      }
+
+      .ritual-item p {
+        margin-bottom: 0;
+        color: #5c5042;
+      }
+
+      .proof {
+        background: #141411;
+      }
+
+      .proof-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .proof-item {
+        padding: 28px;
+        border: 1px solid rgba(245, 239, 226, 0.14);
+        border-radius: var(--radius);
+        background: #1d1b17;
+      }
+
+      .proof-item span {
+        color: var(--petrol);
+        font-size: 13px;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .proof-item h3 {
+        margin: 10px 0;
+        color: var(--cream);
+        font-size: 24px;
+      }
+
+      .proof-item p {
+        margin-bottom: 0;
+        color: rgba(245, 239, 226, 0.72);
+      }
+
+      .gifting {
+        background:
+          linear-gradient(90deg, rgba(17, 16, 14, 0.9), rgba(17, 16, 14, 0.5)),
+          url("https://images.unsplash.com/photo-1521302080334-4bebac2763a6?auto=format&fit=crop&w=2000&q=82");
+        background-attachment: fixed;
+        background-position: center;
+        background-size: cover;
+      }
+
+      .split {
+        display: grid;
+        grid-template-columns: minmax(0, 0.8fr) minmax(280px, 0.55fr);
+        gap: 40px;
+        align-items: center;
+      }
+
+      .offer-list {
+        display: grid;
+        gap: 12px;
+        margin: 24px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .offer-list li {
+        padding: 14px 0;
+        border-bottom: 1px solid rgba(245, 239, 226, 0.2);
+        color: rgba(245, 239, 226, 0.84);
+      }
+
+      .journal {
+        background: var(--night);
+      }
+
+      .journal-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .journal-card {
+        min-height: 230px;
+        padding: 26px;
+        border: 1px solid rgba(245, 239, 226, 0.14);
+        border-radius: var(--radius);
+        background: #211f1a;
+      }
+
+      .journal-card .meta {
+        color: var(--brass);
+        font-size: 12px;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .journal-card h3 {
+        margin: 12px 0;
+        color: var(--cream);
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 25px;
+        line-height: 1.08;
+      }
+
+      .journal-card p {
+        color: rgba(245, 239, 226, 0.72);
+      }
+
+      .contact {
+        background: var(--paper);
+        color: var(--ink);
+      }
+
+      .contact h2 {
+        color: var(--ink);
+      }
+
+      .contact-panel {
+        display: grid;
+        grid-template-columns: 0.8fr 1fr;
+        gap: 28px;
+        align-items: start;
+      }
+
+      .contact-list {
+        display: grid;
+        gap: 14px;
+      }
+
+      .contact-line {
+        padding-bottom: 14px;
+        border-bottom: 1px solid rgba(17, 16, 14, 0.16);
+      }
+
+      .contact-line strong {
+        display: block;
+        color: var(--brass-dark);
+        font-size: 12px;
+        text-transform: uppercase;
+      }
+
+      form {
+        display: grid;
+        gap: 12px;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        min-height: 48px;
+        padding: 13px 14px;
+        border: 1px solid rgba(17, 16, 14, 0.2);
+        border-radius: var(--radius);
+        background: #fffaf0;
+        color: var(--ink);
+        font: inherit;
+      }
+
+      textarea {
+        min-height: 130px;
+        resize: vertical;
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .submit {
+        justify-self: start;
+        cursor: pointer;
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      footer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 18px;
+        padding: 28px clamp(18px, 4vw, 56px);
+        border-top: 1px solid rgba(245, 239, 226, 0.12);
+        color: rgba(245, 239, 226, 0.7);
+        background: #0d0c0b;
+        font-size: 14px;
+      }
+
+      @media (max-width: 980px) {
+        .nav a:not(.nav-cta) {
+          display: none;
+        }
+
+        .section-head,
+        .split,
+        .contact-panel,
+        .ritual-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .product-grid,
+        .proof-grid,
+        .journal-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .ritual-photo {
+          min-height: 360px;
+        }
+      }
+
+      @media (max-width: 680px) {
+        .topbar {
+          gap: 12px;
+        }
+
+        .brand span {
+          display: none;
+        }
+
+        .nav-cta {
+          min-height: 40px;
+          padding: 0 12px;
+          font-size: 12px;
+        }
+
+        .hero {
+          min-height: 780px;
+        }
+
+        .hero-stats,
+        .product-grid,
+        .proof-grid,
+        .journal-grid,
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-inner {
+          padding-top: 70px;
+        }
+
+        .product-card {
+          min-height: auto;
+        }
+
+        .product-card:first-child {
+          grid-column: span 1;
+        }
+
+        .gifting {
+          background-attachment: scroll;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="GT Cafe home">
+        <span class="brand-mark">GT</span>
+        <span>GT Cafe</span>
+      </a>
+      <nav class="nav">
+        <a href="#coffee">Coffee</a>
+        <a href="#ritual">Ritual</a>
+        <a href="#gifting">Gifting</a>
+        <a href="#journal">Journal</a>
+        <a href="#contact">Contact</a>
+        <a class="nav-cta" href="#coffee">Shop Coffee</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-label="GT Cafe introduction">
+        <div class="hero-inner">
+          <p class="eyebrow">Small-batch coffee for garage mornings</p>
+          <h1>Coffee for the miles before the miles.</h1>
+          <p class="hero-copy">
+            GT Cafe is built for the rituals around the drive: the quiet garage morning, the first warm cup before the road opens up, and the reset after the work is done.
+          </p>
+          <div class="hero-actions">
+            <a class="button" href="#coffee">Shop the Sampler</a>
+            <a class="button secondary" href="#ritual">Build Your Route</a>
+          </div>
+          <div class="hero-stats" aria-label="GT Cafe highlights">
+            <div class="hero-stat">
+              <strong>4</strong>
+              <span>Core flavored coffees</span>
+            </div>
+            <div class="hero-stat">
+              <strong>12 oz</strong>
+              <span>Road-ready bags</span>
+            </div>
+            <div class="hero-stat">
+              <strong>Fresh</strong>
+              <span>Roasted in small batches</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="products" id="coffee">
+        <div class="section-inner">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">The starting grid</p>
+              <h2>Pick the coffee that fits the route.</h2>
+            </div>
+            <p>
+              Start with the sampler or choose a 12 oz bag. Each profile is built around a real moment: first start, quiet road, garage craft, or golden-hour miles.
+            </p>
+          </div>
+
+          <div class="product-grid">
+            <article class="product-card">
+              <div class="product-media sampler" role="img" aria-label="Coffee sampler and roasted beans"></div>
+              <div class="product-body">
+                <span class="flavor">Sampler</span>
+                <h3>The Grand Tour Sampler</h3>
+                <span class="tags">All four coffees</span>
+                <p>Warm-Up Lap, Ivory Overdrive, Apex Hazelnut Spice, and Golden Hour Grand Touring in one first-drive bundle.</p>
+                <div class="price-row">
+                  <span class="price">$79.95</span>
+                  <a class="mini-button" href="#contact">Reserve</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <div class="product-media warm" role="img" aria-label="Warm coffee in a cup"></div>
+              <div class="product-body">
+                <span class="flavor">Cinnabun</span>
+                <h3>Warm-Up Lap</h3>
+                <span class="tags">Comfort / First start</span>
+                <p>Warm cinnamon-bun comfort for early starts, garage mornings, and the first drive of the day.</p>
+                <div class="price-row">
+                  <span class="price">$22.95</span>
+                  <a class="mini-button" href="#contact">Shop</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <div class="product-media ivory" role="img" aria-label="Vanilla coffee drink"></div>
+              <div class="product-body">
+                <span class="flavor">French vanilla</span>
+                <h3>Ivory Overdrive</h3>
+                <span class="tags">Smooth / Road calm</span>
+                <p>Smooth French vanilla with a creamy finish built for a quiet cabin and an open route.</p>
+                <div class="price-row">
+                  <span class="price">$22.95</span>
+                  <a class="mini-button" href="#contact">Shop</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <div class="product-media apex" role="img" aria-label="Roasted coffee beans"></div>
+              <div class="product-body">
+                <span class="flavor">Cinnamon hazelnut</span>
+                <h3>Apex Hazelnut Spice</h3>
+                <span class="tags">Toasted / Garage craft</span>
+                <p>Toasted hazelnut and cinnamon warmth with a smooth finish and a performance-inspired edge.</p>
+                <div class="price-row">
+                  <span class="price">$22.95</span>
+                  <a class="mini-button" href="#contact">Shop</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <div class="product-media golden" role="img" aria-label="Coffee poured in warm light"></div>
+              <div class="product-body">
+                <span class="flavor">Caramel</span>
+                <h3>Golden Hour Grand Touring</h3>
+                <span class="tags">Rich / Sunset miles</span>
+                <p>Rich caramel warmth inspired by long-road comfort, late light, and the last stretch home.</p>
+                <div class="price-row">
+                  <span class="price">$22.95</span>
+                  <a class="mini-button" href="#contact">Shop</a>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="feature" id="ritual">
+        <div class="section-inner">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Ritual, not routine</p>
+              <h2>Built around the moments enthusiasts actually keep.</h2>
+            </div>
+            <p>
+              Made for garage mornings, weekend routes, cars-and-coffee tables, and gifts that feel right at home beside the keys.
+            </p>
+          </div>
+          <div class="ritual-grid">
+            <div class="ritual-photo" role="img" aria-label="Coffee prepared on a workbench"></div>
+            <div class="ritual-list">
+              <article class="ritual-item">
+                <b>01 / Garage morning</b>
+                <h3>Before the first start.</h3>
+                <p>For the quiet hour when the lights come on, the route gets checked, and the day starts with intent.</p>
+              </article>
+              <article class="ritual-item">
+                <b>02 / Weekend route</b>
+                <h3>Fuel for the slow build.</h3>
+                <p>Approachable flavors made for the drive, not a lecture about extraction theory.</p>
+              </article>
+              <article class="ritual-item">
+                <b>03 / Event table</b>
+                <h3>A better cars-and-coffee gift.</h3>
+                <p>Sampler boxes and bulk orders for clubs, client gifts, event tables, and holiday drops.</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="proof">
+        <div class="section-inner">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Roasted with discipline</p>
+              <h2>The craft stays behind the cup.</h2>
+            </div>
+            <p>
+              Fresh coffee, clear flavors, and a composed finish. Everything else stays quiet so the ritual can take the lead.
+            </p>
+          </div>
+          <div class="proof-grid">
+            <article class="proof-item">
+              <span>Freshness</span>
+              <h3>Small-batch roasted</h3>
+              <p>Roasted in careful batches so each bag arrives ready for the first cup, the workbench, or the road ahead.</p>
+            </article>
+            <article class="proof-item">
+              <span>Quality</span>
+              <h3>Clean, confident flavor</h3>
+              <p>Built around approachable profiles, balanced roasts, and the kind of finish that makes a second cup easy.</p>
+            </article>
+            <article class="proof-item">
+              <span>Trust</span>
+              <h3>Under The Grand Tour Collective</h3>
+              <p>GT Cafe is part of The Grand Tour Collective, a veteran-founded and family-run small business built on detail, care, and clear expectations.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="gifting" id="gifting">
+        <div class="section-inner split">
+          <div>
+            <p class="eyebrow">Subscriptions / gifting / events</p>
+            <h2>Keep the route stocked.</h2>
+            <p class="lead">
+              Keep the garage stocked with monthly coffee, seasonal drops, club bundles, and gifts that feel useful instead of disposable.
+            </p>
+            <div class="section-actions">
+              <a class="button" href="#contact">Start an Order</a>
+              <a class="button secondary" href="#journal">Read the Journal</a>
+            </div>
+          </div>
+          <ul class="offer-list">
+            <li>Subscribe and save on recurring 12 oz bags.</li>
+            <li>Build sampler bundles for first-time buyers and gifts.</li>
+            <li>Create 24+ bag event orders for clubs and client tables.</li>
+            <li>Launch limited seasonal drops around driving weather and holidays.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="journal" id="journal">
+        <div class="section-inner">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Journal</p>
+              <h2>Notes from the garage.</h2>
+            </div>
+            <p>
+              Short, useful writing for coffee releases, event gift ideas, brew rituals, and the small habits that make ownership feel better.
+            </p>
+          </div>
+          <div class="journal-grid" id="journal-posts" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="contact" id="contact">
+        <div class="section-inner contact-panel">
+          <div>
+            <p class="eyebrow">Contact GT Cafe</p>
+            <h2>Shop, subscribe, or build a coffee order around your next route.</h2>
+            <div class="contact-list">
+              <div class="contact-line">
+                <strong>Email</strong>
+                <a href="mailto:orders@thegtcafe.com">orders@thegtcafe.com</a>
+              </div>
+              <div class="contact-line">
+                <strong>Best for</strong>
+                Individual orders, subscriptions, cars-and-coffee bundles, client gifts, and event tables.
+              </div>
+              <div class="contact-line">
+                <strong>Order note</strong>
+                Tell us whether you are buying for one garage, a club table, or a full event lineup.
+              </div>
+            </div>
+          </div>
+          <form action="#" method="post">
+            <div class="form-row">
+              <label>
+                <span class="sr-only">First name</span>
+                <input name="first-name" autocomplete="given-name" placeholder="First name">
+              </label>
+              <label>
+                <span class="sr-only">Last name</span>
+                <input name="last-name" autocomplete="family-name" placeholder="Last name">
+              </label>
+            </div>
+            <label>
+              <span class="sr-only">Email</span>
+              <input name="email" type="email" autocomplete="email" placeholder="Email">
+            </label>
+            <label>
+              <span class="sr-only">Interest</span>
+              <select name="interest">
+                <option>I'm interested in...</option>
+                <option>The Grand Tour Sampler</option>
+                <option>Single coffee bags</option>
+                <option>Subscription</option>
+                <option>Event or corporate gifting</option>
+                <option>Wholesale inquiry</option>
+              </select>
+            </label>
+            <label>
+              <span class="sr-only">Message</span>
+              <textarea name="message" placeholder="Tell us what you want to build."></textarea>
+            </label>
+            <button class="button submit" type="submit">Send Coffee Request</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>GT Cafe | Coffee for the miles before the miles.</span>
+      <span>Copyright 2026 The Grand Tour Collective. Veteran founded and family run.</span>
+    </footer>
+
+    <script src="/blog-posts.js"></script>
+    <script>
+      const posts = window.BLOG_POSTS || [];
+      const journal = document.getElementById("journal-posts");
+
+      if (journal) {
+        journal.innerHTML = posts
+          .map(
+            (post) => `
+              <article class="journal-card">
+                <span class="meta">${post.category} / ${post.date}</span>
+                <h3>${post.title}</h3>
+                <p>${post.excerpt}</p>
+                <a class="mini-button" href="${post.url}">Read Note</a>
+              </article>
+            `
+          )
+          .join("");
+      }
+    </script>
+  </body>
+</html>

@@ -1,3 +1,6 @@
 {% extends "base.html" %}{% block content %}<h1>Posts</h1>
 <form><input name='q' value='{{q}}' placeholder='search'><select name='status'><option value=''>all status</option><option value='draft'>draft</option><option value='published'>published</option><option value='archived'>archived</option></select><select name='category'><option value=''>all categories</option>{% for c in categories %}<option value='{{c}}'>{{c}}</option>{% endfor %}</select><button>Filter</button></form>
-<table>{% for p in posts %}<tr><td>{{p.title}}</td><td>{{p.slug}}</td><td>{{p.date}}</td><td>{{p.category}}</td><td>{{p.status}}</td><td><a href='/editor/{{p.slug}}'>edit</a> <a href='/preview/thegtcafe/{{p.slug}}'>preview</a> <form method='post' action='/archive/{{p.slug}}' style='display:inline'><button>archive</button></form></td></tr>{% endfor %}</table>{% endblock %}
+<table>
+<thead><tr><th>Title</th><th>Slug</th><th>Date</th><th>Category</th><th>Status</th><th>Target</th><th>Actions</th></tr></thead>
+<tbody>{% for p in posts %}<tr><td>{{p.title}}</td><td>{{p.slug}}</td><td>{{p.date}}</td><td>{{p.category}}</td><td>{{p.status}}</td><td>{{p.target_site or 'active site'}}</td><td><a href='/editor/{{p.slug}}'>edit</a> <a href='/preview/{{p.target_site or "thegtcafe"}}/{{p.slug}}'>preview</a> <form method='post' action='/archive/{{p.slug}}' style='display:inline'><button>archive</button></form></td></tr>{% endfor %}</tbody>
+</table>{% endblock %}

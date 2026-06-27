@@ -23,7 +23,8 @@ def import_existing(site: str) -> dict:
                         'title': item.get('title', item['slug']), 'slug': item['slug'], 'excerpt': item.get('excerpt',''),
                         'category': item.get('category','Journal'), 'status': item.get('status','published'),
                         'featured_image': item.get('image',''), 'featured_image_alt': item.get('imageAlt',''),
-                        'tags': item.get('tags',[]), 'date': item.get('date',''), 'body': item.get('excerpt','')
+                        'tags': item.get('tags',[]), 'date': item.get('date',''), 'body': item.get('excerpt',''),
+                        'target_site': site,
                     })
                     report['imported'] += 1
             except Exception:

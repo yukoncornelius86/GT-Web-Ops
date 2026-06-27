@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>GT Cafe Journal</title>
+    <link>https://thegtcafe.com</link>
+    <description>Coffee notes, garage morning rituals, gifting ideas, and road-ready releases from GT Cafe.</description>
+    <lastBuildDate>Fri, 26 Jun 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Build a Better Garage Morning</title>
+      <link>https://thegtcafe.com/blog/better-garage-morning.html</link>
+      <description>A simple ritual for early starts: prep the route, warm the cup, and make the first mile feel intentional.</description>
+      <pubDate>Fri, 26 Jun 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Choosing the Right Coffee for a Weekend Route</title>
+      <link>https://thegtcafe.com/blog/weekend-route-coffee.html</link>
+      <description>Comfort flavors, smooth finishes, and sampler logic for drives that start before the rest of the house wakes up.</description>
+      <pubDate>Fri, 26 Jun 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Cars and Coffee Gift Ideas That Actually Get Used</title>
+      <link>https://thegtcafe.com/blog/cars-and-coffee-gift-ideas.html</link>
+      <description>Why coffee bundles work for club events, client gifts, and the people who already have enough keychains.</description>
+      <pubDate>Fri, 26 Jun 2026 12:00:00 GMT</pubDate>
+    </item>
+  </channel>
+</rss>

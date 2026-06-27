@@ -35,11 +35,26 @@ def dashboard(request: Request):
 def editor_edit(request: Request, slug: str):
     if not validate_slug(slug):
         raise HTTPException(status_code=400, detail='Invalid slug format')
-    return templates.TemplateResponse('editor.html', {'request': request, 'post': get_post(slug) or {}})
+    return templates.TemplateResponse('editor.html', {'request': request, 'post': get_post(slug) or {}, 'cfg': load_config()})
 
 @app.get('/editor', response_class=HTMLResponse)
-def editor_new(request: Request):
-    return templates.TemplateResponse('editor.html', {'request': request, 'post': {'date': str(date.today()), 'status': 'draft', 'cta_label': 'Request a Vehicle Evaluation', 'cta_url': '/#contact'}})
+def editor_new(request: Request, target_site: str = ''):
+    cfg = load_config()
+    site = target_site or cfg.get('active_site', 'thegtcafe')
+    if site not in {'thegtcafe', 'thegtcollective'}:
+        raise HTTPException(status_code=400, detail='Invalid target site')
+    default_cta_label = 'Back to Journal' if site == 'thegtcafe' else cfg.get('default_cta_label', 'Request a Vehicle Evaluation')
+    default_cta_url = '/#journal' if site == 'thegtcafe' else cfg.get('default_cta_url', '/#contact')
+    post = {
+        'date': str(date.today()),
+        'status': 'draft',
+        'target_site': site,
+        'cta_label': default_cta_label,
+        'cta_url': default_cta_url,
+        'author': cfg.get('default_author', 'Mike Zanni'),
+        'category': cfg.get('default_category', 'Journal'),
+    }
+    return templates.TemplateResponse('editor.html', {'request': request, 'post': post, 'cfg': cfg})
 
 @app.post('/save')
 def save(title: str = Form(...), slug: str = Form(''), status: str = Form('draft'), body: str = Form(''), **kwargs):

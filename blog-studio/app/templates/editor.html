@@ -2,9 +2,15 @@
 <form method='post' action='/save'>
 <input name='title' value='{{post.title}}' placeholder='Title' required>
 <input name='slug' value='{{post.slug}}' placeholder='Slug'>
+<label>Publish target
+<select name='target_site'>
+  <option value='thegtcafe' {% if post.target_site == 'thegtcafe' or (not post.target_site and cfg.active_site == 'thegtcafe') %}selected{% endif %}>GT Cafe Journal</option>
+  <option value='thegtcollective' {% if post.target_site == 'thegtcollective' or (not post.target_site and cfg.active_site == 'thegtcollective') %}selected{% endif %}>The GT Collective Blog</option>
+</select>
+</label>
 <input name='subtitle' value='{{post.subtitle}}' placeholder='Subtitle'>
 <input name='author' value='{{post.author}}' placeholder='Author'>
-<input name='date_val' value='{{post.date}}' placeholder='YYYY-MM-DD'>
+<input name='date' value='{{post.date}}' placeholder='YYYY-MM-DD'>
 <input name='category' value='{{post.category}}' placeholder='Category'>
 <input name='tags' value='{{post.tags|join(",") if post.tags else ""}}' placeholder='tags comma separated'>
 <input name='featured_image' value='{{post.featured_image}}' placeholder='Featured image path'>

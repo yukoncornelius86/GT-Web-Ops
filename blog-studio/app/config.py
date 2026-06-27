@@ -14,6 +14,10 @@ DEFAULTS = {
     'blog_index_output_file': 'sites/{site}/blog-posts.js',
     'article_template_file': 'sites/{site}/templates/blog-article-template.html',
     'production_site_url': 'https://thegtcafe.com',
+    'site_urls': {
+        'thegtcafe': 'https://thegtcafe.com',
+        'thegtcollective': 'https://thegtcollective.com',
+    },
     'local_preview_url': 'http://localhost:8080',
     'default_author': 'Mike Zanni',
     'default_category': 'Journal',
