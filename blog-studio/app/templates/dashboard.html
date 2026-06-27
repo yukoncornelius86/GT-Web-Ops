@@ -1,5 +1,23 @@
 {% extends "base.html" %}{% block content %}
-<h1>Dashboard</h1>
+<h1>GT Hub</h1>
+<p class='muted'>Private publishing workspace for The Grand Tour Collective and The GT Cafe Journal.</p>
+
+<section class='hub-grid'>
+  <article class='card'>
+    <p class='eyebrow'>The Grand Tour Collective</p>
+    <h2>Write for the main site</h2>
+    <p>Use this for detailing, paint polishing, ceramic coating, vehicle stories, and shop authority pieces.</p>
+    <a class='button' href='/editor?target_site=thegtcollective'>Write for GT Collective</a>
+  </article>
+
+  <article class='card'>
+    <p class='eyebrow'>The GT Cafe</p>
+    <h2>Write for the Cafe Journal</h2>
+    <p>Use this for coffee drops, garage mornings, cars and coffee notes, gift ideas, and cafe updates.</p>
+    <a class='button' href='/editor?target_site=thegtcafe'>Write for Cafe Journal</a>
+  </article>
+</section>
+
 <div class='card'>
 <p><b>Selected Site:</b> {{cfg.active_site}}</p>
 <p><b>Total:</b> {{posts|length}} | <b>Published:</b> {{published}} | <b>Drafts:</b> {{drafts}} | <b>Archived:</b> {{archived}}</p>
@@ -7,6 +25,6 @@
 <pre>{{git_status}}</pre>
 <form method='post' action='/export'><button>Export Static Files</button></form>
 </div>
-{% endblock %}
 
 <p><strong>Git actions are high-impact and disabled by default.</strong></p>
+{% endblock %}
