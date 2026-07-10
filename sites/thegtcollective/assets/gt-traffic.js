@@ -114,13 +114,15 @@
 
     var body = JSON.stringify(payload);
     if (navigator.sendBeacon) {
-      var blob = new Blob([body], { type: 'application/json' });
+      var blob = new Blob([body], { type: 'text/plain;charset=UTF-8' });
       if (navigator.sendBeacon(endpoint, blob)) return;
     }
 
     fetch(endpoint, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      mode: 'no-cors',
+      credentials: 'omit',
+      headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
       body: body,
       keepalive: true
     }).catch(function () {});
