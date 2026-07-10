@@ -37,6 +37,7 @@
   var session = safeStorage('session');
   var visitorId = getOrCreate(local, 'gt_visitor_id', 'gtv');
   var sessionId = getOrCreate(session, 'gt_session_id', 'gts');
+  var startedForms = {};
 
   function currentAttribution() {
     var data = {};
@@ -95,6 +96,73 @@
     };
   }
 
+  function selectedServiceFromPage(formType) {
+    var selector = formType === 'contact' ? '#msgService' : '.service-opt.selected';
+    var el = document.querySelector(selector);
+    if (!el) return '';
+    return (el.value || (el.dataset && el.dataset.service) || el.textContent || '').trim().slice(0, 180);
+  }
+
+  function formTypeFromElement(el) {
+    var form = el.closest && el.closest('form');
+    if (form) {
+      return form.dataset.gtForm || form.dataset.previewForm || form.id || form.name || 'form';
+    }
+    var id = el.id || '';
+    if (id.indexOf('book') === 0 || el.closest('#bookingModal')) return 'booking';
+    if (id.indexOf('msg') === 0 || el.closest('#contact')) return 'contact';
+    return '';
+  }
+
+  function formIdentity(formType) {
+    return [window.location.pathname || '/', formType || 'form'].join(':');
+  }
+
+  function markFormStarted(formType, extra) {
+    formType = (formType || 'form').toString().slice(0, 80);
+    var identity = formIdentity(formType);
+    var storageKey = 'gt_form_started:' + identity;
+    if (startedForms[identity]) return;
+    if (session && session.getItem(storageKey)) return;
+    startedForms[identity] = true;
+    if (session) session.setItem(storageKey, new Date().toISOString());
+
+    extra = extra || {};
+    postEvent('form_started', Object.assign(
+      attributionForForm(formType),
+      {
+        form_type: formType,
+        form_id: extra.form_id || '',
+        form_name: extra.form_name || '',
+        requested_service: extra.requested_service || selectedServiceFromPage(formType) || '',
+        form_step: extra.form_step || 'first_interaction'
+      }
+    ));
+  }
+
+  function setupFormStartTracking() {
+    document.addEventListener('focusin', function (event) {
+      var target = event.target;
+      if (!target || !target.matches || !target.matches('input, select, textarea')) return;
+      var formType = formTypeFromElement(target);
+      if (!formType) return;
+      markFormStarted(formType, {
+        form_id: (target.closest('form') && target.closest('form').id) || '',
+        form_name: (target.closest('form') && target.closest('form').name) || '',
+        form_step: 'field_focus'
+      });
+    }, true);
+
+    document.addEventListener('click', function (event) {
+      var service = event.target && event.target.closest && event.target.closest('.service-opt');
+      if (!service) return;
+      markFormStarted('booking', {
+        requested_service: service.dataset.service || '',
+        form_step: 'service_selected'
+      });
+    }, true);
+  }
+
   function postEvent(eventType, extra) {
     var payload = Object.assign({
       event_type: eventType,
@@ -130,8 +198,10 @@
 
   window.GT_TRAFFIC = {
     event: postEvent,
-    attribution: attributionForForm
+    attribution: attributionForForm,
+    formStarted: markFormStarted
   };
 
   postEvent('page_view');
+  setupFormStartTracking();
 })();
