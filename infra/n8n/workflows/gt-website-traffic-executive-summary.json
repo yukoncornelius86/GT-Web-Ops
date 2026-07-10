@@ -1,0 +1,119 @@
+{
+  "id": "gtWebsiteTrafficExecutiveSummary",
+  "name": "GT Website Traffic Executive Summary",
+  "active": true,
+  "nodes": [
+    {
+      "id": "daily-schedule",
+      "name": "8:20 AM Daily",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [120, 180],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "20 8 * * *"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "manual-test",
+      "name": "Manual Test Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [120, 360],
+      "parameters": {}
+    },
+    {
+      "id": "read-traffic-log",
+      "name": "Read Traffic Log",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [400, 260],
+      "parameters": {
+        "command": "sh -lc \"test -f /logs/gt-website-traffic.jsonl && cat /logs/gt-website-traffic.jsonl || true\"",
+        "executeOnce": true
+      },
+      "continueOnFail": true
+    },
+    {
+      "id": "read-lead-log",
+      "name": "Read Service Request Log",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [680, 260],
+      "parameters": {
+        "command": "sh -lc \"test -f /logs/service-requests.jsonl && cat /logs/service-requests.jsonl || true\"",
+        "executeOnce": true
+      },
+      "continueOnFail": true
+    },
+    {
+      "id": "format-summary",
+      "name": "Format Website Traffic Summary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [960, 260],
+      "parameters": {
+        "jsCode": "const now = new Date();\nconst since = new Date(now.getTime() - 24 * 60 * 60 * 1000);\nconst parseJsonl = (text) => String(text || '').split(/\\r?\\n/).map(line => line.trim()).filter(Boolean).map(line => { try { return JSON.parse(line); } catch { return null; } }).filter(Boolean);\nconst traffic = parseJsonl($('Read Traffic Log').item.json.stdout || '').filter(e => e.timestamp && new Date(e.timestamp) >= since);\nconst serviceRequests = parseJsonl($('Read Service Request Log').item.json.stdout || '').filter(e => e.timestamp && new Date(e.timestamp) >= since);\nconst pageViews = traffic.filter(e => (e.event_type || 'page_view') === 'page_view');\nconst leadEvents = traffic.filter(e => e.event_type === 'lead_submit');\nconst sessions = new Set(pageViews.map(e => e.session_id || e.visitor_id || e.page_url).filter(Boolean));\nconst visitors = new Set(pageViews.map(e => e.visitor_id || e.session_id || e.page_url).filter(Boolean));\nconst isMeta = (item) => {\n  const text = [item.utm_source, item.utm_medium, item.referrer, item.fbclid, item.source_site, item.landing_url, item.source_url, item.page_url].filter(Boolean).join(' ').toLowerCase();\n  return Boolean(item.is_meta_traffic || text.match(/facebook|instagram|meta|fbclid|l\\.facebook|lm\\.facebook|m\\.facebook|l\\.instagram/));\n};\nconst metaViews = pageViews.filter(isMeta);\nconst metaSessions = new Set(metaViews.map(e => e.session_id || e.visitor_id || e.page_url).filter(Boolean));\nconst metaLeadEvents = leadEvents.filter(isMeta);\nconst countBy = (items, fn) => {\n  const map = new Map();\n  for (const item of items) {\n    const key = fn(item) || '(not set)';\n    map.set(key, (map.get(key) || 0) + 1);\n  }\n  return Array.from(map.entries()).sort((a, b) => b[1] - a[1]);\n};\nconst pathFrom = (e) => {\n  if (e.path) return e.path;\n  try { return new URL(e.page_url).pathname || '/'; } catch { return e.page_url || '/'; }\n};\nconst topPages = countBy(pageViews, pathFrom).slice(0, 5);\nconst referrers = countBy(pageViews.filter(e => e.referrer), e => { try { return new URL(e.referrer).hostname.replace(/^www\\./, ''); } catch { return e.referrer; } }).slice(0, 5);\nconst campaigns = countBy(pageViews.filter(e => e.utm_campaign), e => e.utm_campaign).slice(0, 5);\nconst services = countBy(serviceRequests, e => e.requested_service || e.service || 'General Inquiry').slice(0, 5);\nconst fmtList = (pairs) => pairs.length ? pairs.map(([k, v]) => `- ${k}: ${v}`).join('\\n') : '- No data yet';\nconst rate = sessions.size ? ((leadEvents.length / sessions.size) * 100).toFixed(1) + '%' : 'n/a';\nconst metaRate = metaSessions.size ? ((metaLeadEvents.length / metaSessions.size) * 100).toFixed(1) + '%' : 'n/a';\nconst lines = [];\nlines.push('*GT Website Traffic Executive Summary*');\nlines.push(now.toLocaleString('en-US', { timeZone: 'America/New_York', weekday: 'long', month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit' }));\nlines.push('');\nlines.push('*Last 24 Hours*');\nlines.push(`- Tracked page views: ${pageViews.length}`);\nlines.push(`- Tracked sessions: ${sessions.size}`);\nlines.push(`- Tracked visitors: ${visitors.size}`);\nlines.push(`- Tracked form submits: ${leadEvents.length} (${rate} session-to-submit)`);\nlines.push(`- Service-request records: ${serviceRequests.length}`);\nlines.push(`- Meta/Facebook/Instagram sessions: ${metaSessions.size}; tracked form submits: ${metaLeadEvents.length} (${metaRate})`);\nlines.push('');\nlines.push('*Top Pages*');\nlines.push(fmtList(topPages));\nlines.push('');\nlines.push('*Top Referrers*');\nlines.push(fmtList(referrers));\nlines.push('');\nlines.push('*Campaigns*');\nlines.push(fmtList(campaigns));\nlines.push('');\nlines.push('*Lead Mix*');\nlines.push(fmtList(services));\nlines.push('');\nlines.push('*Readout*');\nif (!pageViews.length) {\n  lines.push('- No traffic events logged in the last 24 hours. Confirm the collector workflow is active and the public site is deployed.');\n} else if (metaSessions.size && !metaLeadEvents.length) {\n  lines.push('- Meta traffic is arriving but has not produced a tracked form submit in this window. Check landing-page/service fit and ad promise.');\n} else if (metaLeadEvents.length) {\n  lines.push('- Meta traffic produced at least one tracked form submit. Review campaign/ad labels before increasing spend.');\n} else {\n  lines.push('- Organic/direct traffic is the current visible source. Meta attribution will show when UTM or fbclid traffic arrives.');\n}\nreturn [{ json: { slackChannel: $env.EXECUTIVE_SUMMARY_SLACK_CHANNEL || '#alfred-ops', slackText: lines.join('\\n'), windowStart: since.toISOString(), windowEnd: now.toISOString(), pageViews: pageViews.length, sessions: sessions.size, leadEvents: leadEvents.length, serviceRequests: serviceRequests.length, metaSessions: metaSessions.size, metaLeadEvents: metaLeadEvents.length } }];"
+      }
+    },
+    {
+      "id": "send-slack",
+      "name": "Send Executive Summary",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [1240, 260],
+      "parameters": {
+        "resource": "message",
+        "operation": "post",
+        "select": "channel",
+        "channelId": {
+          "mode": "name",
+          "value": "={{$json.slackChannel}}"
+        },
+        "messageType": "text",
+        "text": "={{$json.slackText}}",
+        "otherOptions": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "credentials": {
+        "slackApi": {
+          "id": "cxTrPRcmjsDBs5D2",
+          "name": "Slack account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "8:20 AM Daily": {
+      "main": [[{ "node": "Read Traffic Log", "type": "main", "index": 0 }]]
+    },
+    "Manual Test Trigger": {
+      "main": [[{ "node": "Read Traffic Log", "type": "main", "index": 0 }]]
+    },
+    "Read Traffic Log": {
+      "main": [[{ "node": "Read Service Request Log", "type": "main", "index": 0 }]]
+    },
+    "Read Service Request Log": {
+      "main": [[{ "node": "Format Website Traffic Summary", "type": "main", "index": 0 }]]
+    },
+    "Format Website Traffic Summary": {
+      "main": [[{ "node": "Send Executive Summary", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "timezone": "America/New_York"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": null,
+  "versionId": "gt-traffic-summary-20260709",
+  "triggerCount": 0,
+  "tags": []
+}

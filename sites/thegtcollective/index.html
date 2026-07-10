@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -3030,6 +3030,11 @@
 
   // Booking + contact integration — posts to the n8n service-request intake workflow.
   const N8N_WEBHOOK_URL = 'https://n8n.thegtcollective.com/webhook/service-request';
+  function getTrafficAttribution(formType) {
+    return window.GT_TRAFFIC && typeof window.GT_TRAFFIC.attribution === 'function'
+      ? window.GT_TRAFFIC.attribution(formType)
+      : { source_url: window.location.href, referrer: document.referrer || '', form_type: formType };
+  }
 
   async function submitBooking() {
     const first   = document.getElementById('bookFirst').value.trim();
@@ -3056,6 +3061,13 @@
     const fullNotes = [notes, extra.join(' | ')].filter(Boolean).join('\n');
 
     try {
+      if (window.GT_TRAFFIC && typeof window.GT_TRAFFIC.event === 'function') {
+        window.GT_TRAFFIC.event('lead_submit', {
+          ...getTrafficAttribution('booking'),
+          requested_service: selectedService
+        });
+      }
+
       const res = await fetch(N8N_WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -3068,7 +3080,8 @@
           requested_service: selectedService,
           notes: fullNotes,
           source_site: 'thegtcollective.com',
-          consent_to_contact: true
+          consent_to_contact: true,
+          ...getTrafficAttribution('booking')
         })
       });
 
@@ -3105,6 +3118,13 @@
     status.textContent = '';
 
     try {
+      if (window.GT_TRAFFIC && typeof window.GT_TRAFFIC.event === 'function') {
+        window.GT_TRAFFIC.event('lead_submit', {
+          ...getTrafficAttribution('contact'),
+          requested_service: service || 'General Inquiry'
+        });
+      }
+
       const res = await fetch(N8N_WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -3115,7 +3135,8 @@
           requested_service: service || 'General Inquiry',
           message,
           source_site: 'thegtcollective.com',
-          consent_to_contact: true
+          consent_to_contact: true,
+          ...getTrafficAttribution('contact')
         })
       });
 
@@ -3146,5 +3167,6 @@
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 </script>
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a05ae3ef5ec42959',t:'MTc4MDQ0OTc4NA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"febc23d4bb064fe3892d2d38e75743ed","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script src="assets/gt-traffic.js" defer></script>
 </body>
 </html>

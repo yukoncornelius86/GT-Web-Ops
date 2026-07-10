@@ -1,0 +1,78 @@
+{
+  "id": "gtWebsiteTrafficCollector",
+  "name": "GT Website Traffic Collector",
+  "active": true,
+  "nodes": [
+    {
+      "id": "traffic-webhook",
+      "name": "Traffic Event Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [120, 260],
+      "webhookId": "gt-traffic-event",
+      "parameters": {
+        "path": "gt-traffic-event",
+        "httpMethod": "POST",
+        "responseMode": "responseNode",
+        "options": {}
+      }
+    },
+    {
+      "id": "normalize-event",
+      "name": "Normalize Traffic Event",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [380, 260],
+      "parameters": {
+        "jsCode": "const b = $json.body || $json || {};\nconst clean = (value, max = 500) => String(value || '').replace(/[\\r\\n\\t]+/g, ' ').trim().slice(0, max);\nconst eventType = clean(b.event_type || 'page_view', 80);\nconst timestamp = b.timestamp && !Number.isNaN(Date.parse(b.timestamp)) ? new Date(b.timestamp) : new Date();\nconst referrer = clean(b.referrer, 800);\nconst utmSource = clean(b.utm_source, 120).toLowerCase();\nconst sourceText = [utmSource, referrer, clean(b.fbclid, 250)].join(' ').toLowerCase();\nconst isMetaTraffic = Boolean(sourceText.match(/facebook|instagram|meta|fbclid|l\\.facebook|lm\\.facebook|m\\.facebook|l\\.instagram/));\nconst record = {\n  timestamp: timestamp.toISOString(),\n  event_date: timestamp.toISOString().slice(0, 10),\n  event_hour: timestamp.toISOString().slice(0, 13),\n  event_type: eventType,\n  site: clean(b.site || 'thegtcollective.com', 120),\n  page_url: clean(b.page_url || b.landing_url || b.source_url, 1000),\n  path: clean(b.path || '/', 250),\n  page_title: clean(b.page_title, 250),\n  referrer,\n  landing_url: clean(b.landing_url, 1000),\n  utm_source: clean(b.utm_source, 120),\n  utm_medium: clean(b.utm_medium, 120),\n  utm_campaign: clean(b.utm_campaign, 180),\n  utm_content: clean(b.utm_content, 180),\n  utm_term: clean(b.utm_term, 180),\n  fbclid: clean(b.fbclid, 250),\n  gclid: clean(b.gclid, 250),\n  visitor_id: clean(b.visitor_id, 120),\n  session_id: clean(b.session_id, 120),\n  language: clean(b.language, 80),\n  timezone: clean(b.timezone, 80),\n  screen: clean(b.screen, 80),\n  user_agent: clean(b.user_agent, 500),\n  is_meta_traffic: isMetaTraffic\n};\nreturn [{\n  json: { ok: true, record },\n  binary: {\n    data: {\n      data: Buffer.from(JSON.stringify(record) + '\\n', 'utf8').toString('base64'),\n      mimeType: 'application/jsonl',\n      fileName: 'gt-website-traffic.jsonl'\n    }\n  }\n}];"
+      }
+    },
+    {
+      "id": "append-traffic-log",
+      "name": "Append Traffic Log",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [640, 260],
+      "parameters": {
+        "operation": "write",
+        "fileName": "/logs/gt-website-traffic.jsonl",
+        "dataPropertyName": "data",
+        "options": {
+          "append": true
+        }
+      }
+    },
+    {
+      "id": "respond",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [900, 260],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\"ok\":true}",
+        "options": {}
+      }
+    }
+  ],
+  "connections": {
+    "Traffic Event Webhook": {
+      "main": [[{ "node": "Normalize Traffic Event", "type": "main", "index": 0 }]]
+    },
+    "Normalize Traffic Event": {
+      "main": [[{ "node": "Append Traffic Log", "type": "main", "index": 0 }]]
+    },
+    "Append Traffic Log": {
+      "main": [[{ "node": "Respond", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "timezone": "America/New_York"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": null,
+  "versionId": "gt-traffic-collector-20260709",
+  "triggerCount": 0,
+  "tags": []
+}

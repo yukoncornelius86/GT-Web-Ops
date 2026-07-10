@@ -663,6 +663,12 @@
   const statusEl = document.getElementById('bookingStatus');
   const submitBtn = document.getElementById('submitBtn');
 
+  function getTrafficAttribution(formType) {
+    return window.GT_TRAFFIC && typeof window.GT_TRAFFIC.attribution === 'function'
+      ? window.GT_TRAFFIC.attribution(formType)
+      : { source_url: window.location.href, referrer: document.referrer || '', form_type: formType };
+  }
+
   function setStatus(message, type) {
     statusEl.textContent = message;
     statusEl.className = 'status' + (type ? ' ' + type : '');
@@ -674,6 +680,7 @@
     data.consent_to_contact = document.getElementById('consent').checked;
     data.source_site = 'thegtcollective.com/booking.html';
     data.lead_source = 'Google Business Profile booking page';
+    Object.assign(data, getTrafficAttribution('booking_page'));
 
     if (!data.consent_to_contact) {
       setStatus('Please confirm consent to contact before sending.', 'error');
@@ -685,6 +692,13 @@
     setStatus('', '');
 
     try {
+      if (window.GT_TRAFFIC && typeof window.GT_TRAFFIC.event === 'function') {
+        window.GT_TRAFFIC.event('lead_submit', {
+          ...getTrafficAttribution('booking_page'),
+          requested_service: data.requested_service || 'Booking Page Request'
+        });
+      }
+
       const response = await fetch(N8N_WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -704,5 +718,6 @@
     }
   });
 </script>
+<script src="assets/gt-traffic.js" defer></script>
 </body>
 </html>
