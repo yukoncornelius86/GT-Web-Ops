@@ -45,6 +45,8 @@ services:
       N8N_RUNNERS_ENABLED: true
       LOCAL_AI_BASE_URL: ${LOCAL_AI_BASE_URL:-http://host.docker.internal:1234/v1}
       LOCAL_AI_MODEL: ${LOCAL_AI_MODEL:-local-model}
+      TURNSTILE_SECRET_KEY: ${TURNSTILE_SECRET_KEY:-}
+      GT_CUSTOMER_CONTACT_PHONE: ${GT_CUSTOMER_CONTACT_PHONE:-}
       TZ: ${TZ}
     volumes:
       - n8n_data:/home/node/.n8n

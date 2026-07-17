@@ -621,6 +621,8 @@
           <span>I agree to be contacted by The Grand Tour Collective about this booking request.</span>
         </label>
 
+        <div id="bookingPageTurnstile" class="cf-turnstile" data-sitekey="0x4AAAAAAD4EloOtzRFsYd6K" data-theme="dark" data-action="booking_page"></div>
+
         <div class="form-actions">
           <button class="btn-primary" id="submitBtn" type="submit">Send Booking Request</button>
           <a class="btn-secondary" href="mailto:crew@thegtcollective.com?subject=Grand%20Tour%20Detailing%20Booking%20Request">Email Instead</a>
@@ -656,6 +658,7 @@
   </div>
 </footer>
 
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script>
   const N8N_WEBHOOK_URL = 'https://n8n.thegtcollective.com/webhook/service-request';
   const form = document.getElementById('bookingForm');
@@ -679,10 +682,18 @@
     data.consent_to_contact = document.getElementById('consent').checked;
     data.source_site = 'thegtcollective.com/booking.html';
     data.lead_source = 'Google Business Profile booking page';
+    data.turnstile_token = data['cf-turnstile-response'] || '';
+    data.turnstile_action = 'booking_page';
+    delete data['cf-turnstile-response'];
     Object.assign(data, getTrafficAttribution('booking_page'));
 
     if (!data.consent_to_contact) {
       setStatus('Please confirm consent to contact before sending.', 'error');
+      return;
+    }
+
+    if (!data.turnstile_token) {
+      setStatus('Please complete the security check before sending.', 'error');
       return;
     }
 
@@ -712,6 +723,7 @@
       console.error('Booking request failed:', error);
       setStatus("Could not send right now. Please email crew@thegtcollective.com.", 'error');
     } finally {
+      if (window.turnstile && typeof window.turnstile.reset === 'function') window.turnstile.reset();
       submitBtn.disabled = false;
       submitBtn.textContent = 'Send Booking Request';
     }

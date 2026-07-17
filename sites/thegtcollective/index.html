@@ -2755,7 +2755,7 @@
         <div class="contact-icon">LOC</div>
         <div>
           <div class="contact-detail-label">Location</div>
-          <div class="contact-detail-val">Leonardtown, MD - Southern Maryland - Mobile service available by request</div>
+          <div class="contact-detail-val">Dedicated studio in Leonardtown, MD - serving Southern Maryland</div>
         </div>
       </div>
       <div class="contact-detail">
@@ -2813,6 +2813,7 @@
         <label>Message</label>
         <textarea id="msgBody" placeholder="Tell us about your vehicle and what you are looking for..."></textarea>
       </div>
+      <div id="contactTurnstile" class="cf-turnstile" data-sitekey="0x4AAAAAAD4EloOtzRFsYd6K" data-theme="dark" data-action="contact_message" style="margin:1rem 0;"></div>
       <button class="btn-primary" id="msgSubmitBtn" style="width:100%;text-align:center;border:none;" onclick="submitContact()">Send Message</button>
       <div id="msgStatus" style="margin-top:1rem;font-size:0.85rem;color:var(--ash);"></div>
     </div>
@@ -2935,6 +2936,7 @@
           <label>Notes / Special Requests</label>
           <textarea id="bookNotes" placeholder="Any additional details about your vehicle or service needs..."></textarea>
         </div>
+        <div id="bookingTurnstile" class="cf-turnstile" data-sitekey="0x4AAAAAAD4EloOtzRFsYd6K" data-theme="dark" data-action="booking_modal" style="margin-top:1rem;"></div>
       </div>
       <div class="modal-footer">
         <div>
@@ -2955,6 +2957,7 @@
 </div>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="blog-posts.js"></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script>
   // Nav scroll
   window.addEventListener('scroll', () => {
@@ -3029,6 +3032,16 @@
 
   // Booking + contact integration — posts to the n8n service-request intake workflow.
   const N8N_WEBHOOK_URL = 'https://n8n.thegtcollective.com/webhook/service-request';
+  function getTurnstileToken(containerId) {
+    const container = document.getElementById(containerId);
+    const input = container && container.querySelector('input[name="cf-turnstile-response"]');
+    return input ? input.value : '';
+  }
+
+  function resetTurnstile() {
+    if (window.turnstile && typeof window.turnstile.reset === 'function') window.turnstile.reset();
+  }
+
   function getTrafficAttribution(formType) {
     return window.GT_TRAFFIC && typeof window.GT_TRAFFIC.attribution === 'function'
       ? window.GT_TRAFFIC.attribution(formType)
@@ -3043,9 +3056,15 @@
     const vehicle = document.getElementById('bookVehicle').value.trim();
     const date    = document.getElementById('bookDate').value;
     const notes   = document.getElementById('bookNotes').value.trim();
+    const turnstileToken = getTurnstileToken('bookingTurnstile');
 
     if (!first || !last || !email || !selectedService) {
       alert('Please fill in your first and last name, email, and select a service.');
+      return;
+    }
+
+    if (!turnstileToken) {
+      alert('Please complete the security check before sending your request.');
       return;
     }
 
@@ -3080,6 +3099,8 @@
           notes: fullNotes,
           source_site: 'thegtcollective.com',
           consent_to_contact: true,
+          turnstile_token: turnstileToken,
+          turnstile_action: 'booking_modal',
           ...getTrafficAttribution('booking')
         })
       });
@@ -3090,8 +3111,9 @@
       document.getElementById('successMsg').style.display = 'block';
     } catch (err) {
       console.error('Booking submit failed:', err);
-      alert("Sorry — we couldn't submit your request right now. Please email crew@thegtcollective.com or call us and we'll take care of you.");
+      alert("Sorry — we couldn't submit your request right now. Please complete the security check again or email crew@thegtcollective.com.");
     } finally {
+      resetTurnstile();
       btn.textContent = 'Confirm Booking';
       btn.disabled = false;
     }
@@ -3105,10 +3127,17 @@
     const message = document.getElementById('msgBody').value.trim();
     const status  = document.getElementById('msgStatus');
     const btn     = document.getElementById('msgSubmitBtn');
+    const turnstileToken = getTurnstileToken('contactTurnstile');
 
     if (!first || !last || !email || !message) {
       status.style.color = 'var(--gold)';
       status.textContent = 'Please add your first and last name, email, and a message.';
+      return;
+    }
+
+    if (!turnstileToken) {
+      status.style.color = 'var(--gold)';
+      status.textContent = 'Please complete the security check before sending.';
       return;
     }
 
@@ -3135,6 +3164,8 @@
           message,
           source_site: 'thegtcollective.com',
           consent_to_contact: true,
+          turnstile_token: turnstileToken,
+          turnstile_action: 'contact_message',
           ...getTrafficAttribution('contact')
         })
       });
@@ -3150,6 +3181,7 @@
       status.style.color = 'var(--gold)';
       status.textContent = "Couldn't send right now. Please email crew@thegtcollective.com.";
     } finally {
+      resetTurnstile();
       btn.textContent = 'Send Message';
       btn.disabled = false;
     }
