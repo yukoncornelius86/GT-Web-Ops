@@ -29,7 +29,6 @@
     "@id": "https://thegtcollective.com/#business",
     "name": "The Grand Tour Collective",
     "alternateName": "Grand Tour Detailing",
-    "telephone": "+12409801740",
     "email": "crew@thegtcollective.com",
     "url": "https://thegtcollective.com",
     "address": {
@@ -514,7 +513,7 @@
 <nav>
   <a class="nav-logo" href="./">The <span>GT</span> Collective</a>
   <div class="nav-actions">
-    <a class="nav-link" href="tel:+12409801740">240-980-1740</a>
+    <a class="nav-link" href="./#contact">Contact Us</a>
     <a class="btn-secondary" href="./">Main Site</a>
   </div>
 </nav>
@@ -653,7 +652,7 @@
 <footer>
   <div class="footer-inner">
     <div>Copyright 2026 The Grand Tour Collective. Veteran Owned and Operated.</div>
-    <div><a href="mailto:crew@thegtcollective.com">crew@thegtcollective.com</a> / <a href="tel:+12409801740">240-980-1740</a></div>
+    <div><a href="mailto:crew@thegtcollective.com">crew@thegtcollective.com</a></div>
   </div>
 </footer>
 
@@ -711,7 +710,7 @@
       setStatus('Request sent. Mike will follow up to confirm the appointment details.', 'success');
     } catch (error) {
       console.error('Booking request failed:', error);
-      setStatus("Could not send right now. Please call 240-980-1740 or email crew@thegtcollective.com.", 'error');
+      setStatus("Could not send right now. Please email crew@thegtcollective.com.", 'error');
     } finally {
       submitBtn.disabled = false;
       submitBtn.textContent = 'Send Booking Request';
