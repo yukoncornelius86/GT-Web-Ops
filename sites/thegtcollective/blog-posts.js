@@ -1,5 +1,14 @@
 window.BLOG_POSTS = [
   {
+    title: "1988 Porsche 911: A Preservation-First Dry Ice Cleaning",
+    excerpt:
+      "Real before-and-after photography from a careful underbody cleaning that reveals the car without disguising its age.",
+    category: "Dry Ice Cleaning",
+    date: "July 26, 2026",
+    url: "blog/1988-porsche-911-dry-ice-cleaning.html",
+    cta: "View the Case Study"
+  },
+  {
     title: "Is Ceramic Coating Worth It for Southern Maryland Drivers?",
     excerpt:
       "When ceramic coating makes sense, why correction comes first, and how Leonardtown drivers should think about long-term paint protection.",
