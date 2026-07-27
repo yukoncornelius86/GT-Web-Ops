@@ -283,7 +283,12 @@
       line-height: .98;
     }
     .section-heading p { margin: 0; color: var(--ash); }
-    .comparison-list { display: grid; gap: 54px; }
+    .comparison-list {
+      display: grid;
+      gap: 46px;
+      max-width: 940px;
+      margin-inline: auto;
+    }
     .comparison {
       overflow: hidden;
       border: 1px solid var(--line);
@@ -299,14 +304,56 @@
       background: #050a10;
     }
     .comparison figure + figure { border-left: 1px solid rgba(255,255,255,.35); }
-    .comparison img {
+    .photo-trigger {
+      position: relative;
+      display: block;
       width: 100%;
+      padding: 0;
+      overflow: hidden;
+      border: 0;
+      background: #101820;
+      color: #fff;
+      line-height: 0;
+      cursor: zoom-in;
+    }
+    .comparison img {
+      display: block;
+      width: 100%;
+      height: auto;
       aspect-ratio: 4 / 3;
       object-fit: cover;
       background: #101820;
+      transition: transform .25s ease, filter .25s ease;
+    }
+    .photo-trigger:hover img {
+      transform: scale(1.018);
+      filter: brightness(.88);
+    }
+    .photo-trigger:focus-visible {
+      z-index: 2;
+      outline: 3px solid var(--gold-light);
+      outline-offset: -3px;
+    }
+    .photo-zoom {
+      position: absolute;
+      right: 13px;
+      bottom: 13px;
+      padding: 7px 10px;
+      border: 1px solid rgba(255,255,255,.35);
+      background: rgba(5,10,17,.82);
+      font-family: var(--condensed);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      line-height: 1;
+      text-transform: uppercase;
+      opacity: .9;
+      pointer-events: none;
+      backdrop-filter: blur(6px);
     }
     .image-label {
       position: absolute;
+      z-index: 1;
       top: 16px;
       left: 16px;
       padding: 7px 10px;
@@ -318,6 +365,7 @@
       letter-spacing: .18em;
       text-transform: uppercase;
       backdrop-filter: blur(6px);
+      pointer-events: none;
     }
     .image-label.after { background: rgba(173,137,67,.93); color: #06101b; }
     .comparison-caption {
@@ -334,6 +382,66 @@
       line-height: 1;
     }
     .comparison-caption p { margin: 0; color: #bdc5cf; }
+
+    .photo-viewer {
+      width: min(96vw, 1800px);
+      max-width: none;
+      max-height: 94vh;
+      margin: auto;
+      padding: 0;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.22);
+      background: #050a10;
+      color: var(--cream);
+      box-shadow: 0 30px 90px rgba(0,0,0,.72);
+    }
+    .photo-viewer::backdrop {
+      background: rgba(2,6,11,.88);
+      backdrop-filter: blur(8px);
+    }
+    .photo-viewer-inner { position: relative; }
+    .photo-viewer img {
+      display: block;
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      max-height: calc(94vh - 58px);
+      margin-inline: auto;
+      object-fit: contain;
+      background: #050a10;
+    }
+    .photo-viewer-caption {
+      min-height: 58px;
+      margin: 0;
+      padding: 17px 72px 17px 20px;
+      color: #c7cdd5;
+      font-family: var(--condensed);
+      font-size: 13px;
+      letter-spacing: .04em;
+    }
+    .photo-viewer-close {
+      position: absolute;
+      z-index: 2;
+      top: 12px;
+      right: 12px;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(255,255,255,.4);
+      border-radius: 50%;
+      background: rgba(5,10,17,.84);
+      color: #fff;
+      font-size: 26px;
+      line-height: 1;
+      cursor: pointer;
+      backdrop-filter: blur(6px);
+    }
+    .photo-viewer-close:hover,
+    .photo-viewer-close:focus-visible {
+      border-color: var(--gold-light);
+      color: var(--gold-light);
+      outline: 0;
+    }
+    body.photo-viewer-open { overflow: hidden; }
 
     .method-section { background: #08111e; }
     .method-grid {
@@ -595,6 +703,13 @@
       .comparison figure + figure { border-left: 0; border-top: 1px solid rgba(255,255,255,.35); }
       .comparison-caption { grid-template-columns: 1fr; gap: 11px; padding: 21px; }
       .comparison-number { font-size: 29px; }
+      .photo-zoom { right: 10px; bottom: 10px; }
+      .photo-viewer {
+        width: calc(100vw - 20px);
+        max-height: calc(100vh - 20px);
+      }
+      .photo-viewer img { max-height: calc(100vh - 82px); }
+      .photo-viewer-caption { padding-left: 15px; font-size: 12px; }
       .step { grid-template-columns: 35px 1fr; }
       .step p { grid-column: 2; }
       .review { padding: 70px 0; }
@@ -723,11 +838,17 @@
             <div class="comparison-images">
               <figure>
                 <span class="image-label">Before</span>
-                <img src="../assets/blog/porsche-911-dry-ice/pair-01-before.webp" alt="Before dry ice cleaning: undercarriage and suspension detail of the 1988 Porsche 911 with accumulated contamination" width="1800" height="1350">
+                <button class="photo-trigger" type="button" data-full="../assets/blog/porsche-911-dry-ice/pair-01-before.webp" data-caption="Before / Undercarriage and suspension" aria-label="Open full-size photo: Before / Undercarriage and suspension">
+                  <img src="../assets/blog/porsche-911-dry-ice/pair-01-before.webp" alt="Before dry ice cleaning: undercarriage and suspension detail of the 1988 Porsche 911 with accumulated contamination" width="1800" height="1350">
+                  <span class="photo-zoom" aria-hidden="true">View full image</span>
+                </button>
               </figure>
               <figure>
                 <span class="image-label after">After</span>
-                <img src="../assets/blog/porsche-911-dry-ice/pair-01-after.webp" alt="After dry ice cleaning: corresponding undercarriage and suspension detail of the 1988 Porsche 911" width="1800" height="1350">
+                <button class="photo-trigger" type="button" data-full="../assets/blog/porsche-911-dry-ice/pair-01-after.webp" data-caption="After / Undercarriage and suspension" aria-label="Open full-size photo: After / Undercarriage and suspension">
+                  <img src="../assets/blog/porsche-911-dry-ice/pair-01-after.webp" alt="After dry ice cleaning: corresponding undercarriage and suspension detail of the 1988 Porsche 911" width="1800" height="1350">
+                  <span class="photo-zoom" aria-hidden="true">View full image</span>
+                </button>
               </figure>
             </div>
             <div class="comparison-caption">
@@ -740,11 +861,17 @@
             <div class="comparison-images">
               <figure>
                 <span class="image-label">Before</span>
-                <img src="../assets/blog/porsche-911-dry-ice/pair-02-before.webp" alt="Before dry ice cleaning: transmission and rear suspension detail on the 1988 Porsche 911" width="1800" height="1350" loading="lazy">
+                <button class="photo-trigger" type="button" data-full="../assets/blog/porsche-911-dry-ice/pair-02-before.webp" data-caption="Before / Transmission and rear suspension" aria-label="Open full-size photo: Before / Transmission and rear suspension">
+                  <img src="../assets/blog/porsche-911-dry-ice/pair-02-before.webp" alt="Before dry ice cleaning: transmission and rear suspension detail on the 1988 Porsche 911" width="1800" height="1350" loading="lazy">
+                  <span class="photo-zoom" aria-hidden="true">View full image</span>
+                </button>
               </figure>
               <figure>
                 <span class="image-label after">After</span>
-                <img src="../assets/blog/porsche-911-dry-ice/pair-02-after.webp" alt="After dry ice cleaning: matching transmission and rear suspension detail on the 1988 Porsche 911" width="1800" height="1350" loading="lazy">
+                <button class="photo-trigger" type="button" data-full="../assets/blog/porsche-911-dry-ice/pair-02-after.webp" data-caption="After / Transmission and rear suspension" aria-label="Open full-size photo: After / Transmission and rear suspension">
+                  <img src="../assets/blog/porsche-911-dry-ice/pair-02-after.webp" alt="After dry ice cleaning: matching transmission and rear suspension detail on the 1988 Porsche 911" width="1800" height="1350" loading="lazy">
+                  <span class="photo-zoom" aria-hidden="true">View full image</span>
+                </button>
               </figure>
             </div>
             <div class="comparison-caption">
@@ -757,11 +884,17 @@
             <div class="comparison-images">
               <figure>
                 <span class="image-label">Before</span>
-                <img src="../assets/blog/porsche-911-dry-ice/pair-03-before.webp" alt="Before dry ice cleaning: engine, transmission, suspension, and exhaust-adjacent underside detail of the 1988 Porsche 911" width="1800" height="1350" loading="lazy">
+                <button class="photo-trigger" type="button" data-full="../assets/blog/porsche-911-dry-ice/pair-03-before.webp" data-caption="Before / Engine, transmission, suspension, and exhaust area" aria-label="Open full-size photo: Before / Engine, transmission, suspension, and exhaust area">
+                  <img src="../assets/blog/porsche-911-dry-ice/pair-03-before.webp" alt="Before dry ice cleaning: engine, transmission, suspension, and exhaust-adjacent underside detail of the 1988 Porsche 911" width="1800" height="1350" loading="lazy">
+                  <span class="photo-zoom" aria-hidden="true">View full image</span>
+                </button>
               </figure>
               <figure>
                 <span class="image-label after">After</span>
-                <img src="../assets/blog/porsche-911-dry-ice/pair-03-after.webp" alt="After dry ice cleaning: matching engine, transmission, suspension, and exhaust-adjacent detail of the 1988 Porsche 911" width="1800" height="1350" loading="lazy">
+                <button class="photo-trigger" type="button" data-full="../assets/blog/porsche-911-dry-ice/pair-03-after.webp" data-caption="After / Engine, transmission, suspension, and exhaust area" aria-label="Open full-size photo: After / Engine, transmission, suspension, and exhaust area">
+                  <img src="../assets/blog/porsche-911-dry-ice/pair-03-after.webp" alt="After dry ice cleaning: matching engine, transmission, suspension, and exhaust-adjacent detail of the 1988 Porsche 911" width="1800" height="1350" loading="lazy">
+                  <span class="photo-zoom" aria-hidden="true">View full image</span>
+                </button>
               </figure>
             </div>
             <div class="comparison-caption">
@@ -774,11 +907,17 @@
             <div class="comparison-images">
               <figure>
                 <span class="image-label">Before</span>
-                <img src="../assets/blog/porsche-911-dry-ice/pair-04-before.webp" alt="Before dry ice cleaning: wheel-well, suspension, and control-arm detail of the 1988 Porsche 911" width="1800" height="1350" loading="lazy">
+                <button class="photo-trigger" type="button" data-full="../assets/blog/porsche-911-dry-ice/pair-04-before.webp" data-caption="Before / Wheel well, suspension, and control arm" aria-label="Open full-size photo: Before / Wheel well, suspension, and control arm">
+                  <img src="../assets/blog/porsche-911-dry-ice/pair-04-before.webp" alt="Before dry ice cleaning: wheel-well, suspension, and control-arm detail of the 1988 Porsche 911" width="1800" height="1350" loading="lazy">
+                  <span class="photo-zoom" aria-hidden="true">View full image</span>
+                </button>
               </figure>
               <figure>
                 <span class="image-label after">After</span>
-                <img src="../assets/blog/porsche-911-dry-ice/pair-04-after.webp" alt="After dry ice cleaning: corresponding wheel-well, suspension, and control-arm detail of the 1988 Porsche 911" width="1800" height="1350" loading="lazy">
+                <button class="photo-trigger" type="button" data-full="../assets/blog/porsche-911-dry-ice/pair-04-after.webp" data-caption="After / Wheel well, suspension, and control arm" aria-label="Open full-size photo: After / Wheel well, suspension, and control arm">
+                  <img src="../assets/blog/porsche-911-dry-ice/pair-04-after.webp" alt="After dry ice cleaning: corresponding wheel-well, suspension, and control-arm detail of the 1988 Porsche 911" width="1800" height="1350" loading="lazy">
+                  <span class="photo-zoom" aria-hidden="true">View full image</span>
+                </button>
               </figure>
             </div>
             <div class="comparison-caption">
@@ -826,7 +965,7 @@
           <div class="section-kicker">What the result means</div>
           <h2 id="notes-title">A clean surface is information.</h2>
           <div class="prose">
-            <p>On an older Porsche, the value of dry ice cleaning is not a manufactured “like new” finish. It is the ability to see and document the car with fewer layers of contamination in the way.</p>
+            <p>On an older Porsche, the value of dry ice cleaning is not a manufactured &ldquo;like new&rdquo; finish. It is the ability to see and document the car with fewer layers of contamination in the way.</p>
           </div>
           <ul class="notes-list">
             <li>Original finishes, coatings, and visible age remain part of the car.</li>
@@ -854,6 +993,14 @@
     </section>
   </main>
 
+  <dialog class="photo-viewer" aria-label="Full-size project photo">
+    <div class="photo-viewer-inner">
+      <button class="photo-viewer-close" type="button" aria-label="Close full-size photo">&times;</button>
+      <img src="" alt="">
+      <p class="photo-viewer-caption" aria-live="polite"></p>
+    </div>
+  </dialog>
+
   <footer>
     <div class="shell footer-inner">
       <div>
@@ -868,5 +1015,49 @@
   </footer>
 
   <script src="../assets/gt-traffic.js" defer></script>
+  <script>
+    (() => {
+      const viewer = document.querySelector('.photo-viewer');
+      const viewerImage = viewer.querySelector('img');
+      const viewerCaption = viewer.querySelector('.photo-viewer-caption');
+      const closeButton = viewer.querySelector('.photo-viewer-close');
+
+      document.querySelectorAll('.photo-trigger').forEach((trigger) => {
+        trigger.addEventListener('click', () => {
+          if (typeof viewer.showModal !== 'function') {
+            window.open(trigger.dataset.full, '_blank', 'noopener');
+            return;
+          }
+
+          const preview = trigger.querySelector('img');
+          viewerImage.src = trigger.dataset.full;
+          viewerImage.alt = preview.alt;
+          viewerCaption.textContent = trigger.dataset.caption;
+          viewer.showModal();
+          document.body.classList.add('photo-viewer-open');
+          closeButton.focus();
+        });
+      });
+
+      const unlockPage = () => document.body.classList.remove('photo-viewer-open');
+      closeButton.addEventListener('click', () => {
+        unlockPage();
+        viewer.close();
+      });
+      viewer.addEventListener('click', (event) => {
+        if (event.target === viewer) {
+          unlockPage();
+          viewer.close();
+        }
+      });
+      viewer.addEventListener('cancel', unlockPage);
+      viewer.addEventListener('close', () => {
+        unlockPage();
+        viewerImage.removeAttribute('src');
+        viewerImage.alt = '';
+        viewerCaption.textContent = '';
+      });
+    })();
+  </script>
 </body>
 </html>
