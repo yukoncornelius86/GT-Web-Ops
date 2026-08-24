@@ -1,5 +1,14 @@
 window.BLOG_POSTS = [
   {
+    title: "216,000 Miles and Counting: Preserving My Porsche Cayenne",
+    excerpt:
+      "A personal ownership story and documented WoolWax lanolin undercoating treatment on a 2013 Porsche Cayenne.",
+    category: "Lanolin Undercoating",
+    date: "August 23, 2026",
+    url: "blog/2013-porsche-cayenne-lanolin-undercoating.html",
+    cta: "View the Case Study"
+  },
+  {
     title: "1988 Porsche 911: A Preservation-First Dry Ice Cleaning",
     excerpt:
       "Real before-and-after photography from a careful underbody cleaning that reveals the car without disguising its age.",
