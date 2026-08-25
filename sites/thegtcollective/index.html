@@ -2490,6 +2490,8 @@
   <a href="#" class="nav-logo">The <span>GT</span> Collective</a>
   <ul class="nav-links">
     <li><a href="#services">Detailing</a></li>
+    <li><a href="preservation-mechanical-services.html">Preservation &amp; Mechanical</a></li>
+    <li><a href="gt-stewardship.html">GT Stewardship</a></li>
     <li><a href="undercarriage-preservation-leonardtown-md.html">Preservation</a></li>
     <li><a href="#coffee">GT Cafe</a></li>
     <li><a href="founders-letter.html">Our Story</a></li>
@@ -2809,6 +2811,8 @@
           <option>Ceramic Coating</option>
           <option>Paint Correction</option>
           <option>GT Undercarriage Preservation</option>
+          <option>Preservation or Mechanical Service</option>
+          <option>GT Stewardship</option>
           <option>Two-Year Refresh Treatment</option>
           <option>GT Cafe / Coffee</option>
           <option>General Inquiry</option>
@@ -2838,6 +2842,8 @@
         <li><a href="ceramic-coating-leonardtown-md.html">Ceramic Coating</a></li>
         <li><a href="paint-correction-leonardtown-md.html">Paint Correction</a></li>
         <li><a href="undercarriage-preservation-leonardtown-md.html">GT Undercarriage Preservation</a></li>
+        <li><a href="preservation-mechanical-services.html">Preservation &amp; Mechanical Services</a></li>
+        <li><a href="gt-stewardship.html">GT Stewardship</a></li>
         <li><a href="#contact">Two-Year Refresh Treatment</a></li>
       </ul>
     </div>
@@ -3035,6 +3041,16 @@
   }
 
   renderBlogPosts();
+
+  // Service pages return here with an inquiry type and optional Stewardship plan preselected.
+  const inquiryParams = new URLSearchParams(window.location.search);
+  const requestedService = inquiryParams.get('service');
+  const requestedPlan = inquiryParams.get('plan');
+  if (requestedService && document.getElementById('msgService')) {
+    const select = document.getElementById('msgService');
+    if ([...select.options].some(option => option.value === requestedService)) select.value = requestedService;
+    if (requestedPlan) document.getElementById('msgBody').value = 'I am interested in the ' + requestedPlan.replaceAll('-', ' ') + ' GT Stewardship plan for my vehicle.';
+  }
 
   // Booking + contact integration — posts to the n8n service-request intake workflow.
   const N8N_WEBHOOK_URL = 'https://n8n.thegtcollective.com/webhook/service-request';
