@@ -1,9 +1,173 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>GT Stewardship | The Grand Tour Collective</title><meta name="description" content="An ongoing vehicle-care relationship for monitoring, preserving, maintaining, and documenting meaningful vehicles over time.">
-<style>:root{--navy:#081624;--bay:#102b43;--ivory:#f7f4eb;--ash:#aab4bd;--gold:#c5a46d;--line:#29435a}*{box-sizing:border-box}html,body{max-width:100%;overflow-x:hidden}body{margin:0;background:var(--navy);color:var(--ivory);font:16px/1.65 Inter,Segoe UI,sans-serif}a{color:inherit}.wrap{width:min(1180px,calc(100% - 38px));margin:auto}.nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0}.brand{font:500 22px Georgia,serif;text-decoration:none}.links{display:flex;gap:18px}.links a{text-decoration:none;color:var(--ash);font-size:13px}.hero{padding:100px 0 80px;background:radial-gradient(circle at 80% 0,#614d2955,transparent 32%),linear-gradient(150deg,#0e2638,#07121d)}.eyebrow{color:var(--gold);font-size:11px;letter-spacing:.22em;text-transform:uppercase}.hero h1{font:400 clamp(50px,8vw,94px)/1 Georgia,serif;margin:12px 0 24px}.hero p{max-width:760px;font-size:19px;color:#c7d0d5}.section{padding:72px 0}.section h2{font:400 40px Georgia,serif}.benefits,.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{border:1px solid var(--line);background:linear-gradient(145deg,#102637,#0b1b28);padding:24px}.card h3{font:400 26px Georgia,serif;margin:0 0 9px}.card p,.muted{color:var(--ash)}.card ul{padding-left:18px}.price{font:400 24px Georgia,serif;color:var(--gold)}.btn{display:inline-block;padding:12px 16px;border:1px solid var(--gold);text-decoration:none;text-transform:uppercase;letter-spacing:.1em;font-size:11px}.comparison{overflow:auto}.comparison table{width:100%;min-width:680px;border-collapse:collapse}.comparison th,.comparison td{padding:13px;border-bottom:1px solid var(--line);text-align:left}.notice{border:1px solid var(--line);padding:18px;color:var(--ash)}.footer{border-top:1px solid var(--line);padding:28px 0;color:var(--ash);font-size:13px}@media(max-width:800px){.links{display:none}.hero h1{font-size:44px}.benefits,.plans{grid-template-columns:1fr}.section{padding:54px 0}.section h2{font-size:34px;line-height:1.08;overflow-wrap:break-word}}</style></head>
-<body><header class="wrap nav"><a class="brand" href="/">The Grand Tour Collective</a><nav class="links"><a href="/preservation-mechanical-services.html">Preservation &amp; Mechanical Services</a><a href="/gt-stewardship.html">GT Stewardship</a><a href="/#contact">Contact</a></nav></header><main>
-<section class="hero"><div class="wrap"><div class="eyebrow">Ongoing vehicle care</div><h1>GT Stewardship</h1><p>An ongoing vehicle-care relationship for owners who want help monitoring, preserving, maintaining, and documenting their vehicles over time - with a consistent point of contact who learns the vehicle and its history.</p></div></section>
-<section class="section"><div class="wrap"><div class="eyebrow">The relationship</div><h2>Care that builds useful history.</h2><div class="benefits"><article class="card"><h3>Monitor</h3><p>Scheduled condition reviews, identification of developing concerns, service reminders, and preventive-maintenance planning.</p></article><article class="card"><h3>Preserve</h3><p>Preservation-focused detailing and included services appropriate to the selected plan.</p></article><article class="card"><h3>Document</h3><p>Photography and an organized record of completed work, recommendations, and the vehicle's evolving needs.</p></article></div><p class="notice"><strong>True concierge care, never an automatic renewal.</strong> GT Stewardship is a personal service relationship, not an automatic subscription. As the current term approaches its end, we will review the vehicle's care, completed services, and future priorities with you. We are confident you will find the relationship worth continuing, but a new term begins only with your explicit approval.<br><br>Priority scheduling, preferred pricing, service frequency, and included benefits vary by plan. Stewardship is not insurance, a manufacturer warranty, a formal safety certification, or a guarantee against mechanical failure.</p></div></section>
-<section class="section"><div class="wrap"><div class="eyebrow">Current offerings</div><h2>Choose the relationship that fits.</h2><div id="planState" class="muted">Loading current plans...</div><div id="plans" class="plans" aria-live="polite"></div><div id="comparison" class="comparison"></div></div></section></main><footer class="footer"><div class="wrap">The Grand Tour Collective &nbsp; | &nbsp; Life's a Grand Tour, Enjoy the Ride.</div></footer>
-<script>const endpoint='https://hub.thegtcollective.com/api/public/stewardship-plans',esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),price=p=>p.show_price&&p.retail_price!=null?Number(p.retail_price).toLocaleString(undefined,{style:'currency',currency:'USD'})+(p.billing_frequency?' / '+p.billing_frequency.toLowerCase():''):'Contact us';async function load(){try{const r=await fetch(endpoint,{headers:{Accept:'application/json'}}),j=await r.json();if(!r.ok||!j.ok)throw Error(j.error||'Plans are unavailable');const rows=j.plans||[];planState.textContent=rows.length?'':'Current Stewardship packages are being finalized. Tell us about your vehicle and we will discuss the right care relationship.';plans.innerHTML=rows.map(p=>`<article class="card"><div class="eyebrow">${esc(p.best_fit||'Ongoing care')}</div><h3>${esc(p.plan_name)}</h3><p>${esc(p.short_description)}</p><ul>${[...(p.included_condition_reviews||[]),...(p.included_services||[]),...(p.benefits||[])].slice(0,8).map(x=>`<li>${esc(x)}</li>`).join('')}</ul><p><b>Frequency:</b> ${esc(p.service_frequency||'Discuss with GT')}</p><p class="price">${esc(price(p))}</p><a class="btn" href="/?service=GT%20Stewardship&plan=${encodeURIComponent(p.plan_key)}#contact">Enroll / Ask About This Plan</a></article>`).join('');if(rows.length>1)comparison.innerHTML='<h2>Compare active plans</h2><table><thead><tr><th>Plan</th><th>Best fit</th><th>Frequency</th><th>Price</th></tr></thead><tbody>'+rows.map(p=>`<tr><td>${esc(p.plan_name)}</td><td>${esc(p.best_fit)}</td><td>${esc(p.service_frequency)}</td><td>${esc(price(p))}</td></tr>`).join('')+'</tbody></table>'}catch(e){planState.textContent='Current Stewardship plans could not be loaded. Please contact GT and we will help personally.'}}load();</script></body></html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>GT Stewardship | The Grand Tour Collective</title>
+  <meta name="description" content="A personal, ongoing vehicle-care relationship for monitoring, preserving, maintaining, and documenting the cars that matter.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Barlow+Condensed:wght@400;500;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/gt-service-pages.css">
+  <style>.hero{--hero-image:url('assets/hero-scenic-road.png')}</style>
+</head>
+<body>
+  <header class="site-nav">
+    <a class="brand" href="/">The <span>GT</span> Collective</a>
+    <nav class="desktop-links" aria-label="Primary navigation">
+      <a href="/preservation-mechanical-services.html">Preservation &amp; Mechanical</a>
+      <a href="/gt-stewardship.html" aria-current="page">GT Stewardship</a>
+      <a href="/#services">Detailing</a>
+      <a href="/#contact">Contact</a>
+    </nav>
+    <a class="nav-cta" href="/?service=GT%20Stewardship#contact">Discuss Stewardship</a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobileMenu" data-menu-toggle>Menu</button>
+  </header>
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation" data-mobile-menu>
+    <a href="/preservation-mechanical-services.html">Preservation &amp; Mechanical Services</a>
+    <a href="/gt-stewardship.html" aria-current="page">GT Stewardship</a>
+    <a href="/#services">Detailing Services</a>
+    <a href="/?service=GT%20Stewardship#contact">Tell Us About Your Vehicle</a>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-copy">
+        <div class="eyebrow">A personal relationship with your vehicle</div>
+        <h1>A better way to care for the cars <em>that matter.</em></h1>
+        <p class="hero-lead">GT Stewardship gives owners a consistent point of contact who learns the vehicle, its history, how it is used and what matters most to its owner.</p>
+        <div class="hero-actions">
+          <a class="button" href="#plans">Compare the plans</a>
+          <a class="button secondary" href="/?service=GT%20Stewardship#contact">Tell Us About Your Vehicle</a>
+        </div>
+        <div class="hero-meta"><span>Monitor</span><span>Preserve</span><span>Document</span><span>Plan ahead</span></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="eyebrow">Why Stewardship</div><h2>Meaningful vehicles are too often cared for <em>in fragments.</em></h2></div>
+          <p class="section-intro">The car is serviced when something becomes urgent. Notes, photographs and recommendations live in different places. No single person holds the full picture over time.</p>
+        </div>
+        <div class="problem-grid">
+          <article class="editorial-card"><div class="card-number">01</div><h3>Reactive service</h3><p>Attention arrives only when a warning light, deadline or obvious concern makes the decision urgent.</p></article>
+          <article class="editorial-card"><div class="card-number">02</div><h3>Scattered history</h3><p>Completed work, photographs and recommendations become difficult to find or use when the next decision arrives.</p></article>
+          <article class="editorial-card"><div class="card-number">03</div><h3>No continuous view</h3><p>Different providers see one moment in the vehicle's story, but no one is actively learning the whole vehicle over time.</p></article>
+        </div>
+        <div class="bridge">Stewardship connects the care, the decisions and the history.</div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="eyebrow">How it works</div><h2>One point of contact. <em>One useful history.</em></h2></div>
+          <p class="section-intro">A thoughtful rhythm of observation, planning, included care and documentation keeps the vehicle's present condition connected to what comes next.</p>
+        </div>
+        <div class="process" aria-label="The GT Stewardship process">
+          <div class="process-item"><strong>Understand the vehicle and your priorities.</strong></div>
+          <div class="process-item"><strong>Document its current condition.</strong></div>
+          <div class="process-item"><strong>Build a practical care plan.</strong></div>
+          <div class="process-item"><strong>Perform scheduled reviews and services.</strong></div>
+          <div class="process-item"><strong>Monitor developing concerns.</strong></div>
+          <div class="process-item"><strong>Maintain an organized history.</strong></div>
+          <div class="process-item"><strong>Coordinate specialists when appropriate.</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="plans">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="eyebrow">Current offerings</div><h2>Three levels of care. <em>One consistent standard.</em></h2></div>
+          <p class="section-intro">Choose based on the vehicle count, care rhythm and level of included preservation work you want. Current plan details and pricing come directly from GT Hub.</p>
+        </div>
+        <p id="planState" class="plan-state" role="status">Loading current Stewardship plans...</p>
+        <div id="planGrid" class="plan-grid" aria-live="polite"></div>
+        <div id="comparisonShell" class="comparison-shell" hidden></div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="eyebrow">Find your fit</div><h2>The right relationship depends on <em>how you enjoy the car.</em></h2></div>
+          <p class="section-intro">Every package is personal. This is a simple starting point; we will confirm the right plan after learning about the vehicle and your priorities.</p>
+        </div>
+        <div class="fit-grid">
+          <article class="fit-card"><div class="eyebrow">Steady oversight</div><h3>One meaningful vehicle</h3><p>A straightforward rhythm for an enthusiast car that benefits from twice-yearly attention, planning and a useful record.</p></article>
+          <article class="fit-card"><div class="eyebrow">Higher-touch care</div><h3>A frequently enjoyed favorite</h3><p>More regular check-ins and included preservation care for an owner who wants GT closer to the vehicle throughout the year.</p></article>
+          <article class="fit-card"><div class="eyebrow">Coordinated care</div><h3>Two or three vehicles</h3><p>A single organized view across a small collection, with each covered vehicle receiving attention appropriate to its use.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section light">
+      <div class="wrap promise">
+        <div class="promise-mark">Concierge<br>by choice.</div>
+        <div class="promise-copy">
+          <div class="eyebrow">Never by default</div>
+          <h2>This is true concierge service, <em>not an auto renewal.</em></h2>
+          <p>As the current term approaches its end, we will review the vehicle's care, completed services and future priorities with you. <strong>We are confident you will find the relationship worth continuing, but a new term begins only with your explicit approval.</strong></p>
+          <p>Stewardship is ongoing care, planning and documentation. It is not insurance, a manufacturer warranty, a formal safety certification or a guarantee against mechanical failure.</p>
+          <a class="button" href="/?service=GT%20Stewardship#contact">Start a conversation</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta">
+      <div class="eyebrow">Life's a Grand Tour, Enjoy the Ride.</div>
+      <h2>Your vehicle is more than a collection of service intervals.</h2>
+      <p>Tell us about the car, how you use it and what you want its next chapter to look like.</p>
+      <a class="button" href="/?service=GT%20Stewardship#contact">Tell Us About Your Vehicle</a>
+    </section>
+  </main>
+
+  <footer class="footer"><div class="wrap footer-inner"><span>The Grand Tour Collective · Leonardtown, Maryland</span><span><a href="tel:+12409801740">240-980-1740</a> · <a href="mailto:crew@thegtcollective.com">crew@thegtcollective.com</a></span></div></footer>
+  <div class="mobile-action" aria-label="Stewardship actions"><a href="#plans">Compare Plans</a><a href="/?service=GT%20Stewardship#contact">Ask GT</a></div>
+
+  <script src="assets/gt-service-pages.js"></script>
+  <script>
+    const endpoint = 'https://hub.thegtcollective.com/api/public/stewardship-plans';
+    const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+    const price = plan => plan.show_price && plan.retail_price != null
+      ? Number(plan.retail_price).toLocaleString(undefined, {style:'currency', currency:'USD', maximumFractionDigits:0}) + (plan.billing_frequency ? ' / ' + plan.billing_frequency.toLowerCase() : '')
+      : 'Contact us';
+    const benefits = plan => [...(plan.included_condition_reviews || []), ...(plan.included_services || []), ...(plan.benefits || [])].filter(Boolean);
+    async function loadPlans() {
+      const state = document.getElementById('planState');
+      const grid = document.getElementById('planGrid');
+      const shell = document.getElementById('comparisonShell');
+      try {
+        const response = await fetch(endpoint, {headers:{Accept:'application/json'}});
+        const payload = await response.json();
+        if (!response.ok || !payload.ok) throw new Error(payload.error || 'Plans unavailable');
+        const plans = payload.plans || [];
+        if (!plans.length) {
+          state.textContent = 'Current packages are being finalized. Tell us about your vehicle and we will discuss the right care relationship.';
+          return;
+        }
+        state.textContent = '';
+        grid.innerHTML = plans.map((plan, index) => `
+          <article class="plan-card ${index === 1 ? 'featured' : ''}">
+            <div class="plan-best">${esc(plan.best_fit || 'Personal vehicle care')}</div>
+            <h3>${esc(plan.plan_name)}</h3>
+            <p class="summary">${esc(plan.short_description || plan.full_description || '')}</p>
+            <ul class="plan-benefits">${benefits(plan).slice(0, 8).map(item => `<li>${esc(item)}</li>`).join('')}</ul>
+            <p class="plan-frequency">${esc(plan.service_frequency || 'Care rhythm confirmed with GT')}</p>
+            <p class="plan-price">${esc(price(plan))}</p>
+            <a class="button" href="/?service=GT%20Stewardship&plan=${encodeURIComponent(plan.plan_key)}#contact">Ask about this plan</a>
+          </article>`).join('');
+        if (plans.length > 1) {
+          shell.hidden = false;
+          shell.innerHTML = `<table class="comparison"><thead><tr><th>Plan</th><th>Best fit</th><th>Care rhythm</th><th>Investment</th></tr></thead><tbody>${plans.map(plan => `<tr><td><strong>${esc(plan.plan_name)}</strong></td><td>${esc(plan.best_fit || '')}</td><td>${esc(plan.service_frequency || '')}</td><td>${esc(price(plan))}</td></tr>`).join('')}</tbody></table>`;
+        }
+      } catch (error) {
+        state.textContent = 'Current Stewardship plans could not be loaded. Call 240-980-1740 and we will help personally.';
+      }
+    }
+    loadPlans();
+  </script>
+</body>
+</html>

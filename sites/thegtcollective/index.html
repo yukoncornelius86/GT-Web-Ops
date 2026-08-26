@@ -2481,6 +2481,12 @@
       white-space: normal;
     }
   }
+
+  /* Mobile-first gateway to GT's preservation and Stewardship services */
+  .nav-menu-toggle{display:none;background:transparent;border:1px solid rgba(247,244,235,.26);color:var(--white-cap);padding:.62rem .78rem;font:700 .64rem/1 var(--font-ui);letter-spacing:.16em;text-transform:uppercase}.mobile-nav-panel{display:none}
+  .care-gateway{padding:5.5rem 3rem;background:#0d0d0c;border-bottom:1px solid rgba(247,244,235,.12)}.care-gateway-inner{max-width:1360px;margin:0 auto}.care-gateway-head{display:grid;grid-template-columns:.9fr 1.1fr;gap:4rem;align-items:end;margin-bottom:2.5rem}.care-gateway-title{margin-top:.7rem;font:300 clamp(2.6rem,5vw,4.7rem)/.98 var(--font-display)}.care-gateway-title em{color:#e7dcc0;font-weight:300}.care-gateway-copy{color:rgba(247,244,235,.68);font-size:1rem;line-height:1.8}.care-gateway-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(247,244,235,.14);border:1px solid rgba(247,244,235,.14)}.care-gateway-card{position:relative;min-height:330px;padding:2.5rem;display:flex;flex-direction:column;justify-content:end;overflow:hidden;color:var(--white-cap);text-decoration:none;background:#151513}.care-gateway-card::before{position:absolute;inset:0;content:"";background:linear-gradient(0deg,rgba(8,8,8,.98),rgba(8,8,8,.46)),var(--gateway-image) center/cover no-repeat;transition:transform .45s ease}.care-gateway-card:hover::before{transform:scale(1.025)}.care-gateway-card>*{position:relative;z-index:1}.care-gateway-kicker{color:#c9b06a;font:700 .68rem/1 var(--font-ui);letter-spacing:.2em;text-transform:uppercase}.care-gateway-name{margin:.65rem 0;max-width:620px;font:300 clamp(2rem,4vw,3.35rem)/1 var(--font-display)}.care-gateway-desc{max-width:600px;color:rgba(247,244,235,.72);line-height:1.65}.care-gateway-link{margin-top:1.4rem;color:#e7dcc0;font:700 .68rem/1 var(--font-ui);letter-spacing:.18em;text-transform:uppercase}
+  @media(max-width:900px){nav .nav-cta{display:none}.nav-menu-toggle{display:block}.mobile-nav-panel.open{position:fixed;top:67px;left:0;right:0;z-index:99;display:grid;padding:.5rem 1.5rem 1.4rem;background:rgba(9,9,9,.98);border-bottom:1px solid rgba(247,244,235,.16)}.mobile-nav-panel a{padding:1rem .25rem;border-bottom:1px solid rgba(247,244,235,.1);color:rgba(247,244,235,.82);font:700 .72rem/1 var(--font-ui);letter-spacing:.16em;text-decoration:none;text-transform:uppercase}.mobile-nav-panel a:last-child{color:#c9b06a}.care-gateway{padding:4.5rem 1.5rem}.care-gateway-head{grid-template-columns:1fr;gap:1.3rem}.care-gateway-grid{grid-template-columns:1fr}}
+  @media(max-width:520px){.care-gateway-card{min-height:360px;padding:1.6rem}.care-gateway-name{font-size:2.35rem}}
 </style>
 </head>
 <body>
@@ -2499,7 +2505,16 @@
     <li><a href="#contact">Contact</a></li>
   </ul>
   <a href="#" class="nav-cta" onclick="openModal(); return false;">Book Now</a>
+  <button class="nav-menu-toggle" id="mobileMenuToggle" type="button" aria-expanded="false" aria-controls="mobileNavPanel">Services</button>
 </nav>
+
+<div class="mobile-nav-panel" id="mobileNavPanel" aria-label="Mobile services navigation">
+  <a href="preservation-mechanical-services.html">Preservation &amp; Mechanical Services</a>
+  <a href="gt-stewardship.html">GT Stewardship</a>
+  <a href="#services">Detailing Services</a>
+  <a href="undercarriage-preservation-leonardtown-md.html">Undercarriage Preservation</a>
+  <a href="?service=Preservation%20or%20Mechanical%20Service#contact">Tell Us About Your Vehicle</a>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -2551,6 +2566,9 @@
     <span class="strip-item"><span class="strip-dot"></span>Est. 2024</span>
   </div>
 </div>
+
+<!-- PRESERVATION + STEWARDSHIP GATEWAY -->
+<section class="care-gateway" aria-labelledby="careGatewayTitle"><div class="care-gateway-inner"><div class="care-gateway-head fade-up"><div><div class="section-label">More Ways We Care For The Cars That Matter</div><h2 class="care-gateway-title" id="careGatewayTitle">Preserve the condition. <em>Stay ahead of what comes next.</em></h2></div><p class="care-gateway-copy">From carefully scoped mechanical work to an ongoing concierge relationship, GT helps owners maintain, document and enjoy meaningful vehicles with one preservation-minded point of view.</p></div><div class="care-gateway-grid fade-up"><a class="care-gateway-card" style="--gateway-image:url('assets/paint-polishing/bmw-after-front-left.jpg')" href="preservation-mechanical-services.html"><span class="care-gateway-kicker">Individual service</span><span class="care-gateway-name">Preservation &amp; Mechanical Services</span><span class="care-gateway-desc">Preventive maintenance, brake and fluid services, minor repair, condition assessments, preservation and clear service documentation.</span><span class="care-gateway-link">Explore these services →</span></a><a class="care-gateway-card" style="--gateway-image:url('assets/hero-scenic-road.png')" href="gt-stewardship.html"><span class="care-gateway-kicker">Ongoing concierge care</span><span class="care-gateway-name">GT Stewardship</span><span class="care-gateway-desc">A consistent point of contact who learns the vehicle, monitors its condition, plans ahead and maintains a useful history over time.</span><span class="care-gateway-link">Compare Stewardship plans →</span></a></div></div></section>
 
 <!-- DETAILING SERVICES -->
 <section class="services" id="services">
@@ -2780,6 +2798,13 @@
         </div>
       </div>
       <div class="contact-detail">
+        <div class="contact-icon">CALL</div>
+        <div>
+          <div class="contact-detail-label">Phone</div>
+          <div class="contact-detail-val"><a href="tel:+12409801740">240-980-1740</a></div>
+        </div>
+      </div>
+      <div class="contact-detail">
         <div class="contact-icon">HRS</div>
         <div>
           <div class="contact-detail-label">Hours</div>
@@ -2975,6 +3000,10 @@
   window.addEventListener('scroll', () => {
     document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 60);
   });
+
+  const mobileMenuToggle=document.getElementById('mobileMenuToggle'),mobileNavPanel=document.getElementById('mobileNavPanel');
+  mobileMenuToggle.addEventListener('click',()=>{const open=mobileNavPanel.classList.toggle('open');mobileMenuToggle.setAttribute('aria-expanded',String(open));mobileMenuToggle.textContent=open?'Close':'Services';});
+  mobileNavPanel.addEventListener('click',event=>{if(!event.target.closest('a'))return;mobileNavPanel.classList.remove('open');mobileMenuToggle.setAttribute('aria-expanded','false');mobileMenuToggle.textContent='Services';});
 
   // Fade-in observer
   const observer = new IntersectionObserver((entries) => {
