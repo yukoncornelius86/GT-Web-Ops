@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="referrer" content="no-referrer">
+  <title>Private File Drop | The GT Collective</title>
+  <meta name="description" content="A private, email-verified file drop for The GT Collective.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&family=Cormorant+Garamond:ital,wght@1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html" aria-label="The GT Collective home">THE <span>GT</span> COLLECTIVE</a>
+    <div class="secure-label"><span aria-hidden="true"></span> PRIVATE TRANSFER</div>
+  </header>
+
+  <main>
+    <section class="intro" aria-labelledby="page-title">
+      <p class="eyebrow">Invitation-only file delivery</p>
+      <h1 id="page-title">Send files,<br><em>without the loose ends.</em></h1>
+      <p class="lede">Enter your approved email address. We’ll send a six-digit code, then open a private upload window that routes your files directly to The GT Collective.</p>
+      <div class="trust-row" aria-label="Transfer protections">
+        <span>Email verified</span>
+        <span>Short-lived access</span>
+        <span>Private Drive delivery</span>
+      </div>
+    </section>
+
+    <section class="transfer-card" aria-label="Secure file transfer">
+      <div class="step-rail" aria-hidden="true">
+        <div class="step active" data-step-indicator="email"><b>01</b><span>Email</span></div>
+        <div class="step" data-step-indicator="code"><b>02</b><span>Verify</span></div>
+        <div class="step" data-step-indicator="upload"><b>03</b><span>Upload</span></div>
+      </div>
+
+      <form class="panel active" id="emailPanel" novalidate>
+        <p class="panel-kicker">Step 1 of 3</p>
+        <h2>Confirm your invitation</h2>
+        <p class="panel-copy">Use the exact email address your invitation was sent to.</p>
+        <label for="email">Email address</label>
+        <input id="email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required>
+        <button type="submit" class="primary">Send verification code</button>
+        <p class="form-note">For privacy, the page will not confirm whether an address is on the invitation list.</p>
+      </form>
+
+      <form class="panel" id="codePanel" novalidate>
+        <p class="panel-kicker">Step 2 of 3</p>
+        <h2>Enter your code</h2>
+        <p class="panel-copy">A six-digit code was sent to <strong id="emailSummary"></strong>. It expires in ten minutes.</p>
+        <label for="code">Verification code</label>
+        <input id="code" name="code" class="code-input" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" placeholder="000000" required>
+        <button type="submit" class="primary">Verify and continue</button>
+        <button type="button" class="text-button" id="changeEmail">Use a different email</button>
+      </form>
+
+      <section class="panel" id="uploadPanel" aria-labelledby="upload-heading">
+        <p class="panel-kicker">Step 3 of 3</p>
+        <h2 id="upload-heading">Choose files to deliver</h2>
+        <p class="panel-copy">Your private upload window is open for two hours. Files are delivered to an isolated Google Drive folder for review.</p>
+        <input id="files" type="file" multiple hidden>
+        <button type="button" class="drop-zone" id="dropZone">
+          <span class="drop-mark" aria-hidden="true">+</span>
+          <strong>Drop files here</strong>
+          <small>or choose files from your device</small>
+          <small class="limits">Up to 20 files · 1 GB each · resumable transfer</small>
+        </button>
+        <div class="file-list" id="fileList" aria-live="polite"></div>
+        <button type="button" class="primary" id="uploadButton" disabled>Upload selected files</button>
+      </section>
+
+      <section class="panel success-panel" id="successPanel" aria-labelledby="success-heading">
+        <div class="success-mark" aria-hidden="true">✓</div>
+        <p class="panel-kicker">Transfer complete</p>
+        <h2 id="success-heading">Your files are on their way.</h2>
+        <p class="panel-copy" id="successCopy">The GT Collective has received your delivery.</p>
+        <button type="button" class="text-button" id="sendMore">Send more files</button>
+      </section>
+
+      <div class="status" id="status" role="status" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer>
+    <span>THE GT COLLECTIVE</span>
+    <span>Private transfer · Files are not publicly listed</span>
+  </footer>
+  <script src="./app.js" defer></script>
+</body>
+</html>
