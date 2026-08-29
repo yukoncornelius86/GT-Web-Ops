@@ -155,6 +155,14 @@
               "priceCurrency": "USD",
               "minPrice": "549"
             }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Auction Preparation & Listing Support",
+              "description": "Vehicle assessment, presentation preparation, photography, records organization, factual submission drafting, and owner-approved administrative support for enthusiast and collector vehicle auction listings."
+            }
           }
         ]
       },
@@ -2498,6 +2506,7 @@
     <li><a href="#services">Detailing</a></li>
     <li><a href="preservation-mechanical-services.html">Preservation &amp; Mechanical</a></li>
     <li><a href="gt-stewardship.html">GT Stewardship</a></li>
+    <li><a href="auction-preparation-listing-support.html">Auction Support</a></li>
     <li><a href="undercarriage-preservation-leonardtown-md.html">Preservation</a></li>
     <li><a href="#coffee">GT Cafe</a></li>
     <li><a href="founders-letter.html">Our Story</a></li>
@@ -2579,7 +2588,7 @@
     </div>
     <p class="services-intro">Every service is performed in our dedicated studio in Leonardtown - a controlled environment built for exacting work. We don't cut corners, we don't rush jobs, and we don't take on work we can't do to the highest standard.</p>
   </div>
-  <div class="services-grid" style="grid-template-columns: repeat(4,1fr);">
+  <div class="services-grid" style="grid-template-columns: repeat(auto-fit,minmax(240px,1fr));">
     <div class="service-card fade-up fade-up-d1" onclick="openModal('paint')">
       <div class="service-number">01</div>
       <div class="service-name">Paint Correction</div>
@@ -2612,6 +2621,14 @@
       <div class="service-tag tag-flagship">Preservation</div>
       <a class="service-link" href="undercarriage-preservation-leonardtown-md.html" onclick="event.stopPropagation();">Learn More</a>
     </div>
+    <div class="service-card fade-up fade-up-d3" onclick="openModal('auction')">
+      <div class="service-number">05</div>
+      <div class="service-name">Auction Preparation &amp; Listing Support</div>
+      <div class="service-desc">Vehicle preparation, photography, records organization, and owner-approved listing support for enthusiast and collector vehicles.</div>
+      <div class="service-price">By Consultation</div>
+      <div class="service-tag tag-value">Owner-Controlled</div>
+      <a class="service-link" href="auction-preparation-listing-support.html" onclick="event.stopPropagation();">Learn More</a>
+    </div>
   </div>
   <div class="book-banner fade-up">
     <div>
@@ -2636,6 +2653,7 @@
       <a href="paint-correction-leonardtown-md.html">Paint Correction</a>
       <a href="dry-ice-cleaning-southern-maryland.html">Dry Ice Cleaning</a>
       <a href="undercarriage-preservation-leonardtown-md.html">Undercarriage Preservation</a>
+      <a href="auction-preparation-listing-support.html">Auction Preparation &amp; Listing Support</a>
       <span>Leonardtown</span>
       <span>St. Mary's County</span>
       <span>Lexington Park</span>
@@ -2838,6 +2856,9 @@
           <option>GT Undercarriage Preservation</option>
           <option>Preservation or Mechanical Service</option>
           <option>GT Stewardship</option>
+          <option>Auction Preparation</option>
+          <option>Auction Listing Support</option>
+          <option>Auction Preparation &amp; Listing Support</option>
           <option>Two-Year Refresh Treatment</option>
           <option>GT Cafe / Coffee</option>
           <option>General Inquiry</option>
@@ -2869,6 +2890,7 @@
         <li><a href="undercarriage-preservation-leonardtown-md.html">GT Undercarriage Preservation</a></li>
         <li><a href="preservation-mechanical-services.html">Preservation &amp; Mechanical Services</a></li>
         <li><a href="gt-stewardship.html">GT Stewardship</a></li>
+        <li><a href="auction-preparation-listing-support.html">Auction Preparation &amp; Listing Support</a></li>
         <li><a href="#contact">Two-Year Refresh Treatment</a></li>
       </ul>
     </div>
@@ -2930,6 +2952,11 @@
           <div class="service-opt" data-service="GT Undercarriage Preservation" data-price="549" onclick="selectService(this)">
             <div class="service-opt-name">GT Undercarriage Preservation</div>
             <div class="service-opt-price">$549 Flat Rate</div>
+            <div class="service-opt-check">OK</div>
+          </div>
+          <div class="service-opt" data-service="Auction Preparation &amp; Listing Support" data-price="0" data-price-display="By Consultation" onclick="selectService(this)">
+            <div class="service-opt-name">Auction Preparation &amp; Listing Support</div>
+            <div class="service-opt-price">By Consultation</div>
             <div class="service-opt-check">OK</div>
           </div>
           <div class="service-opt" data-service="Two-Year Refresh Treatment" data-price="249" onclick="selectService(this)">
@@ -3027,6 +3054,7 @@
         'paint': 'Paint Correction',
         'dryice': 'Dry Ice Cleaning',
         'undercarriage': 'GT Undercarriage Preservation',
+        'auction': 'Auction Preparation & Listing Support',
         'refresh': 'Two-Year Refresh Treatment'
       };
       const opts = document.querySelectorAll('.service-opt');
