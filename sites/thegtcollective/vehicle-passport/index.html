@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+  <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+  <meta name="referrer" content="no-referrer" />
+  <title>Vehicle Passport | The Grand Tour Collective</title>
+  <meta name="description" content="A living vehicle care record from The Grand Tour Collective." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Barlow+Condensed:wght@300;400;500;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --deep-navy: #0a1628;
+      --navy: #0d1f3c;
+      --navy-mid: #132848;
+      --bay-blue: #1a3a6b;
+      --horizon: #2d6a9f;
+      --sky: #4a9fd4;
+      --sky-light: #7ec8e3;
+      --seafoam: #a8dde9;
+      --white-cap: #f0f8ff;
+      --sand: #f5e6c8;
+      --warm-sand: #e8d5a3;
+      --driftwood: #c4a882;
+      --sun: #f5c842;
+      --sunburst: #f0a500;
+      --coral: #e8622a;
+      --font-display: "Cormorant Garamond", serif;
+      --font-ui: "Barlow Condensed", sans-serif;
+      --font-body: "Barlow", sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--deep-navy);
+      color: var(--white-cap);
+      font-family: var(--font-body);
+      font-weight: 300;
+      min-height: 100vh;
+    }
+    button, input, select, textarea { font: inherit; }
+    a { color: inherit; }
+
+    .site-nav {
+      align-items: center;
+      background: rgba(10, 22, 40, .96);
+      border-bottom: 1px solid rgba(74, 159, 212, .24);
+      display: flex;
+      gap: 2rem;
+      justify-content: space-between;
+      padding: 1.15rem 3rem;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(12px);
+    }
+    .brand {
+      font-family: var(--font-display);
+      font-size: 1.08rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-decoration: none;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .brand span { color: var(--sun); }
+    .nav-context {
+      color: var(--sky-light);
+      font-family: var(--font-ui);
+      font-size: .68rem;
+      font-weight: 500;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+    .nav-action {
+      background: linear-gradient(135deg, var(--sun), var(--sunburst));
+      border-radius: 2px;
+      color: var(--deep-navy);
+      font-family: var(--font-ui);
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      padding: .7rem 1.25rem;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .passport-hero {
+      background:
+        radial-gradient(ellipse at 78% 0%, rgba(245, 200, 66, .18), transparent 42%),
+        radial-gradient(ellipse at 12% 70%, rgba(45, 106, 159, .35), transparent 58%),
+        linear-gradient(155deg, var(--bay-blue), var(--deep-navy) 62%);
+      border-bottom: 1px solid rgba(126, 200, 227, .22);
+      overflow: hidden;
+      position: relative;
+    }
+    .passport-hero::after {
+      background: repeating-linear-gradient(90deg, transparent 0 80px, rgba(126, 200, 227, .035) 80px 81px);
+      content: "";
+      inset: 0;
+      pointer-events: none;
+      position: absolute;
+    }
+    .hero-inner {
+      align-items: end;
+      display: grid;
+      gap: 4rem;
+      grid-template-columns: minmax(0, 1.1fr) minmax(280px, .9fr);
+      margin: 0 auto;
+      max-width: 1240px;
+      padding: 5.2rem 3rem 3.7rem;
+      position: relative;
+      z-index: 1;
+    }
+    .eyebrow {
+      align-items: center;
+      color: var(--sun);
+      display: flex;
+      font-family: var(--font-ui);
+      font-size: .68rem;
+      font-weight: 600;
+      gap: .9rem;
+      letter-spacing: .32em;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { background: var(--sun); content: ""; height: 1px; width: 36px; }
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3.4rem, 7vw, 6.7rem);
+      font-weight: 300;
+      letter-spacing: -.02em;
+      line-height: .84;
+    }
+    h1 em { color: var(--sun); display: block; font-weight: 400; }
+    .vehicle-spec {
+      color: var(--seafoam);
+      font-family: var(--font-ui);
+      font-size: .78rem;
+      letter-spacing: .16em;
+      margin-top: 1.25rem;
+      text-transform: uppercase;
+    }
+    .passport-number { color: var(--sky-light); font-size: .82rem; margin-top: .65rem; }
+    .vehicle-outline { color: rgba(240, 248, 255, .72); width: 100%; }
+    .vehicle-outline path, .vehicle-outline line, .vehicle-outline circle { vector-effect: non-scaling-stroke; }
+
+    .passport-tabs-wrap {
+      background: rgba(13, 31, 60, .97);
+      border-bottom: 1px solid rgba(126, 200, 227, .15);
+      position: sticky;
+      top: 68px;
+      z-index: 15;
+    }
+    .passport-tabs {
+      display: flex;
+      margin: 0 auto;
+      max-width: 1240px;
+      overflow-x: auto;
+      padding: 0 3rem;
+      scrollbar-width: none;
+    }
+    .passport-tabs::-webkit-scrollbar { display: none; }
+    .tab-button {
+      background: transparent;
+      border: 0;
+      border-bottom: 2px solid transparent;
+      color: var(--sky-light);
+      cursor: pointer;
+      font-family: var(--font-ui);
+      font-size: .7rem;
+      font-weight: 500;
+      letter-spacing: .18em;
+      padding: 1.05rem 1.4rem .9rem;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .tab-button:first-child { padding-left: 0; }
+    .tab-button[aria-selected="true"] { border-bottom-color: var(--sun); color: var(--white-cap); }
+
+    .page-shell { margin: 0 auto; max-width: 1240px; padding: 2.4rem 3rem 8rem; }
+    .tab-panel[hidden] { display: none; }
+    .next-step {
+      align-items: center;
+      background:
+        radial-gradient(circle at 94% 20%, rgba(245, 200, 66, .13), transparent 34%),
+        linear-gradient(135deg, var(--navy-mid), var(--navy));
+      border: 1px solid rgba(245, 200, 66, .5);
+      box-shadow: 0 22px 65px rgba(0, 0, 0, .2);
+      display: grid;
+      gap: 2rem;
+      grid-template-columns: 1fr auto;
+      padding: 2rem;
+    }
+    .section-label {
+      color: var(--sun);
+      font-family: var(--font-ui);
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .26em;
+      text-transform: uppercase;
+    }
+    .next-step h2, .section-heading h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      line-height: 1;
+      margin: .55rem 0 .65rem;
+    }
+    .supporting { color: var(--seafoam); font-size: .92rem; line-height: 1.65; }
+    .primary-button {
+      background: linear-gradient(135deg, var(--sun), var(--sunburst));
+      border: 0;
+      border-radius: 2px;
+      color: var(--deep-navy);
+      cursor: pointer;
+      display: inline-flex;
+      font-family: var(--font-ui);
+      font-size: .72rem;
+      font-weight: 700;
+      justify-content: center;
+      letter-spacing: .17em;
+      padding: .9rem 1.4rem;
+      text-decoration: none;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .secondary-button {
+      background: transparent;
+      border: 1px solid rgba(126, 200, 227, .48);
+      border-radius: 2px;
+      color: var(--white-cap);
+      cursor: pointer;
+      display: inline-flex;
+      font-family: var(--font-ui);
+      font-size: .68rem;
+      font-weight: 600;
+      justify-content: center;
+      letter-spacing: .16em;
+      padding: .75rem 1rem;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+    .primary-button:hover, .nav-action:hover { box-shadow: 0 8px 28px rgba(245, 200, 66, .26); transform: translateY(-1px); }
+
+    .status-grid {
+      display: grid;
+      gap: 1px;
+      grid-template-columns: repeat(4, 1fr);
+      margin-top: 1px;
+    }
+    .status-card { background: var(--navy); border-top: 2px solid var(--horizon); padding: 1.45rem; }
+    .status-card strong { display: block; font-family: var(--font-display); font-size: 1.75rem; font-weight: 400; margin: .4rem 0 .15rem; }
+    .status-card small { color: var(--sky-light); font-size: .78rem; }
+
+    .section-block { margin-top: 4.5rem; }
+    .section-heading {
+      align-items: end;
+      border-bottom: 1px solid rgba(126, 200, 227, .22);
+      display: flex;
+      gap: 2rem;
+      justify-content: space-between;
+      margin-bottom: 1.7rem;
+      padding-bottom: 1rem;
+    }
+    .section-heading h2 { margin-bottom: 0; }
+    .text-link {
+      background: transparent;
+      border: 0;
+      color: var(--sun);
+      cursor: pointer;
+      font-family: var(--font-ui);
+      font-size: .67rem;
+      font-weight: 600;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .care-layout { display: grid; gap: 2.5rem; grid-template-columns: minmax(0, 1.25fr) minmax(280px, .75fr); }
+    .timeline { border-left: 1px solid rgba(126, 200, 227, .3); margin-left: .45rem; padding-left: 1.8rem; }
+    .timeline-entry { margin-bottom: 2.1rem; position: relative; }
+    .timeline-entry:last-child { margin-bottom: 0; }
+    .timeline-entry::before {
+      background: var(--sun);
+      border: 4px solid var(--deep-navy);
+      border-radius: 50%;
+      content: "";
+      height: 13px;
+      left: -2.26rem;
+      position: absolute;
+      top: .15rem;
+      width: 13px;
+    }
+    .entry-date { color: var(--sky-light); font-family: var(--font-ui); font-size: .65rem; letter-spacing: .17em; text-transform: uppercase; }
+    .entry-title { font-family: var(--font-display); font-size: 1.55rem; font-weight: 400; margin: .28rem 0 .4rem; }
+    .entry-copy { color: var(--seafoam); font-size: .86rem; line-height: 1.65; }
+    .entry-tags { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: .75rem; }
+    .entry-tag { border: 1px solid rgba(74, 159, 212, .3); color: var(--sky-light); font-family: var(--font-ui); font-size: .58rem; letter-spacing: .12em; padding: .28rem .45rem; text-transform: uppercase; }
+
+    .watch-list { background: linear-gradient(150deg, var(--navy-mid), var(--navy)); border: 1px solid rgba(126, 200, 227, .2); padding: 1.6rem; }
+    .watch-list h3 { font-family: var(--font-display); font-size: 1.7rem; font-weight: 400; margin-bottom: 1rem; }
+    .watch-item { border-top: 1px solid rgba(126, 200, 227, .17); padding: 1rem 0; }
+    .watch-item:first-of-type { border-top: 0; padding-top: 0; }
+    .watch-head { align-items: center; display: flex; gap: .7rem; justify-content: space-between; }
+    .watch-head strong { font-size: .88rem; font-weight: 500; }
+    .condition {
+      border: 1px solid rgba(245, 200, 66, .55);
+      color: var(--sun);
+      font-family: var(--font-ui);
+      font-size: .58rem;
+      letter-spacing: .12em;
+      padding: .25rem .42rem;
+      text-transform: uppercase;
+    }
+    .watch-item p { color: var(--sky-light); font-size: .77rem; line-height: 1.5; margin-top: .42rem; }
+
+    .document-grid { display: grid; gap: 1rem; grid-template-columns: repeat(3, 1fr); }
+    .document-card {
+      background: var(--navy);
+      border: 1px solid rgba(126, 200, 227, .18);
+      color: inherit;
+      min-height: 170px;
+      padding: 1.45rem;
+      text-decoration: none;
+      transition: border-color .2s, transform .2s;
+    }
+    .document-card:hover { border-color: var(--sun); transform: translateY(-2px); }
+    .doc-type { color: var(--sun); font-family: var(--font-ui); font-size: .6rem; letter-spacing: .2em; text-transform: uppercase; }
+    .document-card h3 { font-family: var(--font-display); font-size: 1.55rem; font-weight: 400; line-height: 1.05; margin: 1.3rem 0 .45rem; }
+    .document-card p { color: var(--sky-light); font-size: .77rem; line-height: 1.5; }
+
+    .spec-table { border-collapse: collapse; width: 100%; }
+    .spec-table th, .spec-table td { border-bottom: 1px solid rgba(126, 200, 227, .16); padding: 1rem .4rem; text-align: left; }
+    .spec-table th { color: var(--sky-light); font-family: var(--font-ui); font-size: .64rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; width: 34%; }
+    .spec-table td { font-size: .92rem; }
+
+    .care-path { display: grid; gap: 1rem; grid-template-columns: repeat(3, 1fr); }
+    .care-step { border-top: 2px solid var(--horizon); padding: 1.25rem 0; }
+    .care-step.current { border-top-color: var(--sun); }
+    .step-number { color: var(--sky-light); font-family: var(--font-ui); font-size: .62rem; letter-spacing: .18em; text-transform: uppercase; }
+    .care-step h3 { font-family: var(--font-display); font-size: 1.45rem; font-weight: 400; margin: .5rem 0 .35rem; }
+    .care-step p { color: var(--sky-light); font-size: .8rem; line-height: 1.55; }
+
+    .sticky-care-action {
+      align-items: center;
+      background: rgba(13, 31, 60, .97);
+      border-top: 1px solid rgba(245, 200, 66, .42);
+      bottom: 0;
+      display: flex;
+      gap: 1.5rem;
+      justify-content: space-between;
+      left: 0;
+      padding: .85rem max(1.2rem, calc((100vw - 1180px) / 2));
+      position: fixed;
+      right: 0;
+      z-index: 30;
+      backdrop-filter: blur(12px);
+    }
+    .sticky-copy span { color: var(--sun); font-family: var(--font-ui); font-size: .58rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; }
+    .sticky-copy strong { display: block; font-size: .84rem; font-weight: 400; margin-top: .15rem; }
+
+    .modal-backdrop {
+      align-items: center;
+      background: rgba(4, 10, 19, .82);
+      display: none;
+      inset: 0;
+      justify-content: center;
+      padding: 1.2rem;
+      position: fixed;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+    }
+    .modal-backdrop.open { display: flex; }
+    .request-modal {
+      background: var(--navy);
+      border: 1px solid rgba(245, 200, 66, .45);
+      box-shadow: 0 30px 100px rgba(0, 0, 0, .55);
+      max-height: calc(100vh - 2.4rem);
+      max-width: 660px;
+      overflow: auto;
+      padding: 2rem;
+      width: 100%;
+    }
+    .modal-head { align-items: start; display: flex; gap: 2rem; justify-content: space-between; }
+    .modal-head h2 { font-family: var(--font-display); font-size: 2.4rem; font-weight: 300; line-height: 1; }
+    .close-button { background: transparent; border: 0; color: var(--sky-light); cursor: pointer; font-family: var(--font-ui); font-size: .65rem; letter-spacing: .15em; text-transform: uppercase; }
+    .request-form { display: grid; gap: 1rem; margin-top: 1.7rem; }
+    .form-row { display: grid; gap: 1rem; grid-template-columns: 1fr 1fr; }
+    label { color: var(--sky-light); display: grid; font-family: var(--font-ui); font-size: .62rem; gap: .4rem; letter-spacing: .14em; text-transform: uppercase; }
+    input, select, textarea { background: var(--deep-navy); border: 1px solid rgba(126, 200, 227, .25); border-radius: 0; color: var(--white-cap); padding: .8rem; width: 100%; }
+    textarea { min-height: 95px; resize: vertical; }
+    input:focus, select:focus, textarea:focus { border-color: var(--sun); outline: 1px solid var(--sun); }
+    .form-status { color: var(--seafoam); font-size: .82rem; line-height: 1.5; min-height: 1.3rem; }
+
+    .site-footer { border-top: 1px solid rgba(126, 200, 227, .18); color: var(--sky-light); font-family: var(--font-ui); font-size: .62rem; letter-spacing: .13em; padding: 2rem 3rem 6rem; text-align: center; text-transform: uppercase; }
+
+    @media (max-width: 900px) {
+      .site-nav { padding: 1rem 1.25rem; }
+      .nav-context { display: none; }
+      .hero-inner { gap: 2rem; grid-template-columns: 1fr; padding: 4.1rem 1.25rem 2.6rem; }
+      .vehicle-outline { max-width: 600px; }
+      .passport-tabs-wrap { top: 62px; }
+      .passport-tabs { padding: 0 1.25rem; }
+      .page-shell { padding: 1.8rem 1.25rem 8rem; }
+      .status-grid { grid-template-columns: 1fr 1fr; }
+      .care-layout { grid-template-columns: 1fr; }
+      .document-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 620px) {
+      .brand { font-size: .9rem; }
+      .nav-action { padding: .65rem .75rem; }
+      .next-step { grid-template-columns: 1fr; padding: 1.4rem; }
+      .next-step .primary-button { width: 100%; }
+      .status-grid, .document-grid, .care-path { grid-template-columns: 1fr; }
+      .section-heading { align-items: start; flex-direction: column; gap: .5rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .request-modal { padding: 1.35rem; }
+      .sticky-copy { display: none; }
+      .sticky-care-action .primary-button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav" aria-label="Vehicle passport navigation">
+    <a class="brand" href="../">The <span>GT</span> Collective</a>
+    <div class="nav-context">Private Vehicle Passport</div>
+    <button class="nav-action" type="button" data-open-request>Request Care</button>
+  </nav>
+
+  <header class="passport-hero">
+    <div class="hero-inner">
+      <div>
+        <div class="eyebrow">Vehicle Passport</div>
+        <h1>1988 Porsche <em>911 Carrera</em></h1>
+        <div class="vehicle-spec">Guards Red &nbsp; / &nbsp; 92,418 Miles &nbsp; / &nbsp; VIN ending 1847</div>
+        <div class="passport-number">Passport GT-911-026 &nbsp; · &nbsp; Last updated October 18, 2025</div>
+      </div>
+      <svg class="vehicle-outline" viewBox="0 0 760 250" role="img" aria-labelledby="carTitle carDesc">
+        <title id="carTitle">Classic sports car profile</title>
+        <desc id="carDesc">A restrained line drawing representing the vehicle attached to this passport.</desc>
+        <path d="M62 171 C90 158 126 151 168 147 C199 109 246 73 328 67 C402 61 452 78 504 114 L579 129 C629 138 673 155 700 177" fill="none" stroke="currentColor" stroke-width="2" />
+        <path d="M176 146 C214 139 245 136 276 136 L301 84 C265 90 232 108 205 135" fill="none" stroke="currentColor" stroke-width="1.25" />
+        <path d="M315 82 L298 136 L489 128 C451 92 407 77 342 79 Z" fill="none" stroke="currentColor" stroke-width="1.25" />
+        <path d="M67 172 C67 193 82 204 111 204 H147 C152 170 176 151 210 151 C244 151 267 171 273 204 H535 C540 171 564 151 598 151 C632 151 655 171 661 204 H686 C702 204 709 196 702 177" fill="none" stroke="currentColor" stroke-width="2" />
+        <circle cx="210" cy="202" r="42" fill="none" stroke="currentColor" stroke-width="2" />
+        <circle cx="210" cy="202" r="20" fill="none" stroke="currentColor" stroke-width="1" />
+        <circle cx="598" cy="202" r="42" fill="none" stroke="currentColor" stroke-width="2" />
+        <circle cx="598" cy="202" r="20" fill="none" stroke="currentColor" stroke-width="1" />
+        <line x1="505" y1="114" x2="491" y2="160" stroke="currentColor" stroke-width="1" />
+        <line x1="294" y1="136" x2="286" y2="160" stroke="currentColor" stroke-width="1" />
+        <line x1="85" y1="177" x2="129" y2="177" stroke="currentColor" stroke-width="1" />
+        <line x1="665" y1="174" x2="699" y2="180" stroke="currentColor" stroke-width="1" />
+      </svg>
+    </div>
+  </header>
+
+  <div class="passport-tabs-wrap">
+    <div class="passport-tabs" role="tablist" aria-label="Passport sections">
+      <button class="tab-button" type="button" role="tab" aria-selected="true" aria-controls="overview" data-tab="overview">Overview</button>
+      <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="logbook" data-tab="logbook">Logbook</button>
+      <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="condition" data-tab="condition">Condition</button>
+      <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="documents" data-tab="documents">Documents</button>
+      <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="reference" data-tab="reference">Quick Reference</button>
+    </div>
+  </div>
+
+  <main class="page-shell">
+    <section class="tab-panel" id="overview" role="tabpanel">
+      <div class="next-step">
+        <div>
+          <div class="section-label">Recommended next step</div>
+          <h2>Schedule the 12-month preservation review</h2>
+          <p class="supporting">Due by October 15. I will review the underside, seals, wheel wells, protected surfaces, and the two watch items recorded below.</p>
+        </div>
+        <button class="primary-button" type="button" data-open-request>Request appointment</button>
+      </div>
+
+      <div class="status-grid" aria-label="Vehicle care summary">
+        <div class="status-card"><div class="section-label">Overall condition</div><strong>Stable</strong><small>No priority items recorded</small></div>
+        <div class="status-card"><div class="section-label">Last visit</div><strong>Oct 18, 2025</strong><small>Preservation service</small></div>
+        <div class="status-card"><div class="section-label">Protected areas</div><strong>14 recorded</strong><small>With photo evidence</small></div>
+        <div class="status-card"><div class="section-label">Watch items</div><strong>2 open</strong><small>Review at next visit</small></div>
+      </div>
+
+      <section class="section-block">
+        <div class="section-heading">
+          <div><div class="section-label">Your vehicle's story</div><h2>Recent care history</h2></div>
+          <button class="text-link" type="button" data-show-tab="logbook">View the full logbook</button>
+        </div>
+        <div class="care-layout">
+          <div class="timeline">
+            <article class="timeline-entry">
+              <div class="entry-date">October 18, 2025 &nbsp; · &nbsp; Grand Tour Collective</div>
+              <h3 class="entry-title">Undercarriage preservation service</h3>
+              <p class="entry-copy">Dry-ice cleaning, detailed inspection, condition map, and protective treatment. Forty-six before-and-after reference photographs were added to the permanent record.</p>
+              <div class="entry-tags"><span class="entry-tag">Verified service</span><span class="entry-tag">46 photos</span><span class="entry-tag">Condition report</span></div>
+            </article>
+            <article class="timeline-entry">
+              <div class="entry-date">April 11, 2025 &nbsp; · &nbsp; Grand Tour Collective</div>
+              <h3 class="entry-title">Seasonal condition review</h3>
+              <p class="entry-copy">Battery, tires, seals, visible corrosion points, and storage readiness reviewed. The vehicle remained stable, with two areas set aside for ongoing observation.</p>
+              <div class="entry-tags"><span class="entry-tag">Condition review</span><span class="entry-tag">2 watch items</span></div>
+            </article>
+          </div>
+          <aside class="watch-list">
+            <div class="section-label">At a glance</div>
+            <h3>Current watch list</h3>
+            <div class="watch-item">
+              <div class="watch-head"><strong>Left heat exchanger</strong><span class="condition">Watch</span></div>
+              <p>Light surface oxidation documented. Recheck during the next preservation review.</p>
+            </div>
+            <div class="watch-item">
+              <div class="watch-head"><strong>Rear deck seal</strong><span class="condition">Watch</span></div>
+              <p>Early material aging recorded. Monitor condition and water management.</p>
+            </div>
+            <button class="secondary-button" type="button" data-show-tab="condition">Open condition record</button>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading"><div><div class="section-label">Forward care</div><h2>Your preservation path</h2></div></div>
+        <div class="care-path">
+          <div class="care-step"><div class="step-number">Completed &nbsp; / &nbsp; 01</div><h3>Baseline established</h3><p>Condition, materials, vulnerable areas, and vehicle reference photography recorded.</p></div>
+          <div class="care-step current"><div class="step-number">Next &nbsp; / &nbsp; 02</div><h3>Annual review</h3><p>Reinspect known watch items, refresh the photo record, and confirm protection remains intact.</p></div>
+          <div class="care-step"><div class="step-number">Future &nbsp; / &nbsp; 03</div><h3>Targeted stewardship</h3><p>Address condition changes only when the record shows a clear reason to act.</p></div>
+        </div>
+      </section>
+    </section>
+
+    <section class="tab-panel" id="logbook" role="tabpanel" hidden>
+      <div class="section-heading"><div><div class="section-label">Permanent record</div><h2>Vehicle logbook</h2><p class="supporting">Verified professional work and owner-supplied history, kept together in chronological order.</p></div></div>
+      <div class="timeline">
+        <article class="timeline-entry"><div class="entry-date">October 18, 2025 &nbsp; · &nbsp; Verified</div><h3 class="entry-title">Undercarriage preservation service</h3><p class="entry-copy">Dry-ice cleaning, inspection mapping, and protective treatment. Materials and treated areas recorded with 46 reference photographs.</p><div class="entry-tags"><span class="entry-tag">Grand Tour Collective</span><span class="entry-tag">Preservation</span><span class="entry-tag">46 photos</span></div></article>
+        <article class="timeline-entry"><div class="entry-date">April 11, 2025 &nbsp; · &nbsp; Verified</div><h3 class="entry-title">Seasonal condition review</h3><p class="entry-copy">Battery, tires, seals, visible corrosion points, and storage readiness reviewed. Overall condition recorded as stable.</p><div class="entry-tags"><span class="entry-tag">Grand Tour Collective</span><span class="entry-tag">Inspection</span></div></article>
+        <article class="timeline-entry"><div class="entry-date">September 22, 2024 &nbsp; · &nbsp; Owner record</div><h3 class="entry-title">Tire replacement</h3><p class="entry-copy">Michelin Pilot Exalto tire set installed at 89,106 miles. Owner receipt retained in the document library.</p><div class="entry-tags"><span class="entry-tag">Owner supplied</span><span class="entry-tag">Receipt attached</span></div></article>
+        <article class="timeline-entry"><div class="entry-date">March 6, 2024 &nbsp; · &nbsp; Owner record</div><h3 class="entry-title">Annual mechanical service</h3><p class="entry-copy">Engine oil and filter service, brake fluid exchange, and general roadworthiness inspection recorded at 87,940 miles.</p><div class="entry-tags"><span class="entry-tag">Owner supplied</span><span class="entry-tag">Service record</span></div></article>
+      </div>
+    </section>
+
+    <section class="tab-panel" id="condition" role="tabpanel" hidden>
+      <div class="section-heading"><div><div class="section-label">Current condition</div><h2>What I am watching</h2><p class="supporting">Plain-language findings, supporting photographs, and the action tied to each area.</p></div></div>
+      <div class="document-grid">
+        <article class="document-card"><div class="doc-type">Stable</div><h3>Underside structure</h3><p>Previously cleaned and documented. No priority change recorded at the last review.</p></article>
+        <article class="document-card"><div class="doc-type">Stable</div><h3>Wheel wells and suspension</h3><p>Reference photographs retained for comparison at the next annual review.</p></article>
+        <article class="document-card"><div class="doc-type">Watch</div><h3>Left heat exchanger</h3><p>Light surface oxidation. Compare against October 2025 baseline during the next visit.</p></article>
+        <article class="document-card"><div class="doc-type">Watch</div><h3>Rear deck seal</h3><p>Early material aging. Monitor water management and replace if deterioration progresses.</p></article>
+        <article class="document-card"><div class="doc-type">Stable</div><h3>Protected surfaces</h3><p>Fourteen areas recorded. Verify coverage and condition during the next preservation review.</p></article>
+        <article class="document-card"><div class="doc-type">Stable</div><h3>Tires</h3><p>Installed September 2024. Date, mileage, brand, and receipt retained in the logbook.</p></article>
+      </div>
+    </section>
+
+    <section class="tab-panel" id="documents" role="tabpanel" hidden>
+      <div class="section-heading"><div><div class="section-label">Owner-controlled library</div><h2>Documents and evidence</h2><p class="supporting">The records that explain the vehicle's care, condition, and history in one place.</p></div></div>
+      <div class="document-grid">
+        <a class="document-card" href="#" data-demo-document><div class="doc-type">PDF &nbsp; / &nbsp; Latest</div><h3>Condition report</h3><p>October 18, 2025 · Full preservation findings and recommended follow-up.</p></a>
+        <a class="document-card" href="#" data-demo-document><div class="doc-type">Gallery &nbsp; / &nbsp; 46 files</div><h3>Preservation photographs</h3><p>Before, after, and reference images organized by vehicle area.</p></a>
+        <a class="document-card" href="#" data-demo-document><div class="doc-type">PDF &nbsp; / &nbsp; Current</div><h3>Care and storage guide</h3><p>Owner reference for washing, storage, seasonal use, and inspection timing.</p></a>
+        <a class="document-card" href="#" data-demo-document><div class="doc-type">Records &nbsp; / &nbsp; 8 files</div><h3>Service history</h3><p>Verified GT entries and owner-supplied mechanical service documents.</p></a>
+        <a class="document-card" href="#" data-demo-document><div class="doc-type">Reference</div><h3>Vehicle specification</h3><p>Identity, configuration, finish, mileage history, and known equipment.</p></a>
+        <a class="document-card" href="#" data-demo-document><div class="doc-type">Export</div><h3>Shareable passport PDF</h3><p>A dated snapshot for insurance, service coordination, or future stewardship.</p></a>
+      </div>
+    </section>
+
+    <section class="tab-panel" id="reference" role="tabpanel" hidden>
+      <div class="section-heading"><div><div class="section-label">Ready reference</div><h2>Vehicle essentials</h2><p class="supporting">The details most often needed for service, storage, transport, or ownership records.</p></div></div>
+      <table class="spec-table">
+        <tbody>
+          <tr><th scope="row">Vehicle</th><td>1988 Porsche 911 Carrera Coupe</td></tr>
+          <tr><th scope="row">Exterior</th><td>Guards Red</td></tr>
+          <tr><th scope="row">Interior</th><td>Black leather</td></tr>
+          <tr><th scope="row">Mileage</th><td>92,418 miles, recorded October 18, 2025</td></tr>
+          <tr><th scope="row">VIN</th><td>Owner view: full record available · Shared view: ending 1847</td></tr>
+          <tr><th scope="row">Tires</th><td>Michelin Pilot Exalto · installed September 2024 at 89,106 miles</td></tr>
+          <tr><th scope="row">Battery</th><td>Maintainer recommended during storage periods beyond 14 days</td></tr>
+          <tr><th scope="row">Last preservation</th><td>October 18, 2025 · Grand Tour Collective</td></tr>
+          <tr><th scope="row">Next review</th><td>By October 15, 2026</td></tr>
+          <tr><th scope="row">Passport ID</th><td>GT-911-026</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <div class="sticky-care-action">
+    <div class="sticky-copy"><span>Next step</span><strong>12-month preservation review · due by October 15</strong></div>
+    <button class="primary-button" type="button" data-open-request>Request appointment</button>
+  </div>
+
+  <footer class="site-footer">The Grand Tour Collective &nbsp; · &nbsp; Crafted for the Journey &nbsp; · &nbsp; Private customer portal</footer>
+
+  <div class="modal-backdrop" id="requestModal" role="dialog" aria-modal="true" aria-labelledby="requestTitle">
+    <div class="request-modal">
+      <div class="modal-head">
+        <div><div class="section-label">Your next step</div><h2 id="requestTitle">Request a preservation review</h2></div>
+        <button class="close-button" type="button" data-close-request>Close</button>
+      </div>
+      <form class="request-form" id="requestForm">
+        <div class="form-row">
+          <label>First name<input type="text" name="first_name" autocomplete="given-name" required /></label>
+          <label>Last name<input type="text" name="last_name" autocomplete="family-name" required /></label>
+        </div>
+        <div class="form-row">
+          <label>Email<input type="email" name="email" autocomplete="email" required /></label>
+          <label>Phone<input type="tel" name="phone" autocomplete="tel" /></label>
+        </div>
+        <div class="form-row">
+          <label>Vehicle<input type="text" name="vehicle" value="1988 Porsche 911 Carrera" required /></label>
+          <label>Preferred timing<select name="preferred_timing"><option>Within the next 30 days</option><option>Within the next 60 days</option><option>Before October 15</option><option>Call me to discuss</option></select></label>
+        </div>
+        <label>Anything I should know?<textarea name="notes" placeholder="Mileage changes, recent work, storage plans, or questions for the review."></textarea></label>
+        <input type="hidden" name="requested_service" value="12-Month Preservation Review" />
+        <input type="hidden" name="source_site" value="GT Vehicle Passport" />
+        <div class="form-status" id="formStatus" aria-live="polite"></div>
+        <button class="primary-button" type="submit">Send request</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const tabs = [...document.querySelectorAll('[data-tab]')];
+    const panels = [...document.querySelectorAll('.tab-panel')];
+    const modal = document.getElementById('requestModal');
+    const form = document.getElementById('requestForm');
+    const formStatus = document.getElementById('formStatus');
+    const webhookUrl = 'https://n8n.thegtcollective.com/webhook/service-request';
+
+    function showTab(name) {
+      tabs.forEach((tab) => tab.setAttribute('aria-selected', String(tab.dataset.tab === name)));
+      panels.forEach((panel) => { panel.hidden = panel.id !== name; });
+      document.querySelector('.passport-tabs-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function openRequest() {
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      const firstField = form.querySelector('input');
+      window.setTimeout(() => firstField.focus(), 50);
+    }
+
+    function closeRequest() {
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    tabs.forEach((tab) => tab.addEventListener('click', () => showTab(tab.dataset.tab)));
+    document.querySelectorAll('[data-show-tab]').forEach((button) => button.addEventListener('click', () => showTab(button.dataset.showTab)));
+    document.querySelectorAll('[data-open-request]').forEach((button) => button.addEventListener('click', openRequest));
+    document.querySelectorAll('[data-close-request]').forEach((button) => button.addEventListener('click', closeRequest));
+    document.querySelectorAll('[data-demo-document]').forEach((link) => link.addEventListener('click', (event) => {
+      event.preventDefault();
+      window.alert('This concept card is ready to connect to the vehicle\'s real document or gallery.');
+    }));
+    modal.addEventListener('click', (event) => { if (event.target === modal) closeRequest(); });
+    document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeRequest(); });
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const submit = form.querySelector('[type="submit"]');
+      const data = Object.fromEntries(new FormData(form).entries());
+      submit.disabled = true;
+      submit.textContent = 'Sending...';
+      formStatus.textContent = '';
+
+      try {
+        const response = await fetch(webhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ...data, consent_to_contact: true, source_url: window.location.href, form_type: 'vehicle_passport_care_request' })
+        });
+        if (!response.ok) throw new Error(`Request failed: ${response.status}`);
+        formStatus.textContent = 'Request received. I will follow up to confirm timing and the review plan.';
+        submit.textContent = 'Request sent';
+      } catch (error) {
+        console.error(error);
+        formStatus.textContent = 'I could not send the request. Please email crew@thegtcollective.com.';
+        submit.disabled = false;
+        submit.textContent = 'Try again';
+      }
+    });
+  </script>
+</body>
+</html>
