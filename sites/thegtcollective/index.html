@@ -1277,6 +1277,18 @@
     .testimonials { padding: 4rem 1.5rem; }
   }
 
+  @media (max-width: 520px) {
+    .modal-overlay { padding: 0.75rem; }
+    .modal-header { padding: 1.25rem 1rem 1rem; }
+    .modal-body { padding: 1.25rem 1rem; }
+    .modal-footer { padding: 1rem; gap: 0.75rem; flex-wrap: wrap; }
+  }
+
+  @media (max-width: 360px) {
+    .modal-overlay { padding: 0.25rem; }
+    .modal-body { padding: 1rem 0.25rem; }
+  }
+
   /* GT Collective retheme: Motorized editorial energy + AMMO NYC detailing precision */
   :root {
     --deep-navy:    #090909;
@@ -2583,7 +2595,7 @@
 <div class="form-row"><div class="form-group"><label>Is the vehicle drivable?</label><select id="bookDrivable"><option value="">Select...</option><option>Yes</option><option>No</option><option>Limited / needs discussion</option></select></div><div class="form-group"><label>Are parts removed?</label><select id="bookPartsRemoved"><option value="">Select...</option><option>No — work is on the vehicle</option><option>Yes — all relevant parts are removed</option><option>Some parts are removed</option><option>Not applicable / not sure</option></select></div></div>
 <div class="form-row"><div class="form-group"><label>Optional project budget</label><select id="bookBudget"><option value="">Not sure / need assessment</option><option>$1,000–$2,500</option><option>$2,500–$5,000</option><option>$5,000+</option><option>Below $1,000 — please review</option></select></div><div class="form-group"><label>Project photos</label><a class="btn-ghost" href="/file-drop/" target="_blank" rel="noopener" style="display:block;text-align:center;">Open Secure Photo Upload</a><small style="display:block;color:var(--ash);margin-top:.5rem;">Email verification keeps vehicle files private. New clients can submit this form first if access has not been opened yet.</small></div></div>
 <div class="form-group"><label>Desired outcome and additional context</label><textarea id="bookOutcome" placeholder="Describe the finish, documentation, preservation, mechanical, or sale-ready result you want."></textarea></div>
-<div id="bookingTurnstile" class="cf-turnstile" data-sitekey="0x4AAAAAAD4EloOtzRFsYd6K" data-theme="dark" data-action="booking_modal" style="margin-top:1rem;"></div></div>
+<div id="bookingTurnstile" class="cf-turnstile" data-sitekey="0x4AAAAAAD4EloOtzRFsYd6K" data-theme="dark" data-size="flexible" data-action="booking_modal" style="margin-top:1rem;"></div></div>
 <div class="modal-footer"><div><div class="modal-total-label">Typical preservation project</div><div class="modal-total" id="modalTotal">Around $1,000+</div></div><button class="btn-primary" onclick="submitBooking()">Send for Review</button></div></div><div class="success-msg" id="successMsg"><div class="success-icon">Done</div><div class="success-title">Project Review Received</div><div class="success-sub" style="color:var(--ash);margin-top:.8rem;">Thanks — GT will review the vehicle, objective, scope, and timing before recommending the next step. This is a request, not a confirmed appointment or final quote.</div><br/><button class="btn-ghost" onclick="closeModal()" style="margin-top:.8rem;">Close</button></div></div></div>
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="blog-posts.js"></script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
