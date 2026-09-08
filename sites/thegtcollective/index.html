@@ -2583,9 +2583,11 @@
 <div class="form-group"><label>Affected areas</label><div class="form-row"><select id="bookAreas" multiple size="5" aria-label="Affected areas"><option>Underbody</option><option>Engine bay</option><option>Components</option><option>Exterior / paint</option><option>Mechanical</option><option>Whole vehicle / not sure</option></select><select id="bookMethod" aria-label="Cleaning method interest"><option value="">Cleaning method interest...</option><option>Dry ice interest</option><option>Laser interest</option><option>Both technologies</option><option>Not sure — recommend the best method</option><option>Not applicable</option></select></div></div>
 <div class="form-row"><div class="form-group"><label>Is the vehicle drivable?</label><select id="bookDrivable"><option value="">Select...</option><option>Yes</option><option>No</option><option>Limited / needs discussion</option></select></div><div class="form-group"><label>Are parts removed?</label><select id="bookPartsRemoved"><option value="">Select...</option><option>No — work is on the vehicle</option><option>Yes — all relevant parts are removed</option><option>Some parts are removed</option><option>Not applicable / not sure</option></select></div></div>
 <div class="form-row"><div class="form-group"><label>Optional project budget</label><select id="bookBudget"><option value="">Not sure / need assessment</option><option>$1,000–$2,500</option><option>$2,500–$5,000</option><option>$5,000+</option><option>Below $1,000 — please review</option></select></div><div class="form-group"><label>Project photos</label><a class="btn-ghost" href="/file-drop/" target="_blank" rel="noopener" style="display:block;text-align:center;">Open Secure Photo Upload</a><small style="display:block;color:var(--ash);margin-top:.5rem;">Email verification keeps vehicle files private. New clients can submit this form first if access has not been opened yet.</small></div></div>
-<div class="form-group"><label>Desired outcome and additional context</label><textarea id="bookOutcome" placeholder="Describe the finish, documentation, preservation, mechanical, or sale-ready result you want."></textarea></div></div>
+<div class="form-group"><label>Desired outcome and additional context</label><textarea id="bookOutcome" placeholder="Describe the finish, documentation, preservation, mechanical, or sale-ready result you want."></textarea></div>
+<div id="bookingTurnstile" class="cf-turnstile" data-sitekey="0x4AAAAAAD4EloOtzRFsYd6K" data-theme="dark" data-action="booking_modal" style="margin-top:1rem;"></div></div>
 <div class="modal-footer"><div><div class="modal-total-label">Typical preservation project</div><div class="modal-total" id="modalTotal">Around $1,000+</div></div><button class="btn-primary" onclick="submitBooking()">Send for Review</button></div></div><div class="success-msg" id="successMsg"><div class="success-icon">Done</div><div class="success-title">Project Review Received</div><div class="success-sub" style="color:var(--ash);margin-top:.8rem;">Thanks — GT will review the vehicle, objective, scope, and timing before recommending the next step. This is a request, not a confirmed appointment or final quote.</div><br/><button class="btn-ghost" onclick="closeModal()" style="margin-top:.8rem;">Close</button></div></div></div>
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="blog-posts.js"></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script src="assets/gt-traffic.js" defer></script>
 <script>
   // Nav scroll
@@ -2679,6 +2681,16 @@
 
   // Booking + contact integration — posts to the n8n service-request intake workflow.
   const N8N_WEBHOOK_URL = 'https://n8n.thegtcollective.com/webhook/service-request';
+  function getTurnstileToken() {
+    const response = document.querySelector('#bookingTurnstile input[name="cf-turnstile-response"]');
+    return response ? response.value : '';
+  }
+
+  function resetTurnstile() {
+    if (window.turnstile && typeof window.turnstile.reset === 'function') {
+      window.turnstile.reset('#bookingTurnstile');
+    }
+  }
   function getTrafficAttribution(formType) {
     return window.GT_TRAFFIC && typeof window.GT_TRAFFIC.attribution === 'function'
       ? window.GT_TRAFFIC.attribution(formType)
@@ -2702,9 +2714,15 @@
     const partsRemoved = document.getElementById('bookPartsRemoved').value;
     const projectBudget = document.getElementById('bookBudget').value;
     const desiredOutcome = document.getElementById('bookOutcome').value.trim();
+    const turnstileToken = getTurnstileToken();
 
     if (!first || !last || !email || !selectedService || !vehicleMake || !vehicleModel || !serviceObjective || !desiredOutcome) {
       alert('Please add your name, email, vehicle make and model, service objective, desired outcome, and select a service.');
+      return;
+    }
+
+    if (!turnstileToken) {
+      alert('Please complete the security check before sending your request.');
       return;
     }
 
@@ -2742,6 +2760,8 @@
           method_interest: methodInterest,
           project_timing: projectTiming,
           desired_outcome: desiredOutcome,
+          turnstile_token: turnstileToken,
+          turnstile_action: 'booking_modal',
           vehicle_drivable: vehicleDrivable,
           parts_removed: partsRemoved,
           project_budget: projectBudget,
@@ -2761,6 +2781,7 @@
       console.error('Booking submit failed:', err);
       alert("Sorry — we couldn't submit your request right now. Please email crew@thegtcollective.com or call us and we'll take care of you.");
     } finally {
+      resetTurnstile();
       btn.textContent = 'Send for Review';
       btn.disabled = false;
     }
