@@ -1,0 +1,39 @@
+.gt-inquiry-page { margin:0; background:#101211; color:#f5f0e5; font:400 17px/1.7 Barlow,Arial,sans-serif; }
+.gt-inquiry { max-width:1120px; margin:auto; padding:65px 28px 90px; }
+.gt-inquiry h1 { font:400 clamp(42px,6vw,72px)/1.04 'Cormorant Garamond',Georgia,serif; margin:14px 0 24px; max-width:780px; }
+.gt-inquiry h2 { font:400 30px/1.1 'Cormorant Garamond',Georgia,serif; margin:0 0 20px; }
+.gt-inquiry-intro { max-width:750px; color:#c3bfb6; margin:0 0 36px; }
+.gt-inquiry-layout { display:grid; grid-template-columns:minmax(0,1.8fr) minmax(220px,.8fr); gap:45px; align-items:start; }
+.gt-inquiry form { background:#1a1c18; border:1px solid #424338; padding:30px; }
+.gt-inquiry .gt-fields { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+.gt-inquiry .gt-field { margin-bottom:22px; min-width:0; }
+.gt-inquiry .gt-fields .gt-field { margin-bottom:0; }
+.gt-inquiry .gt-fields { margin-bottom:22px; }
+.gt-inquiry label, .gt-inquiry legend { display:block; color:#f5f0e5; font:500 15px/1.5 Barlow,Arial,sans-serif; margin-bottom:8px; }
+.gt-inquiry label span { color:#bdb9ae; font-weight:400; }
+.gt-inquiry input:not([type=checkbox]), .gt-inquiry select, .gt-inquiry textarea { width:100%; min-height:48px; padding:12px; border:1px solid #76776a; border-radius:2px; background:#101211; color:#f5f0e5; font:400 16px/1.5 Barlow,Arial,sans-serif; box-sizing:border-box; }
+.gt-inquiry textarea { min-height:130px; resize:vertical; }
+.gt-inquiry input::placeholder, .gt-inquiry textarea::placeholder { color:#a7a89c; }
+.gt-inquiry :focus-visible { outline:3px solid #ead49b; outline-offset:3px; }
+.gt-inquiry small, .gt-help { display:block; color:#c3bfb6; font-size:14px; line-height:1.65; margin-top:7px; }
+.gt-inquiry fieldset { margin:0 0 22px; padding:0; border:0; min-width:0; }
+.gt-inquiry .gt-checks { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.gt-inquiry .gt-checks label { display:flex; gap:10px; align-items:center; min-height:44px; margin:0; font-weight:400; }
+.gt-inquiry input[type=checkbox] { width:20px; height:20px; flex-shrink:0; accent-color:#d6c28e; }
+.gt-inquiry details { border-top:1px solid #55564b; border-bottom:1px solid #55564b; margin:25px 0; padding:16px 0; }
+.gt-inquiry summary { color:#ead49b; cursor:pointer; font-weight:500; min-height:32px; }
+.gt-inquiry details[open] summary { margin-bottom:20px; }
+.gt-inquiry aside { color:#c3bfb6; border-top:1px solid #55564b; padding-top:25px; }
+.gt-inquiry aside p { margin:0 0 20px; }
+.gt-inquiry aside a, .gt-inquiry form a, .gt-inquiry-success a { color:#ead49b; text-underline-offset:4px; }
+.gt-inquiry aside ol { padding-left:22px; }
+.gt-inquiry aside li { margin-bottom:15px; }
+.gt-plan-context { padding:18px 20px; border-left:3px solid #d6c28e; background:#24271f; margin:0 0 24px; color:#f5f0e5; }
+.gt-form-status { color:#c3bfb6; font-size:15px; margin:16px 0; }
+.gt-form-status[data-error=true] { color:#ffd1c6; padding:14px; border:1px solid #c47a65; }
+.gt-inquiry button[type=submit] { width:100%; margin-top:12px; }
+.gt-inquiry button:disabled { opacity:.65; cursor:wait; }
+.gt-inquiry-success { max-width:780px; padding:36px; background:#1a1c18; border:1px solid #d6c28e; }
+.gt-inquiry [hidden] { display:none !important; }
+@media(max-width:780px) { .gt-inquiry { padding:42px 20px 60px; } .gt-inquiry-layout { grid-template-columns:1fr; gap:32px; } .gt-inquiry form { padding:22px 18px; } }
+@media(max-width:460px) { .gt-inquiry .gt-fields, .gt-inquiry .gt-checks { grid-template-columns:1fr; } .gt-inquiry h1 { font-size:45px; } }

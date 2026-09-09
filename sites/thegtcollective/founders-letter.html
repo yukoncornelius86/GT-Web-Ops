@@ -12,15 +12,15 @@
 <meta property="og:url" content="https://thegtcollective.com/founders-letter.html" />
 <meta property="og:title" content="Founder's Letter | The Grand Tour Collective" />
 <meta property="og:description" content="Life is a grand tour defined not by speed, but by intention." />
-<meta property="og:image" content="https://thegtcollective.com/assets/hero-scenic-road.png" />
+<meta property="og:image" content="https://thegtcollective.com/assets/hero-scenic-road.webp" />
 <meta property="og:site_name" content="The Grand Tour Collective" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Founder's Letter | The Grand Tour Collective" />
 <meta name="twitter:description" content="Life is a grand tour defined not by speed, but by intention." />
-<meta name="twitter:image" content="https://thegtcollective.com/assets/hero-scenic-road.png" />
+<meta name="twitter:image" content="https://thegtcollective.com/assets/hero-scenic-road.webp" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Barlow+Condensed:wght@400;500;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet" />
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -38,7 +38,7 @@
         "@id": "https://thegtcollective.com/#business"
       },
       "mainEntityOfPage": "https://thegtcollective.com/founders-letter.html",
-      "image": "https://thegtcollective.com/assets/hero-scenic-road.png"
+      "image": "https://thegtcollective.com/assets/hero-scenic-road.webp"
     },
     {
       "@type": "BreadcrumbList",
@@ -136,7 +136,7 @@
     background:
       linear-gradient(90deg, rgba(9,9,9,0.94) 0%, rgba(9,9,9,0.78) 44%, rgba(9,9,9,0.28) 100%),
       linear-gradient(0deg, #090909 0%, rgba(9,9,9,0.1) 42%),
-      url("assets/hero-scenic-road.png") center / cover no-repeat;
+      url("assets/hero-scenic-road.webp") center / cover no-repeat;
   }
   .hero::after {
     content: "";
@@ -414,19 +414,35 @@
     footer { padding: 2rem 1rem; }
   }
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/gt-site.css">
+<script defer src="/assets/gt-site.js"></script>
 </head>
 <body>
-<nav>
-  <a href="/" class="nav-logo">The <span>GT</span> Collective</a>
-  <ul class="nav-links">
-    <li><a href="/#services">Detailing</a></li>
-    <li><a href="/#undercarriage">Preservation</a></li>
-    <li><a href="/#coffee">GT Cafe</a></li>
-    <li><a href="founders-letter.html">Founder</a></li>
-    <li><a href="/#contact">Contact</a></li>
-  </ul>
-  <a href="/#contact" class="nav-cta">Book Now</a>
-</nav>
+<!-- GT SHARED HEADER START -->
+<a class="gt-skip-link" href="#main-content">Skip to content</a>
+<header class="gt-site-header">
+  <div class="gt-header-inner">
+    <a class="gt-wordmark" href="/" aria-label="The GT Collective home">The <span>GT</span> Collective</a>
+    <button class="gt-menu-toggle" type="button" aria-controls="gtPrimaryNav" aria-expanded="false">Menu</button>
+    <nav class="gt-primary-nav" id="gtPrimaryNav" aria-label="Primary navigation">
+      <details class="gt-service-menu"><summary>Services</summary><div class="gt-service-links">
+        <a href="/gt-stewardship.html#baseline">Preservation Baseline</a>
+        <a href="/preservation-mechanical-services.html">Preservation &amp; Mechanical</a>
+        <a href="/services/preservation-cleaning/">Dry Ice &amp; Laser Cleaning</a>
+        <a href="/paint-correction-leonardtown-md.html">Paint Preservation &amp; Protection</a>
+        <a href="/undercarriage-preservation-leonardtown-md.html">WoolWax / Lanolin Protection</a>
+        <a href="/auction-preparation-listing-support.html">Auction Preparation &amp; Listing Support</a>
+      </div></details>
+      <a href="/gallery/">Our Work</a>
+      <a href="/gt-stewardship.html">GT Stewardship</a>
+      <a href="/founders-letter.html">About</a>
+      <a href="/#contact">Contact</a>
+      <a class="gt-header-cta" href="/consultation/">Request a Project Review</a>
+    </nav>
+  </div>
+</header>
+<!-- GT SHARED HEADER END -->
 
 <header class="hero">
   <div class="hero-content">
@@ -436,7 +452,7 @@
   </div>
 </header>
 
-<main>
+<main id="main-content">
   <section class="letter-shell">
     <article class="letter">
       <div class="section-label">From Mike Zanni</div>
@@ -504,7 +520,7 @@
   <section class="closing">
     <div class="section-label">The Road Ahead</div>
     <h2>Built with intention.<br>Carried forward with care.</h2>
-    <p>The GT Collective is a detailing studio, a coffee brand, and a growing hospitality idea, but the center is simple: do the work carefully and make the journey mean something.</p>
+    <p>The GT Collective brings vehicle preservation, maintenance, and long-term care together in Leonardtown. GT Cafe carries the same attention into coffee and the everyday rituals around the drive.</p>
     <div class="actions">
       <a class="btn-primary" href="/#contact">Start a Conversation</a>
       <a class="btn-ghost" href="/">Return Home</a>
@@ -512,15 +528,16 @@
   </section>
 </main>
 
-<footer>
-  <div class="footer-inner">
-    <div>
-      <div class="footer-brand">The <span>GT</span> Collective</div>
-      <div>Life's a Grand Tour. Enjoy the Ride.</div>
-    </div>
-    <div>crew@thegtcollective.com<br>Leonardtown, MD</div>
+<!-- GT SHARED FOOTER START -->
+<footer class="gt-site-footer">
+  <div class="gt-footer-grid">
+    <div><a class="gt-wordmark" href="/">The <span>GT</span> Collective</a><p>Automotive preservation, maintenance, and long-term care in Leonardtown, Maryland.</p><p>Life's a Grand Tour. Enjoy the Ride.</p></div>
+    <div><h2>Explore GT</h2><div class="gt-footer-links"><a href="/#services">Preservation services</a><a href="/gallery/">Our work</a><a href="/gt-stewardship.html">GT Stewardship</a><a href="/process/">How a project begins</a><a href="/faq/">Common questions</a><a href="/founders-letter.html">Mike's story</a><a href="https://thegtcafe.com/">GT Cafe</a></div></div>
+    <div><h2>Talk with Mike</h2><div class="gt-footer-links"><a href="/consultation/">Request a Project Review</a><a href="tel:+12409801740">240-980-1740</a><a href="mailto:crew@thegtcollective.com">crew@thegtcollective.com</a></div><p>Leonardtown · Southern Maryland<br>Monday–Saturday · 7am–6pm</p></div>
   </div>
+  <div class="gt-footer-bottom"><span>© <span data-gt-year>2026</span> The Grand Tour Collective. Veteran founded.</span><span><a href="/privacy-policy.html">Privacy policy</a> · <a href="/file-drop/">Invited client file drop</a> · <a href="/hub/">GT Hub</a></span></div>
 </footer>
+<!-- GT SHARED FOOTER END -->
 <script src="assets/gt-traffic.js" defer></script>
 </body>
 </html>

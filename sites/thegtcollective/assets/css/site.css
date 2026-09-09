@@ -569,7 +569,7 @@ site-footer {
 }
 
 .hero-media {
-  background-image: url("../images/hero-scenic-road.png");
+  background-image: url("../hero-scenic-road.webp");
   background-position: center;
   background-size: cover;
   filter: saturate(0.56) contrast(1.08);

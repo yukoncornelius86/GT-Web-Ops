@@ -97,6 +97,10 @@
   }
 
   function selectedServiceFromPage(formType) {
+    if (formType === 'project_review') {
+      var service = document.querySelector('#gtService');
+      return service && service.selectedOptions.length ? service.selectedOptions[0].textContent.trim() : '';
+    }
     var selector = formType === 'contact' ? '#msgService' : '.service-opt.selected';
     var el = document.querySelector(selector);
     if (!el) return '';

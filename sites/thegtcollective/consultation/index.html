@@ -2,199 +2,136 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Schedule a preservation consultation with The Grand Tour Collective in Leonardtown, Maryland.">
-  <title>Preservation Consultation | The Grand Tour Collective</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Request a Project Review | The Grand Tour Collective</title>
+  <meta name="description" content="Tell Mike about your vehicle, priorities, and timing. Request a personal review of preservation, mechanical, cleaning, paint, Stewardship, or auction work in Leonardtown, Maryland.">
   <link rel="canonical" href="https://thegtcollective.com/consultation/">
-  <link rel="stylesheet" href="../assets/css/site.css">
-  <script defer src="../assets/gt-traffic.js"></script>
-  <script defer src="../assets/js/site.js"></script>
+  <link rel="stylesheet" href="/assets/gt-inquiry.css">
+  <script defer src="/assets/gt-traffic.js"></script>
+  <script defer src="/assets/gt-inquiry.js"></script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<meta property="og:title" content="Request a Project Review | The Grand Tour Collective">
+<meta property="og:description" content="Tell Mike about your vehicle, priorities, and timing. Request a personal review of preservation, mechanical, cleaning, paint, Stewardship, or auction work in Leonardtown, Maryland.">
+<meta property="og:url" content="https://thegtcollective.com/consultation/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://thegtcollective.com/assets/gt-project-preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://thegtcollective.com/assets/gt-project-preview.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/gt-site.css">
+<script defer src="/assets/gt-site.js"></script>
 </head>
-<body data-page="consultation" data-depth="1">
-  <site-header></site-header>
-
-  <main id="main-content">
-    <section class="page-hero minimal" aria-labelledby="page-title">
-      <div class="shell-wide page-hero-content">
-        <span class="eyebrow">Your vehicle · Carefully considered</span>
-        <h1 class="page-title" id="page-title">Schedule a preservation <em>consultation.</em></h1>
-        <p class="intro-copy">Tell us what you own, what you want to understand, and what the finished result should accomplish. You do not need to choose a package or diagnose the method.</p>
-        <div class="button-row">
-          <a class="button secondary" href="#consultation-form">Begin the consultation request</a>
+<body class="gt-inquiry-page">
+  <!-- GT SHARED HEADER START -->
+<a class="gt-skip-link" href="#main-content">Skip to content</a>
+<header class="gt-site-header">
+  <div class="gt-header-inner">
+    <a class="gt-wordmark" href="/" aria-label="The GT Collective home">The <span>GT</span> Collective</a>
+    <button class="gt-menu-toggle" type="button" aria-controls="gtPrimaryNav" aria-expanded="false">Menu</button>
+    <nav class="gt-primary-nav" id="gtPrimaryNav" aria-label="Primary navigation">
+      <details class="gt-service-menu"><summary>Services</summary><div class="gt-service-links">
+        <a href="/gt-stewardship.html#baseline">Preservation Baseline</a>
+        <a href="/preservation-mechanical-services.html">Preservation &amp; Mechanical</a>
+        <a href="/services/preservation-cleaning/">Dry Ice &amp; Laser Cleaning</a>
+        <a href="/paint-correction-leonardtown-md.html">Paint Preservation &amp; Protection</a>
+        <a href="/undercarriage-preservation-leonardtown-md.html">WoolWax / Lanolin Protection</a>
+        <a href="/auction-preparation-listing-support.html">Auction Preparation &amp; Listing Support</a>
+      </div></details>
+      <a href="/gallery/">Our Work</a>
+      <a href="/gt-stewardship.html">GT Stewardship</a>
+      <a href="/founders-letter.html">About</a>
+      <a href="/#contact">Contact</a>
+      <a class="gt-header-cta" href="/consultation/">Request a Project Review</a>
+    </nav>
+  </div>
+</header>
+<!-- GT SHARED HEADER END -->
+  <main class="gt-inquiry" id="main-content">
+    <div class="gt-kicker">Your vehicle · Your priorities</div>
+    <h1>Request a Project Review</h1>
+    <p class="gt-inquiry-intro">Tell Mike what you own and what you want to accomplish. He will review the details personally and help shape the right next step. You can start here without choosing a service.</p>
+    <div class="gt-inquiry-layout" id="gtInquiryLayout">
+      <form id="gtProjectForm" data-gt-form="project_review" method="post" action="https://n8n.thegtcollective.com/webhook/service-request">
+        <noscript><p>JavaScript is needed to send this secure form. Please <a href="mailto:crew@thegtcollective.com">email Mike</a> or call <a href="tel:+12409801740">240-980-1740</a>.</p></noscript>
+        <p class="gt-help">Fields marked * are required.</p>
+        <div class="gt-field">
+          <label for="gtService">What brings you to GT?</label>
+          <select id="gtService" name="service">
+            <option value="unsure">Help me choose</option>
+            <option value="baseline">Preservation Baseline / Assessment</option>
+            <option value="mechanical">Preservation &amp; Mechanical</option>
+            <option value="cleaning">Precision Preservation Cleaning</option>
+            <option value="paint">Paint Preservation &amp; Protection</option>
+            <option value="underbody">WoolWax / Lanolin Underbody Protection</option>
+            <option value="stewardship">GT Stewardship</option>
+            <option value="auction">Auction Preparation &amp; Listing Support</option>
+          </select>
         </div>
-        <span class="page-index" aria-hidden="true">C</span>
-      </div>
-    </section>
-
-    <section class="section surface-paper" id="consultation-form" aria-labelledby="form-title">
-      <div class="shell consultation-layout">
-        <aside class="consultation-aside reveal">
-          <span class="kicker">A better starting point</span>
-          <h2 id="form-title">Purpose before process.</h2>
-          <p>The questions are designed to clarify intent, condition, and boundaries before a recommendation is made.</p>
-          <ul class="consultation-notes">
-            <li>No service is automatically selected.</li>
-            <li>No result is promised from photographs alone.</li>
-            <li>No scope expands without a new decision.</li>
-            <li>A written scope follows the conversation.</li>
-          </ul>
-        </aside>
-
-        <div>
-          <div class="consultation-notice" role="note"><strong>Start with context:</strong> this request begins a conversation. It is not a confirmed appointment or final scope.</div>
-
-          <form class="consultation-form" action="#" method="post">
-            <section class="form-section" aria-labelledby="contact-heading">
-              <h3 id="contact-heading">About you</h3>
-              <div class="field-grid">
-                <div class="field">
-                  <label for="first-name">First name</label>
-                  <input id="first-name" name="first-name" type="text" autocomplete="given-name" required>
-                </div>
-                <div class="field">
-                  <label for="last-name">Last name</label>
-                  <input id="last-name" name="last-name" type="text" autocomplete="family-name" required>
-                </div>
-                <div class="field">
-                  <label for="email">Email</label>
-                  <input id="email" name="email" type="email" autocomplete="email" required>
-                </div>
-                <div class="field">
-                  <label for="phone">Phone <span aria-hidden="true">·</span> optional</label>
-                  <input id="phone" name="phone" type="tel" autocomplete="tel">
-                </div>
-              </div>
-            </section>
-
-            <section class="form-section" aria-labelledby="vehicle-heading">
-              <h3 id="vehicle-heading">About the vehicle</h3>
-              <div class="field-grid">
-                <div class="field">
-                  <label for="year">Year</label>
-                  <input id="year" name="year" type="text" inputmode="numeric" placeholder="1988" required>
-                </div>
-                <div class="field">
-                  <label for="make-model">Make and model</label>
-                  <input id="make-model" name="make-model" type="text" placeholder="Porsche 911" required>
-                </div>
-                <div class="field full">
-                  <label for="history">Known history or previous work</label>
-                  <textarea id="history" name="history" placeholder="Original finishes, repairs, coatings, storage, leaks, corrosion, prior detailing, or anything else that may shape the plan."></textarea>
-                  <small>“Unknown is a perfectly useful answer. The consultation is for learning.”</small>
-                </div>
-              </div>
-            </section>
-
-            <section class="form-section" aria-labelledby="intent-heading">
-              <h3 id="intent-heading">Which intention is closest?</h3>
-              <div class="choice-grid" role="radiogroup" aria-labelledby="intent-heading">
-                <div class="choice">
-                  <input id="intent-preserve" name="intent" type="radio" value="Preservation" required>
-                  <label for="intent-preserve"><strong>Preservation</strong><span>Reveal condition and retain sound original material.</span></label>
-                </div>
-                <div class="choice">
-                  <input id="intent-restore" name="intent" type="radio" value="Restoration planning">
-                  <label for="intent-restore"><strong>Restoration planning</strong><span>Clean or inspect before a defined repair path.</span></label>
-                </div>
-                <div class="choice">
-                  <input id="intent-concours" name="intent" type="radio" value="Concours presentation">
-                  <label for="intent-concours"><strong>Concours presentation</strong><span>Prepare around a judging or display objective.</span></label>
-                </div>
-                <div class="choice">
-                  <input id="intent-unsure" name="intent" type="radio" value="Not sure">
-                  <label for="intent-unsure"><strong>Not sure yet</strong><span>Start with the concern; we will help define the path.</span></label>
-                </div>
-              </div>
-            </section>
-
-            <section class="form-section" aria-labelledby="focus-heading">
-              <h3 id="focus-heading">Which areas matter most?</h3>
-              <div class="choice-grid">
-                <div class="choice">
-                  <input id="focus-underbody" name="focus" type="checkbox" value="Undercarriage">
-                  <label for="focus-underbody"><strong>Undercarriage</strong><span>Chassis, floors, seams, coatings, and hardware.</span></label>
-                </div>
-                <div class="choice">
-                  <input id="focus-mechanical" name="focus" type="checkbox" value="Mechanical areas">
-                  <label for="focus-mechanical"><strong>Mechanical areas</strong><span>Engine, transmission, exhaust, and adjacent surfaces.</span></label>
-                </div>
-                <div class="choice">
-                  <input id="focus-suspension" name="focus" type="checkbox" value="Suspension and wheel wells">
-                  <label for="focus-suspension"><strong>Suspension and wheel wells</strong><span>Control arms, liners, cavities, and fasteners.</span></label>
-                </div>
-                <div class="choice">
-                  <input id="focus-finish" name="focus" type="checkbox" value="Paint and finish">
-                  <label for="focus-finish"><strong>Paint and finish</strong><span>Clarity, correction, protection, or presentation.</span></label>
-                </div>
-              </div>
-            </section>
-
-            <section class="form-section" aria-labelledby="outcome-heading">
-              <h3 id="outcome-heading">Define a successful result</h3>
-              <div class="field-grid">
-                <div class="field full">
-                  <label for="outcome">What do you want to understand, preserve, or present?</label>
-                  <textarea id="outcome" name="outcome" placeholder="Example: I want to see the actual condition beneath the road film and leave with matched photographs for the vehicle record." required></textarea>
-                </div>
-                <div class="field full">
-                  <label for="protect">What must not be lost or changed?</label>
-                  <textarea id="protect" name="protect" placeholder="Example: factory markings, original undercoating, labels, patina, previous documentation, or a known original finish."></textarea>
-                </div>
-                <div class="field">
-                  <label for="timing">Timing</label>
-                  <select id="timing" name="timing" required>
-                    <option value="">Choose the closest fit</option>
-                    <option>Exploring; no fixed date</option>
-                    <option>Within the next month</option>
-                    <option>Within the next three months</option>
-                    <option>Preparing for an event or sale</option>
-                  </select>
-                </div>
-                <div class="field">
-                  <label for="contact-method">Preferred first contact</label>
-                  <select id="contact-method" name="contact-method" required>
-                    <option value="">Choose one</option>
-                    <option>Email</option>
-                    <option>Phone</option>
-                    <option>Either is fine</option>
-                  </select>
-                </div>
-              </div>
-            </section>
-
-            <div class="form-footer">
-              <p class="form-status" aria-live="polite">By submitting, you consent to being contacted about this preservation request.</p>
-              <button class="button" type="submit">Schedule a preservation consultation</button>
-            </div>
-          </form>
-
-          <section class="form-success" aria-live="polite">
-            <span class="kicker">Request received</span>
-            <h2>Thank you, <span class="js-first-name">there</span>.</h2>
-            <p>Your preservation request has been sent. Mike will review the vehicle, priorities, and timing, then follow up within 24 hours. This is a request, not yet a confirmed appointment or final scope.</p>
-            <div class="button-row">
-              <button class="button js-reset-form" type="button">Submit another vehicle</button>
-              <a class="button secondary" href="../process/index.html">See what happens next</a>
-            </div>
-          </section>
+        <div class="gt-plan-context" id="gtPlanContext" role="status" hidden></div>
+        <div class="gt-field" id="gtAuctionScope" hidden>
+          <label for="gtScope">Auction scope <span>· optional</span></label>
+          <select id="gtScope" name="auctionScope" disabled><option value="">Help me decide</option><option>Vehicle preparation</option><option>Listing support</option><option>Preparation and listing support</option></select>
         </div>
-      </div>
-    </section>
-
-    <section class="section surface-dark" aria-labelledby="next-title">
-      <div class="shell editorial-grid">
-        <div class="reveal">
-          <span class="kicker">What happens next</span>
-          <h2 class="section-title" id="next-title">A conversation, not <em>an automatic quote.</em></h2>
+        <div class="gt-fields">
+          <div class="gt-field"><label for="gtFirst">First name *</label><input id="gtFirst" name="firstName" autocomplete="given-name" required maxlength="100"></div>
+          <div class="gt-field"><label for="gtLast">Last name *</label><input id="gtLast" name="lastName" autocomplete="family-name" required maxlength="100"></div>
         </div>
-        <div class="editorial-copy reveal">
-          <p class="intro-copy">The next step is to understand the vehicle and test the fit between your objective and the available methods. Only then does the work become a defined proposal.</p>
-          <a class="text-link" href="../process/index.html">Review the complete process</a>
+        <div class="gt-fields">
+          <div class="gt-field"><label for="gtEmail">Email *</label><input id="gtEmail" name="email" type="email" autocomplete="email" required maxlength="254"></div>
+          <div class="gt-field"><label for="gtPhone">Phone <span>· optional</span></label><input id="gtPhone" name="phone" type="tel" autocomplete="tel" maxlength="40"></div>
         </div>
-      </div>
+        <div class="gt-field"><label for="gtVehicle">Vehicle *</label><input id="gtVehicle" name="vehicle" placeholder="Year, make, and model" required maxlength="300" aria-describedby="gtVehicleHelp"><small id="gtVehicleHelp">For a collection, list the vehicles you would like to discuss.</small></div>
+        <div class="gt-field"><label for="gtGoal">What would you like to accomplish? *</label><textarea id="gtGoal" name="goal" required maxlength="6000" placeholder="Tell us what matters to you, what you have noticed, and any history that would help."></textarea></div>
+        <div class="gt-fields">
+          <div class="gt-field"><label for="gtTiming">Timing <span>· optional</span></label><select id="gtTiming" name="timing"><option value="">To discuss</option><option>As soon as practical</option><option>Within 30 days</option><option>Within 1–3 months</option><option>Planning ahead / flexible</option><option>Sale or event deadline</option></select></div>
+          <div class="gt-field"><label for="gtContactPreference">Preferred first contact</label><select id="gtContactPreference" name="preferredContact"><option>Email</option><option>Phone</option><option>Either</option></select></div>
+        </div>
+        <details id="gtCleaningDetails" hidden>
+          <summary>Cleaning and access details · optional</summary>
+          <p class="gt-help">Share what you know. Mike can recommend the method after reviewing the project.</p>
+          <fieldset><legend>Affected areas</legend><div class="gt-checks">
+            <label><input type="checkbox" name="areas" value="Underbody" disabled>Underbody</label>
+            <label><input type="checkbox" name="areas" value="Engine bay" disabled>Engine bay</label>
+            <label><input type="checkbox" name="areas" value="Components" disabled>Components</label>
+            <label><input type="checkbox" name="areas" value="Whole vehicle / not sure" disabled>Whole vehicle / not sure</label>
+          </div></fieldset>
+          <div class="gt-field"><label for="gtMethod">Cleaning method</label><select id="gtMethod" name="method" disabled><option value="">Recommend the best method</option><option>Dry ice interest</option><option>Laser interest</option><option>Both technologies</option></select></div>
+          <div class="gt-fields">
+            <div class="gt-field"><label for="gtDrivable">Is the vehicle drivable?</label><select id="gtDrivable" name="drivable" disabled><option value="">To discuss</option><option>Yes</option><option>No</option><option>Limited / needs discussion</option></select></div>
+            <div class="gt-field"><label for="gtParts">Are parts removed?</label><select id="gtParts" name="partsRemoved" disabled><option value="">Not applicable / not sure</option><option>No — work is on the vehicle</option><option>Yes — relevant parts are removed</option><option>Some parts are removed</option></select></div>
+          </div>
+        </details>
+        <p class="gt-help"><strong>Photos can follow.</strong> If images would help, Mike will arrange a private upload invitation after reviewing your request.</p>
+        <p class="gt-help">By sending this request, you agree to be contacted about your vehicle. <a href="/privacy-policy.html">Privacy policy</a>.</p>
+        <div id="bookingTurnstile" class="cf-turnstile" data-sitekey="0x4AAAAAAD4EloOtzRFsYd6K" data-theme="dark" data-size="flexible" data-action="booking_modal"></div>
+        <p id="gtFormStatus" class="gt-form-status" role="status" tabindex="-1">Mike reviews requests during studio hours, Monday–Saturday, 7am–6pm.</p>
+        <button class="gt-action" type="submit" disabled>Send for Review</button>
+      </form>
+      <aside aria-label="What happens next">
+        <h2>What happens next</h2>
+        <ol><li>Mike reviews your vehicle, priorities, and timing.</li><li>You discuss the approach, access, and any useful photographs.</li><li>The scope, price, and schedule are agreed before work begins.</li></ol>
+        <p>This is a request for review. Your appointment and quote are confirmed personally.</p>
+        <p>For a time-sensitive question:<br><a href="tel:+12409801740">240-980-1740</a><br><a href="mailto:crew@thegtcollective.com">crew@thegtcollective.com</a></p>
+        <p><a href="/process/">Read the process</a> · <a href="/faq/">Common questions</a></p>
+      </aside>
+    </div>
+    <section id="gtInquirySuccess" class="gt-inquiry-success" tabindex="-1" aria-labelledby="gtSuccessTitle" hidden>
+      <div class="gt-kicker">Request received</div>
+      <h2 id="gtSuccessTitle">Thank you for sharing the vehicle.</h2>
+      <p>Mike will review your priorities and follow up using the contact details you provided. The appointment, scope, and price will be confirmed personally.</p>
+      <p>If photographs would help, Mike will arrange a private upload invitation.</p>
+      <a class="gt-action" href="/gallery/">Explore the work</a>
     </section>
   </main>
-
-  <site-footer></site-footer>
+  <!-- GT SHARED FOOTER START -->
+<footer class="gt-site-footer">
+  <div class="gt-footer-grid">
+    <div><a class="gt-wordmark" href="/">The <span>GT</span> Collective</a><p>Automotive preservation, maintenance, and long-term care in Leonardtown, Maryland.</p><p>Life's a Grand Tour. Enjoy the Ride.</p></div>
+    <div><h2>Explore GT</h2><div class="gt-footer-links"><a href="/#services">Preservation services</a><a href="/gallery/">Our work</a><a href="/gt-stewardship.html">GT Stewardship</a><a href="/process/">How a project begins</a><a href="/faq/">Common questions</a><a href="/founders-letter.html">Mike's story</a><a href="https://thegtcafe.com/">GT Cafe</a></div></div>
+    <div><h2>Talk with Mike</h2><div class="gt-footer-links"><a href="/consultation/">Request a Project Review</a><a href="tel:+12409801740">240-980-1740</a><a href="mailto:crew@thegtcollective.com">crew@thegtcollective.com</a></div><p>Leonardtown · Southern Maryland<br>Monday–Saturday · 7am–6pm</p></div>
+  </div>
+  <div class="gt-footer-bottom"><span>© <span data-gt-year>2026</span> The Grand Tour Collective. Veteran founded.</span><span><a href="/privacy-policy.html">Privacy policy</a> · <a href="/file-drop/">Invited client file drop</a> · <a href="/hub/">GT Hub</a></span></div>
+</footer>
+<!-- GT SHARED FOOTER END -->
 </body>
 </html>
