@@ -1,0 +1,11 @@
+.gt-club-page h1 { font:400 clamp(42px,6vw,74px)/1.08 'Cormorant Garamond',Georgia,serif; max-width:940px; margin:18px 0 28px; }
+.gt-club-page .hero-lead { max-width:800px; }
+.gt-club-page .problem-grid { margin-top:30px; }
+.club-form-heading { margin-top:36px !important; }
+.club-vehicle { border-top:1px solid #55564b !important; padding-top:24px !important; margin-top:24px !important; }
+.club-vehicle legend { font-size:20px; padding-top:16px; }
+.club-consent { display:flex !important; gap:12px; align-items:flex-start; }
+.club-consent input { margin-top:4px; }
+.club-honeypot { position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden; }
+.gt-inquiry form#gtClubForm { max-width:850px; }
+.club-remove { margin-bottom:20px; }

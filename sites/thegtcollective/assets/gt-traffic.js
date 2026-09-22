@@ -168,6 +168,7 @@
   }
 
   function postEvent(eventType, extra) {
+    if (!['thegtcollective.com','www.thegtcollective.com'].includes(location.hostname)) return;
     var payload = Object.assign({
       event_type: eventType,
       timestamp: new Date().toISOString(),
@@ -207,5 +208,12 @@
   };
 
   postEvent('page_view');
+  if (location.pathname === '/drivers-club/' || location.pathname === '/drivers-club') postEvent('drivers_club_landing_view');
+  if (location.pathname === '/preservation-baseline/' || (location.pathname === '/gt-stewardship.html' && location.hash === '#baseline')) postEvent('preservation_baseline_view');
+  document.addEventListener('click', function (event) {
+    var link = event.target.closest && event.target.closest('a[href]');
+    if (!link) return;
+    if (link.pathname.indexOf('/drivers-club') === 0) postEvent('drivers_club_cta_click', {placement:link.dataset.gtClubCta || 'navigation', destination:link.pathname});
+  });
   setupFormStartTracking();
 })();

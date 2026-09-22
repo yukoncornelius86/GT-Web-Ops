@@ -5,6 +5,7 @@ import re
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / 'sites/thegtcollective'
 PAGES = [
+    'preservation-baseline/index.html', 'drivers-club/index.html', 'drivers-club/apply/index.html',
     'index.html', 'preservation-mechanical-services.html', 'gt-stewardship.html',
     'auction-preparation-listing-support.html', 'services/preservation-cleaning/index.html',
     'paint-correction-leonardtown-md.html', 'ceramic-coating-leonardtown-md.html',

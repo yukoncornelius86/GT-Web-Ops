@@ -115,6 +115,7 @@
       if (!result || (result.ok !== true && result.success !== true && !result.lead_id)) throw new Error('unconfirmed');
       track('lead_submit', {result:'accepted'});
       track('lead_accepted');
+      track(service.value === 'baseline' ? 'preservation_baseline_inquiry' : 'service_inquiry', {service_id:service.value});
       document.getElementById('gtInquiryLayout').hidden = true;
       const success = document.getElementById('gtInquirySuccess');
       success.hidden = false;
