@@ -14,3 +14,11 @@
 .detail-photo{padding:0;overflow:hidden;background:#eeeade}
 .detail-photo img{height:auto!important;aspect-ratio:1;object-fit:contain}
 .cart-line img{height:auto;aspect-ratio:1;object-fit:contain;border-radius:8px}
+
+/* Supplied full brand lockup, preserved without cropping or recoloring. */
+.identity .brand-lockup{width:235px;height:auto;aspect-ratio:1983/793;object-fit:contain}
+.head{min-height:108px}
+.story-mark img{width:100%;height:auto;max-width:460px;object-fit:contain}
+.footer .identity .brand-lockup{background:#fffefa;padding:10px;border-radius:10px;width:260px;height:auto}
+@media(max-width:760px){.identity .brand-lockup{width:180px;height:auto}.head{min-height:86px}.story-mark{padding:24px}}
+@media(max-width:390px){.identity .brand-lockup{width:160px;height:auto}}
