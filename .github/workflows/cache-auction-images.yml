@@ -1,5 +1,7 @@
 name: Sync Shared Site Navigation
 
+# One-time rerun after image caching
+
 on:
   push:
     branches: [main]
