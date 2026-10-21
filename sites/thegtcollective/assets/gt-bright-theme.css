@@ -86,6 +86,8 @@ main :is(.hero,.page-hero) .button.secondary,main .hero .btn-ghost{color:#f7f5ee
 .gt-home .book-banner-sub{color:var(--theme-muted)}
 .gt-home .testimonial-track{gap:18px}
 .gt-home .testimonial-card{padding:28px}
+.gt-home :is(.testimonial-text,.blog-title){color:var(--theme-ink)}
+.gt-home .blog-excerpt{color:var(--theme-muted)}
 .gt-home :is(.testimonial-stars,.founder-sig,.blog-link){color:var(--theme-gold);-webkit-text-fill-color:currentColor;background:none}
 .gt-home .testimonial-author{color:var(--theme-muted)}
 .gt-home .founder-layout{gap:50px}
