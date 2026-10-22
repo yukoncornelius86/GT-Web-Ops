@@ -1,0 +1,77 @@
+[
+  {
+    "firstInvalid": "gtVehicle",
+    "invalidBorder": "rgb(128, 106, 60)",
+    "missingLabels": [],
+    "overflow": false,
+    "required": [
+      "vehicle",
+      "goal",
+      "firstName",
+      "lastName",
+      "email"
+    ],
+    "width": 320,
+    "conditionalFields": true
+  },
+  {
+    "firstInvalid": "gtVehicle",
+    "invalidBorder": "rgb(128, 106, 60)",
+    "missingLabels": [],
+    "overflow": false,
+    "required": [
+      "vehicle",
+      "goal",
+      "firstName",
+      "lastName",
+      "email"
+    ],
+    "width": 375,
+    "conditionalFields": true
+  },
+  {
+    "firstInvalid": "gtVehicle",
+    "invalidBorder": "rgb(128, 106, 60)",
+    "missingLabels": [],
+    "overflow": false,
+    "required": [
+      "vehicle",
+      "goal",
+      "firstName",
+      "lastName",
+      "email"
+    ],
+    "width": 390,
+    "conditionalFields": true
+  },
+  {
+    "firstInvalid": "gtVehicle",
+    "invalidBorder": "rgb(128, 106, 60)",
+    "missingLabels": [],
+    "overflow": false,
+    "required": [
+      "vehicle",
+      "goal",
+      "firstName",
+      "lastName",
+      "email"
+    ],
+    "width": 768,
+    "conditionalFields": true
+  },
+  {
+    "firstInvalid": "gtVehicle",
+    "invalidBorder": "rgb(128, 106, 60)",
+    "missingLabels": [],
+    "overflow": false,
+    "required": [
+      "vehicle",
+      "goal",
+      "firstName",
+      "lastName",
+      "email"
+    ],
+    "width": 1440,
+    "conditionalFields": true
+  }
+]

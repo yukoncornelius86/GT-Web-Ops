@@ -1,0 +1,7 @@
+{
+  "repository": "https://github.com/yukoncornelius86/GT-Web-Ops",
+  "base_commit": "a6b6136e6140b86037cd164aa1671162eb38d2dd",
+  "status": "TESTED_FEATURE_BRANCH_AWAITING_APPROVAL",
+  "visual_qa": "LOCAL_CHROMIUM_VALIDATED_MOCK_ONLY",
+  "production_deploy_trigger": "push to main affecting sites/thegtcollective/**"
+}

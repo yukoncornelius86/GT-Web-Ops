@@ -1,0 +1,34 @@
+[
+  {
+    "id": "gtVehicle",
+    "name": "vehicle"
+  },
+  {
+    "id": "gtGoal",
+    "name": "goal"
+  },
+  {
+    "id": "gtFirst",
+    "name": "firstName"
+  },
+  {
+    "id": "gtLast",
+    "name": "lastName"
+  },
+  {
+    "id": "gtEmail",
+    "name": "email"
+  },
+  {
+    "id": "gtPhone",
+    "name": "phone"
+  },
+  {
+    "id": "gtTiming",
+    "name": "timing"
+  },
+  {
+    "id": "gtContactPreference",
+    "name": "preferredContact"
+  }
+]

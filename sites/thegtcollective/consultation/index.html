@@ -20,7 +20,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/gt-site.css">
 <script defer src="/assets/gt-site.js"></script>
-<link rel="stylesheet" href="/assets/gt-bright-theme.css?v=20261020">
+<link rel="stylesheet" href="/assets/gt-bright-theme.css?v=20261022-review">
+<link rel="stylesheet" href="/assets/gt-project-review.css?v=20261022">
 </head>
 <body class="gt-inquiry-page">
   <!-- GT SHARED HEADER START -->
@@ -47,13 +48,16 @@
 </header>
 <!-- GT SHARED HEADER END -->
   <main class="gt-inquiry" id="main-content">
+    <header class="gt-review-intro">
     <div class="gt-kicker">Your vehicle · Your priorities</div>
     <h1>Request a Project Review</h1>
     <p class="gt-inquiry-intro">Tell Mike what you own and what you want to accomplish. He will review the details personally and help shape the right next step. You can start here without choosing a service.</p>
+    </header>
     <div class="gt-inquiry-layout" id="gtInquiryLayout">
       <form id="gtProjectForm" data-gt-form="project_review" method="post" action="https://n8n.thegtcollective.com/webhook/service-request">
         <noscript><p>JavaScript is needed to send this secure form. Please <a href="mailto:crew@thegtcollective.com">email Mike</a> or call <a href="tel:+12409801740">240-980-1740</a>.</p></noscript>
-        <p class="gt-help">Fields marked * are required.</p>
+        <p class="gt-help gt-required-note">Fields marked * are required. Everything else can be discussed together.</p>
+        <fieldset class="gt-review-section"><legend><span>01</span> The project</legend>
         <div class="gt-field">
           <label for="gtService">What brings you to GT?</label>
           <select id="gtService" name="service">
@@ -72,6 +76,10 @@
           <label for="gtScope">Auction scope <span>· optional</span></label>
           <select id="gtScope" name="auctionScope" disabled><option value="">Help me decide</option><option>Vehicle preparation</option><option>Listing support</option><option>Preparation and listing support</option></select>
         </div>
+        <div class="gt-field"><label for="gtVehicle">Vehicle *</label><input id="gtVehicle" name="vehicle" placeholder="Year, make, and model" required maxlength="300" aria-describedby="gtVehicleHelp"><small id="gtVehicleHelp">For a collection, list the vehicles you would like to discuss.</small></div>
+        <div class="gt-field"><label for="gtGoal">What would you like to accomplish? *</label><textarea id="gtGoal" name="goal" required maxlength="6000" placeholder="Tell us what matters to you, what you have noticed, and any history that would help."></textarea></div>
+        </fieldset>
+        <fieldset class="gt-review-section"><legend><span>02</span> Your details</legend>
         <div class="gt-fields">
           <div class="gt-field"><label for="gtFirst">First name *</label><input id="gtFirst" name="firstName" autocomplete="given-name" required maxlength="100"></div>
           <div class="gt-field"><label for="gtLast">Last name *</label><input id="gtLast" name="lastName" autocomplete="family-name" required maxlength="100"></div>
@@ -80,12 +88,11 @@
           <div class="gt-field"><label for="gtEmail">Email *</label><input id="gtEmail" name="email" type="email" autocomplete="email" required maxlength="254"></div>
           <div class="gt-field"><label for="gtPhone">Phone <span>· optional</span></label><input id="gtPhone" name="phone" type="tel" autocomplete="tel" maxlength="40"></div>
         </div>
-        <div class="gt-field"><label for="gtVehicle">Vehicle *</label><input id="gtVehicle" name="vehicle" placeholder="Year, make, and model" required maxlength="300" aria-describedby="gtVehicleHelp"><small id="gtVehicleHelp">For a collection, list the vehicles you would like to discuss.</small></div>
-        <div class="gt-field"><label for="gtGoal">What would you like to accomplish? *</label><textarea id="gtGoal" name="goal" required maxlength="6000" placeholder="Tell us what matters to you, what you have noticed, and any history that would help."></textarea></div>
         <div class="gt-fields">
           <div class="gt-field"><label for="gtTiming">Timing <span>· optional</span></label><select id="gtTiming" name="timing"><option value="">To discuss</option><option>As soon as practical</option><option>Within 30 days</option><option>Within 1–3 months</option><option>Planning ahead / flexible</option><option>Sale or event deadline</option></select></div>
           <div class="gt-field"><label for="gtContactPreference">Preferred first contact</label><select id="gtContactPreference" name="preferredContact"><option>Email</option><option>Phone</option><option>Either</option></select></div>
         </div>
+        </fieldset>
         <details id="gtCleaningDetails" hidden>
           <summary>Cleaning and access details · optional</summary>
           <p class="gt-help">Share what you know. Mike can recommend the method after reviewing the project.</p>
@@ -101,13 +108,16 @@
             <div class="gt-field"><label for="gtParts">Are parts removed?</label><select id="gtParts" name="partsRemoved" disabled><option value="">Not applicable / not sure</option><option>No — work is on the vehicle</option><option>Yes — relevant parts are removed</option><option>Some parts are removed</option></select></div>
           </div>
         </details>
+        <div class="gt-review-submit">
         <p class="gt-help"><strong>Photos can follow.</strong> If images would help, Mike will arrange a private upload invitation after reviewing your request.</p>
         <p class="gt-help">By sending this request, you agree to be contacted about your vehicle. <a href="/privacy-policy.html">Privacy policy</a>.</p>
         <div id="bookingTurnstile" class="cf-turnstile" data-sitekey="0x4AAAAAAD4EloOtzRFsYd6K" data-theme="dark" data-size="flexible" data-action="booking_modal"></div>
         <p id="gtFormStatus" class="gt-form-status" role="status" tabindex="-1">Mike reviews requests during studio hours, Monday–Saturday, 7am–6pm.</p>
         <button class="gt-action" type="submit" disabled>Send for Review</button>
+        </div>
       </form>
-      <aside aria-label="What happens next">
+      <aside class="gt-review-next" aria-label="What happens next">
+        <div class="gt-kicker">A personal approach</div>
         <h2>What happens next</h2>
         <ol><li>Mike reviews your vehicle, priorities, and timing.</li><li>You discuss the approach, access, and any useful photographs.</li><li>The scope, price, and schedule are agreed before work begins.</li></ol>
         <p>This is a request for review. Your appointment and quote are confirmed personally.</p>

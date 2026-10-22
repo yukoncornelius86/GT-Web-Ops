@@ -1,0 +1,132 @@
+[
+  {
+    "width": 320,
+    "phone": {
+      "active": "gtPhone",
+      "status": "Add a phone number, or choose email as your preferred contact."
+    },
+    "sending": {
+      "disabled": true,
+      "requests": 1,
+      "text": "Sending…"
+    },
+    "error": {
+      "active": "gtFormStatus",
+      "color": "rgb(136, 44, 36)",
+      "enabled": true,
+      "retained": "1988 Porsche 911 — QA only",
+      "text": "We could not confirm receipt. Your details are still here. Please call 240-980-1740 or email crew@thegtcollective.com before retrying if you are unsure whether it arrived."
+    },
+    "success": {
+      "active": "gtInquirySuccess",
+      "hidden": true,
+      "overflow": false,
+      "shown": true
+    },
+    "mockedOnly": true
+  },
+  {
+    "width": 375,
+    "phone": {
+      "active": "gtPhone",
+      "status": "Add a phone number, or choose email as your preferred contact."
+    },
+    "sending": {
+      "disabled": true,
+      "requests": 1,
+      "text": "Sending…"
+    },
+    "error": {
+      "active": "gtFormStatus",
+      "color": "rgb(136, 44, 36)",
+      "enabled": true,
+      "retained": "1988 Porsche 911 — QA only",
+      "text": "We could not confirm receipt. Your details are still here. Please call 240-980-1740 or email crew@thegtcollective.com before retrying if you are unsure whether it arrived."
+    },
+    "success": {
+      "active": "gtInquirySuccess",
+      "hidden": true,
+      "overflow": false,
+      "shown": true
+    },
+    "mockedOnly": true
+  },
+  {
+    "width": 390,
+    "phone": {
+      "active": "gtPhone",
+      "status": "Add a phone number, or choose email as your preferred contact."
+    },
+    "sending": {
+      "disabled": true,
+      "requests": 1,
+      "text": "Sending…"
+    },
+    "error": {
+      "active": "gtFormStatus",
+      "color": "rgb(136, 44, 36)",
+      "enabled": true,
+      "retained": "1988 Porsche 911 — QA only",
+      "text": "We could not confirm receipt. Your details are still here. Please call 240-980-1740 or email crew@thegtcollective.com before retrying if you are unsure whether it arrived."
+    },
+    "success": {
+      "active": "gtInquirySuccess",
+      "hidden": true,
+      "overflow": false,
+      "shown": true
+    },
+    "mockedOnly": true
+  },
+  {
+    "width": 768,
+    "phone": {
+      "active": "gtPhone",
+      "status": "Add a phone number, or choose email as your preferred contact."
+    },
+    "sending": {
+      "disabled": true,
+      "requests": 1,
+      "text": "Sending…"
+    },
+    "error": {
+      "active": "gtFormStatus",
+      "color": "rgb(136, 44, 36)",
+      "enabled": true,
+      "retained": "1988 Porsche 911 — QA only",
+      "text": "We could not confirm receipt. Your details are still here. Please call 240-980-1740 or email crew@thegtcollective.com before retrying if you are unsure whether it arrived."
+    },
+    "success": {
+      "active": "gtInquirySuccess",
+      "hidden": true,
+      "overflow": false,
+      "shown": true
+    },
+    "mockedOnly": true
+  },
+  {
+    "width": 1440,
+    "phone": {
+      "active": "gtPhone",
+      "status": "Add a phone number, or choose email as your preferred contact."
+    },
+    "sending": {
+      "disabled": true,
+      "requests": 1,
+      "text": "Sending…"
+    },
+    "error": {
+      "active": "gtFormStatus",
+      "color": "rgb(136, 44, 36)",
+      "enabled": true,
+      "retained": "1988 Porsche 911 — QA only",
+      "text": "We could not confirm receipt. Your details are still here. Please call 240-980-1740 or email crew@thegtcollective.com before retrying if you are unsure whether it arrived."
+    },
+    "success": {
+      "active": "gtInquirySuccess",
+      "hidden": true,
+      "overflow": false,
+      "shown": true
+    },
+    "mockedOnly": true
+  }
+]

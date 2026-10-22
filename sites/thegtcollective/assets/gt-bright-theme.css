@@ -186,3 +186,30 @@ main .photo-viewer-caption{color:#fff!important}
  #results .section-head h2{font-size:42px}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Explicit foreground/surface pairs for residual legacy dark-theme components. */
+.gt-home .service-desc { color:var(--theme-muted); }
+.gt-home .service-tag.tag-popular { color:var(--theme-ink); background:#ece9dc; border-color:#b7a47b; }
+.gt-home .form-panel-heading { color:var(--theme-ink); }
+.gt-service-page .stats .stat { background:var(--theme-white); color:var(--theme-muted); }
+.gt-service-page .stats .stat strong { color:var(--theme-ink); }
+
+.gt-project-story .facts { background:var(--theme-paper); color:var(--theme-ink); }
+.gt-project-story .facts strong { color:var(--theme-ink); }
+.gt-project-story .facts small, .gt-project-story .principle small { color:var(--theme-muted); }
+
+/* These components use the stone surface; its small gold text needs a darker gold. */
+.gt-home :is(.gt-process,.gt-coffee,.founder,.local-proof),
+main :is(.section.alt,.surface-paper,.surface-stone,.surface-dark,.surface-soft-dark,.values,.value,.notes-section,.method-section,.comparison-section,.review-section,.principle,.related,.project-card,.final-cta,.cta-section),
+.gt-inquiry .gt-review-next { --theme-gold:#7b6539; }
+
+/* Case-study image heroes sit outside main and keep their original dark overlay. */
+.gt-project-story > .hero { color:#f7f5ee; }
+.gt-project-story > .hero h1 { color:#f7f5ee; }
+.gt-project-story > .hero :is(.eyebrow,h1 em) { color:#e4d7ba; }
+.gt-project-story .review-section .stars { color:#7b6539; }
+
+/* Explicit button and image-label pairs, separate from image-hero typography. */
+.gt-service-page .section .cta { background:var(--theme-dark); color:var(--theme-paper); }
+body[data-page] .page-hero.minimal .button.secondary { background:transparent!important; color:var(--theme-ink)!important; border-color:#aeb5a5!important; }
+body[data-page] .image-badge.after { background:#0e0e0d; color:#e4d7ba; }

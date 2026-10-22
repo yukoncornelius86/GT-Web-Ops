@@ -1,0 +1,32 @@
+[
+  {
+    "path": "index.html",
+    "status": 200,
+    "matchesPinnedBase": true
+  },
+  {
+    "path": "assets/gt-bright-theme.css",
+    "status": 200,
+    "matchesPinnedBase": true
+  },
+  {
+    "path": "consultation/index.html",
+    "status": 200,
+    "matchesPinnedBase": true
+  },
+  {
+    "path": "paint-correction-leonardtown-md.html",
+    "status": 200,
+    "matchesPinnedBase": true
+  },
+  {
+    "path": "blog/1988-porsche-911-dry-ice-cleaning.html",
+    "status": 200,
+    "matchesPinnedBase": true
+  },
+  {
+    "path": "blog/2013-porsche-cayenne-lanolin-undercoating.html",
+    "status": 200,
+    "matchesPinnedBase": true
+  }
+]

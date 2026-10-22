@@ -1,0 +1,43 @@
+/* Project Review: presentation only. Keep inquiry behavior in gt-inquiry.js. */
+.gt-inquiry { max-width:1180px; padding:72px 32px 88px; }
+.gt-review-intro { max-width:800px; margin-bottom:48px; }
+.gt-review-intro .gt-kicker { font:600 12px/1.5 'Barlow Condensed',Arial,sans-serif; letter-spacing:.16em; text-transform:uppercase; }
+.gt-review-intro h1 { font-size:clamp(44px,5.8vw,76px); line-height:1.02; letter-spacing:-.035em; margin:18px 0 24px; }
+.gt-review-intro .gt-inquiry-intro { max-width:660px; font-size:18px; line-height:1.75; margin:0; }
+.gt-inquiry-layout { grid-template-columns:minmax(0,1fr) 280px; gap:36px; }
+.gt-inquiry form { padding:36px; border-radius:24px; box-shadow:0 12px 40px #0c0d0d05; }
+.gt-inquiry .gt-required-note { margin:0 0 32px; }
+.gt-inquiry fieldset.gt-review-section { margin:0 0 32px; padding:0 0 12px; border-bottom:1px solid var(--theme-line); }
+.gt-review-section>legend { width:100%; margin-bottom:24px; font:500 22px/1.4 Barlow,Arial,sans-serif; letter-spacing:-.025em; }
+.gt-review-section>legend>span { display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; margin-right:10px; border:1px solid #d6c28e; border-radius:50%; font:500 12px/1 Barlow,Arial,sans-serif; color:#806a3c; vertical-align:middle; }
+.gt-inquiry .gt-fields { gap:20px; }
+.gt-inquiry label { font-size:15px; margin-bottom:9px; }
+.gt-inquiry :is(input:not([type=checkbox]),select,textarea) { min-height:52px; background:#fffefa; border:1px solid #8c9385; border-radius:12px; padding:13px 14px; transition:border-color .18s ease,box-shadow .18s ease; }
+.gt-inquiry :is(input,textarea)::placeholder { color:#697062; }
+.gt-inquiry textarea { min-height:150px; }
+.gt-inquiry :is(input,select,textarea):user-invalid { border-color:#a34236; background:#fff8f5; }
+.gt-inquiry :is(input,select,textarea):focus-visible { border-color:#806a3c; outline:2px solid #806a3c; outline-offset:3px; box-shadow:0 0 0 6px #d6c28e22; }
+.gt-inquiry .gt-review-submit { padding-top:0; }
+.gt-inquiry .gt-review-submit .gt-help { font-size:14px; }
+/* Keep error feedback distinct from the shared main-paragraph color rule. */
+.gt-inquiry .gt-form-status[data-error=true] { color:#882c24!important; }
+.gt-inquiry button[type=submit] { min-height:54px; font-size:16px; transition:background .18s ease,transform .18s ease; }
+.gt-inquiry button[type=submit]:not(:disabled):active { transform:scale(.99); }
+.gt-inquiry button:disabled { cursor:not-allowed; }
+.gt-inquiry .gt-review-next { border:1px solid var(--theme-line); border-radius:24px; background:#eeeee5; padding:28px; }
+.gt-review-next .gt-kicker { margin-bottom:16px; font:600 11px/1.5 'Barlow Condensed',Arial,sans-serif; letter-spacing:.12em; text-transform:uppercase; }
+.gt-inquiry .gt-review-next h2 { font-size:31px; line-height:1.12; }
+.gt-inquiry .gt-review-next ol { padding-left:20px; }
+.gt-inquiry .gt-review-next li { padding-left:5px; margin-bottom:20px; }
+.gt-review-next li::marker { color:#806a3c; font-weight:500; }
+.gt-review-next a { overflow-wrap:anywhere; }
+.gt-inquiry .gt-plan-context { border-radius:12px; }
+.gt-inquiry .gt-inquiry-success { border-radius:24px; }
+@media(min-width:960px) { .gt-review-next { position:sticky; top:110px; } }
+@media(max-width:900px) { .gt-inquiry-layout { grid-template-columns:1fr; gap:24px; } .gt-inquiry .gt-review-next { max-width:none; } }
+@media(max-width:600px) { .gt-inquiry { padding:40px 20px 56px; } .gt-review-intro { margin-bottom:30px; } .gt-review-intro h1 { font-size:46px; } .gt-review-intro .gt-inquiry-intro { font-size:17px; } .gt-inquiry form { padding:24px 20px; border-radius:20px; } .gt-inquiry .gt-fields,.gt-inquiry .gt-checks { grid-template-columns:1fr; } .gt-inquiry .gt-review-next { padding:24px; border-radius:20px; } }
+/* Flexible Turnstile needs 300px. Preserve that space down to a 320px viewport. */
+@media(max-width:410px) { .gt-inquiry { padding-inline:8px; } .gt-inquiry form { padding-inline:12px; } .gt-inquiry #bookingTurnstile { margin-inline:-12px; } }
+/* Classic desktop scrollbars consume 15px of a 320px viewport. */
+@media(max-width:350px) { .gt-inquiry { padding-inline:0; } .gt-review-intro { padding-inline:16px; } }
+@media(prefers-reduced-motion:reduce) { .gt-inquiry :is(input,select,textarea,button) { transition:none; } }

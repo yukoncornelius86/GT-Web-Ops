@@ -1,0 +1,13 @@
+{
+  "disabledState": {
+    "cursor": "not-allowed",
+    "disabled": true,
+    "text": "Send for Review"
+  },
+  "motionState": {
+    "button": "0s",
+    "input": "0s",
+    "scroll": "auto"
+  },
+  "initialDisabledTest": "Blocked only local inquiry JavaScript in browser; restored after test."
+}

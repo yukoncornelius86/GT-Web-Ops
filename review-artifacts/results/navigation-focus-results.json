@@ -1,0 +1,97 @@
+[
+  {
+    "width": 320,
+    "expanded": {
+      "mobile": true,
+      "overflow": false,
+      "services": true
+    },
+    "closed": {
+      "active": "gt-menu-toggle",
+      "menu": "false",
+      "services": false
+    },
+    "focus": {
+      "id": "gtVehicle",
+      "outline": "solid",
+      "outlineColor": "rgb(149, 122, 64)",
+      "outlineWidth": "3px"
+    }
+  },
+  {
+    "width": 375,
+    "expanded": {
+      "mobile": true,
+      "overflow": false,
+      "services": true
+    },
+    "closed": {
+      "active": "gt-menu-toggle",
+      "menu": "false",
+      "services": false
+    },
+    "focus": {
+      "id": "gtVehicle",
+      "outline": "solid",
+      "outlineColor": "rgb(149, 122, 64)",
+      "outlineWidth": "3px"
+    }
+  },
+  {
+    "width": 390,
+    "expanded": {
+      "mobile": true,
+      "overflow": false,
+      "services": true
+    },
+    "closed": {
+      "active": "gt-menu-toggle",
+      "menu": "false",
+      "services": false
+    },
+    "focus": {
+      "id": "gtVehicle",
+      "outline": "solid",
+      "outlineColor": "rgb(149, 122, 64)",
+      "outlineWidth": "3px"
+    }
+  },
+  {
+    "width": 768,
+    "expanded": {
+      "mobile": true,
+      "overflow": false,
+      "services": true
+    },
+    "closed": {
+      "active": "gt-menu-toggle",
+      "menu": "false",
+      "services": false
+    },
+    "focus": {
+      "id": "gtVehicle",
+      "outline": "solid",
+      "outlineColor": "rgb(149, 122, 64)",
+      "outlineWidth": "3px"
+    }
+  },
+  {
+    "width": 1440,
+    "expanded": {
+      "mobile": false,
+      "overflow": false,
+      "services": true
+    },
+    "closed": {
+      "active": "",
+      "menu": "false",
+      "services": false
+    },
+    "focus": {
+      "id": "gtVehicle",
+      "outline": "solid",
+      "outlineColor": "rgb(149, 122, 64)",
+      "outlineWidth": "3px"
+    }
+  }
+]

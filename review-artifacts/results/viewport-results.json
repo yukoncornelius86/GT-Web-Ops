@@ -1,0 +1,42 @@
+[
+  {
+    "clientWidth": 305,
+    "fields": true,
+    "labels": true,
+    "overflow": false,
+    "turnstileWidth": 303,
+    "width": 320
+  },
+  {
+    "clientWidth": 360,
+    "fields": true,
+    "labels": true,
+    "overflow": false,
+    "turnstileWidth": 342,
+    "width": 375
+  },
+  {
+    "clientWidth": 375,
+    "fields": true,
+    "labels": true,
+    "overflow": false,
+    "turnstileWidth": 357,
+    "width": 390
+  },
+  {
+    "clientWidth": 753,
+    "fields": true,
+    "labels": true,
+    "overflow": false,
+    "turnstileWidth": 615,
+    "width": 768
+  },
+  {
+    "clientWidth": 1425,
+    "fields": true,
+    "labels": true,
+    "overflow": false,
+    "turnstileWidth": 726,
+    "width": 1440
+  }
+]

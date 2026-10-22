@@ -1,0 +1,21 @@
+{
+  "email": {
+    "active": "gtEmail",
+    "typeMismatch": true
+  },
+  "extraMock": [
+    {
+      "kind": "security",
+      "status": "The security check expired. Complete the new check, then send again."
+    },
+    {
+      "kind": "unconfirmed",
+      "status": "We could not confirm receipt. Your details are still here. Please call 240-980-1740 or email crew@thegtcollective.com before retrying if you are unsure whether it arrived."
+    }
+  ],
+  "planState": {
+    "shown": true,
+    "text": "Your selected plan: QA sample plan. Mike will confirm the fit and included care with you."
+  },
+  "underbody": true
+}
